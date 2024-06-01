@@ -54,6 +54,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-jsx-a11y", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:6.8.0"],\
             ["eslint-plugin-react", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:7.34.2"],\
             ["eslint-plugin-react-hooks", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:4.6.2"],\
+            ["eslint-plugin-react-refresh", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:0.4.7"],\
             ["html-react-parser", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:5.1.10"],\
             ["react", "npm:18.3.1"],\
             ["react-dom", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:18.3.1"],\
@@ -10389,6 +10390,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["eslint-plugin-react-refresh", [\
+        ["npm:0.4.7", {\
+          "packageLocation": "./.yarn/cache/eslint-plugin-react-refresh-npm-0.4.7-c6dc1dc696-b2fe14d4ed.zip/node_modules/eslint-plugin-react-refresh/",\
+          "packageDependencies": [\
+            ["eslint-plugin-react-refresh", "npm:0.4.7"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:0.4.7", {\
+          "packageLocation": "./.yarn/__virtual__/eslint-plugin-react-refresh-virtual-866812c5ef/0/cache/eslint-plugin-react-refresh-npm-0.4.7-c6dc1dc696-b2fe14d4ed.zip/node_modules/eslint-plugin-react-refresh/",\
+          "packageDependencies": [\
+            ["eslint-plugin-react-refresh", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:0.4.7"],\
+            ["@types/eslint", null],\
+            ["eslint", "npm:8.57.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/eslint",\
+            "eslint"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["eslint-plugin-testing-library", [\
         ["npm:5.11.1", {\
           "packageLocation": "./.yarn/cache/eslint-plugin-testing-library-npm-5.11.1-56d796af5d-9f3fc68ef9.zip/node_modules/eslint-plugin-testing-library/",\
@@ -13698,6 +13721,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-jsx-a11y", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:6.8.0"],\
             ["eslint-plugin-react", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:7.34.2"],\
             ["eslint-plugin-react-hooks", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:4.6.2"],\
+            ["eslint-plugin-react-refresh", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:0.4.7"],\
             ["html-react-parser", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:5.1.10"],\
             ["react", "npm:18.3.1"],\
             ["react-dom", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:18.3.1"],\

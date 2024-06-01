@@ -18,7 +18,9 @@ module.exports = {
   },
   settings: {
     "import/resolver": {
-      "pnp": {}
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
     },
   },
   plugins: ["react-refresh"],
