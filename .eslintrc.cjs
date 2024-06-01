@@ -38,5 +38,6 @@ module.exports = {
     "jsx-a11y/label-has-associated-control": "off",
     "react/require-default-props": "off",
     "@typescript-eslint/no-redeclare": "off",
+    "@typescript-eslint/no-empty-interface": "off",
   },
 };
