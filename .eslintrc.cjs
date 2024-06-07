@@ -40,4 +40,12 @@ module.exports = {
     "@typescript-eslint/no-redeclare": "off",
     "@typescript-eslint/no-empty-interface": "off",
   },
+  overrides: [
+    {
+      files: ["declarations.d.ts"],
+      rules: {
+        "import/no-default-export": "off"
+      }
+    }
+  ]
 };

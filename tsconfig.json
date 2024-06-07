@@ -26,6 +26,6 @@
       }
     ]
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "declarations.d.ts", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
