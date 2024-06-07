@@ -73,6 +73,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["vite-plugin-svgr", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:4.2.0"],\
             ["vite-tsconfig-paths", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:4.3.2"],\
             ["web-vitals", "npm:2.1.4"],\
+            ["zod", "npm:3.23.8"],\
             ["zustand", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:4.5.2"]\
           ],\
           "linkType": "SOFT"\
@@ -13740,6 +13741,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["vite-plugin-svgr", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:4.2.0"],\
             ["vite-tsconfig-paths", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:4.3.2"],\
             ["web-vitals", "npm:2.1.4"],\
+            ["zod", "npm:3.23.8"],\
             ["zustand", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:4.5.2"]\
           ],\
           "linkType": "SOFT"\
@@ -21345,6 +21347,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/yocto-queue-npm-0.1.0-c6c9a7db29-f77b3d8d00.zip/node_modules/yocto-queue/",\
           "packageDependencies": [\
             ["yocto-queue", "npm:0.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["zod", [\
+        ["npm:3.23.8", {\
+          "packageLocation": "./.yarn/cache/zod-npm-3.23.8-11c49c85b5-15949ff821.zip/node_modules/zod/",\
+          "packageDependencies": [\
+            ["zod", "npm:3.23.8"]\
           ],\
           "linkType": "HARD"\
         }]\
