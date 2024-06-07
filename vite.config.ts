@@ -8,4 +8,9 @@ import svgr from 'vite-plugin-svgr';
 export default defineConfig({
   base: './',
   plugins: [react(), tsconfigPaths(), svgr()],
+  build: {
+    rollupOptions: {
+      input: '/src/index.tsx'
+    }
+  }
 });
