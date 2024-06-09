@@ -5,11 +5,17 @@ import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './',
-  plugins: [react(), tsconfigPaths(), svgr()],
+  base: '/',
+  server: {
+    port: 3000,
+    open: true
+  },
   build: {
+    outDir: 'dist',
     rollupOptions: {
-      input: '/src/index.tsx'
+      input: 'index.html'
     }
-  }
+  },
+  plugins: [react(), tsconfigPaths(), svgr()],
+  publicDir: 'public'
 });
