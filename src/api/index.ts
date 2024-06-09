@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-throw-literal */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-underscore-dangle */
-import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import API_PATH from 'config/constants';
 import { RefreshParams, RefreshResponse } from 'model/auth';
 import { CustomAxiosError, KoinError } from 'model/error';
+
+import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 const client = axios.create({
   baseURL: `${API_PATH}`,
@@ -62,7 +63,7 @@ function isAxiosErrorWithResponseData(error: AxiosError<KoinError>) {
 
 function createKoinErrorFromAxiosError(error: AxiosError<KoinError>): KoinError | CustomAxiosError {
   if (isAxiosErrorWithResponseData(error)) {
-    const koinError = error.response!;
+    const koinError = error.response;
     return {
       type: 'KOIN_ERROR',
       status: koinError.status,
