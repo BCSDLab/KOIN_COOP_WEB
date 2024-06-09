@@ -1,4 +1,15 @@
 @use "sass:string";
+@use "sass:meta";
+
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
 
 @mixin font-face(
   $font-name,
@@ -9,23 +20,21 @@
 ) {
   @font-face {
     font-family: string.quote($font-name);
-    src: url($file-name + ".woff2");
+    src: url("#{$file-name}.woff2") format("woff2");
 
     // 공백을 하이픈 기호로 변경하는 폰트 이름
-    $space-to-hypened-font-name: str-replace($font-name, " ", "-");
+    $hyphenated-font-name: str-replace($font-name, " ", "-");
 
     // 공백을 제거하는 폰트 이름
-    $removed-space-font-name: str-replace($font-name, " ", "");
+    $spaceless-font-name: str-replace($font-name, " ", "");
 
     // local() 함수 + url() 함수 사용하는 폰트 소스 코드
-    // Escape error : Expected line length to be no more than 120 characters  max-line-length
-    // stylelint-disable-next-line
-    $font-source: 'local("#{$removed-space-font-name}"), local("#{$font-name}"), local("#{$space-to-hypened-font-name}"), url("#{$file-name}.woff2?#iefix") format("embedded-opentype"), url("#{$file-name}.woff2") format("woff")';
+    $font-source: 'local("#{$spaceless-font-name}"), local("#{$font-name}"), local("#{$hyphenated-font-name}"), url("#{$file-name}.woff2") format("woff2")';
 
     // 구형 브라우저 호환을 위한 추가 문자열 설정
     @if $support-legacy {
-      $font-source-legacy: ', url("#{$file-name}.ttf") format("truetype"), url("#{$file-name}.svg##{$font-name}") format("svg")';
-      $font-source: string.insert($font-source, $font-source-legacy, -1);
+      $legacy-sources: ', url("#{$file-name}.ttf") format("truetype"), url("#{$file-name}.svg##{$font-name}") format("svg")';
+      $font-source: $font-source + $legacy-sources;
     }
 
     src: string.unquote($font-source);
