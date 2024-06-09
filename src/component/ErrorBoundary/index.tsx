@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 import React, { ReactNode } from 'react';
 
-import { ReactComponent as ErrorIcon } from 'assets/svg/error/error.svg';
+import ErrorIcon from 'assets/svg/error/error.svg?react';
 
 import styles from './ErrorBoundary.module.scss';
 

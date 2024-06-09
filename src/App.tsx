@@ -1,7 +1,10 @@
+import ErrorIcon from 'assets/svg/error/error.svg?react';
+
 export default function App() {
   return (
     <>
-      a
+      <h1>App</h1>
+      <ErrorIcon />
     </>
   );
 }

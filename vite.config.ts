@@ -16,6 +16,6 @@ export default defineConfig({
       input: 'index.html'
     }
   },
-  plugins: [react(), tsconfigPaths(), svgr()],
+  plugins: [svgr(), react(), tsconfigPaths()],
   publicDir: 'public'
 });

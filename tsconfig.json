@@ -24,8 +24,9 @@
       {
         "name": "@yarnpkg/pnpify"
       }
-    ]
+    ],
+    "types": ["vite-plugin-svgr/client"],
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "vite.config.ts", "svg.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
