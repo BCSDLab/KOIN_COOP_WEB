@@ -1,13 +1,14 @@
-import useMediaQuery from 'hooks/useMediaQuery';
-import { ReactComponent as ShowIcon } from 'assets/svg/auth/show.svg';
-import { ReactComponent as BlindIcon } from 'assets/svg/auth/blind.svg';
+import BlindIcon from 'assets/svg/auth/blind.svg?react';
+import ShowIcon from 'assets/svg/auth/show.svg?react';
 import useBooleanState from 'hooks/useBooleanState';
+import useMediaQuery from 'hooks/useMediaQuery';
+import ErrorMessage from 'page/Auth/Signup/component/ErrorMessage';
 import usePasswordConfirm from 'page/Auth/Signup/hooks/usePasswordConfirm';
 import { User } from 'page/Auth/Signup/types/User';
+import useRegisterInfo from 'store/registerStore';
 
 import { SubmitHandler } from 'react-hook-form';
-import ErrorMessage from 'page/Auth/Signup/component/ErrorMessage';
-import useRegisterInfo from 'store/registerStore';
+
 import styles from './UserPassword.module.scss';
 
 export default function UserPassword() {

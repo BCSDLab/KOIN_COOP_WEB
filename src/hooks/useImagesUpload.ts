@@ -1,6 +1,7 @@
-import { uploadFile } from 'api/uploadFile';
 import { useRef, useState } from 'react';
-import showToast from 'utils/ts/showToast';
+
+import { uploadFile } from 'api/uploadFile';
+import showToast from 'utils/showToast';
 
 // 정의할 수 있는 에러 타입
 export type UploadError = '413' | '415' | '404' | '422' | 'networkError' | '401' | '';

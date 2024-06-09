@@ -1,6 +1,8 @@
-import { createPortal } from 'react-dom';
 import { useErrorMessageStore } from 'store/errorMessageStore';
-import showToast from 'utils/ts/showToast';
+import showToast from 'utils/showToast';
+
+import { createPortal } from 'react-dom';
+
 import styles from './ApprovalModal.module.scss';
 
 const PHONE_NUMBER = '010-7724-5536';

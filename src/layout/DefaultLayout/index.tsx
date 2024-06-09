@@ -1,16 +1,18 @@
 import { useEffect } from 'react';
 
+import ErrorBoundary from 'component/ErrorBoundary';
 import Header from 'component/Header';
 import useErrorBoundary from 'hooks/useErrorBoundary';
 import usePrevPathStore from 'store/path';
 import useUserStore from 'store/user';
 
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 export default function DefaultLayout() {
   const navigate = useNavigate();
   const { user, setUser } = useUserStore((state) => state);
   const setPrevPath = usePrevPathStore((state) => state.setPrevPath);
+  const location = useLocation();
   const { handleErrorBoundary } = useErrorBoundary();
 
   useEffect(() => {
@@ -26,8 +28,14 @@ export default function DefaultLayout() {
 
   return (
     <div>
-      <Header />
-      <Outlet />
+      {user && (
+        <>
+          {location.pathname !== '/owner/shop-registration' && <Header />}
+          <ErrorBoundary message="에러가 발생했습니다.">
+            <Outlet />
+          </ErrorBoundary>
+        </>
+      )}
     </div>
   );
 }

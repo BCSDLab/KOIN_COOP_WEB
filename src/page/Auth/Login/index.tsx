@@ -1,20 +1,17 @@
 import { useState } from 'react';
 
-import { ReactComponent as BlindIcon } from 'assets/svg/auth/blind.svg';
-import { ReactComponent as Logo } from 'assets/svg/auth/koin-logo.svg';
-import { ReactComponent as LockIcon } from 'assets/svg/auth/lock.svg';
-import { ReactComponent as ShowIcon } from 'assets/svg/auth/show.svg';
+import BlindIcon from 'assets/svg/auth/blind.svg?react';
+import Logo from 'assets/svg/auth/koin-logo.svg?react';
+import LockIcon from 'assets/svg/auth/lock.svg?react';
+import ShowIcon from 'assets/svg/auth/show.svg?react';
 import useBooleanState from 'hooks/useBooleanState';
 import useMediaQuery from 'hooks/useMediaQuery';
-
-
 import { LoginParams } from 'model/auth';
 import { useLogin } from 'query/auth';
-import sha256 from 'utils/ts/SHA-256';
 import { useErrorMessageStore } from 'store/errorMessageStore';
-import cn from 'utils/ts/className';
-import { zodResolver } from '@hookform/resolvers/zod';
 
+import { cn, sha256 } from '@bcsdlab/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 

@@ -1,5 +1,6 @@
 import { Dinings } from 'model/Coop';
 import useToggleStore from 'store/soldoutToggleStore';
+
 import styles from './SoldoutToggle.module.scss';
 
 interface SoldoutToggleProps {

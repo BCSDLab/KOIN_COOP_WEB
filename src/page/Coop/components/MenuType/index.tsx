@@ -1,5 +1,7 @@
-import cn from 'utils/ts/className';
 import { Menus } from 'model/Coop';
+
+import { cn } from '@bcsdlab/utils';
+
 import styles from './MenuType.module.scss';
 
 interface MenuTypeProps {

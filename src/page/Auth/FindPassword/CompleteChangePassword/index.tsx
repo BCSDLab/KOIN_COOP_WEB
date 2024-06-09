@@ -1,6 +1,8 @@
-import { ReactComponent as Check } from 'assets/svg/auth/check.svg';
-import { useNavigate } from 'react-router-dom';
+import Check from 'assets/svg/auth/check.svg?react';
 import { useRouteCheck } from 'page/Auth/FindPassword/hooks/useRouteCheck';
+
+import { useNavigate } from 'react-router-dom';
+
 import styles from './CompleteChangePassword.module.scss';
 
 export default function CompleteChangePassword() {

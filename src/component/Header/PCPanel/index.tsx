@@ -1,11 +1,12 @@
-import { ReactComponent as LogoIcon } from 'assets/svg/common/koin-logo.svg';
-import { Link, useNavigate } from 'react-router-dom';
-import { CATEGORY_COOP, CATEGORY_OWNER, HeaderCategory } from 'utils/constant/category';
-import cn from 'utils/ts/className';
+import LogoIcon from 'assets/svg/common/koin-logo.svg?react';
+import useMegaMenu from 'component/Header/hooks/useMegaMenu';
+import { CATEGORY_COOP, HeaderCategory } from 'constant/category';
 import { useLogout } from 'query/auth';
 import usePrevPathStore from 'store/path';
-import useMegaMenu from 'component/common/Header/hooks/useMegaMenu';
-import useUserTypeStore from 'store/useUserTypeStore';
+
+import { cn } from '@bcsdlab/utils';
+import { Link, useNavigate } from 'react-router-dom';
+
 import styles from './PCPanel.module.scss';
 
 const ID: { [key: string]: string; } = {
@@ -87,9 +88,6 @@ export default function PCPanel() {
 
   const { setPrevPath } = usePrevPathStore((state) => state);
   const { logout } = useLogout();
-  const { userType } = useUserTypeStore();
-
-  const targetCategory = userType === 'OWNER' ? CATEGORY_OWNER : CATEGORY_COOP;
 
   const handleLogout = () => {
     logout(undefined, {
@@ -109,7 +107,7 @@ export default function PCPanel() {
       >
         <LogoIcon title="코인 로고" />
       </Link>
-      <HeaderContent categoryArray={targetCategory} />
+      <HeaderContent categoryArray={CATEGORY_COOP} />
 
       <ul className={styles['header__auth-menu']}>
         {/* Auth 완료시 수정 필요 */}

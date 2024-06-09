@@ -1,11 +1,13 @@
-import { useCheckDuplicate } from 'query/register';
 import {
   useCallback, useEffect, useRef, useState,
 } from 'react';
-import { SubmitHandler } from 'react-hook-form';
+
 import { User } from 'page/Auth/Signup/types/User';
+import { useCheckDuplicate } from 'query/register';
 import useRegisterInfo from 'store/registerStore';
+
 import { isKoinError } from '@bcsdlab/koin';
+import { SubmitHandler } from 'react-hook-form';
 
 export default function useCheckEmailDuplicate(isMobile: boolean) {
   const [email, setEmail] = useState<string>('');

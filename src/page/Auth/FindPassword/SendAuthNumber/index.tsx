@@ -1,10 +1,13 @@
-import { Outlet } from 'react-router-dom';
-import { ReactComponent as KoinLogo } from 'assets/svg/auth/koin-logo.svg';
-import { ReactComponent as ErrorIcon } from 'assets/svg/error/auth-error.svg';
 import { useEffect, useState } from 'react';
-import cn from 'utils/ts/className';
+
+import KoinLogo from 'assets/svg/auth/koin-logo.svg?react';
+import ErrorIcon from 'assets/svg/error/auth-error.svg?react';
 import { useVerifyEmail, useSubmit } from 'query/auth';
 import useEmailAuthStore from 'store/useEmailAuth';
+
+import { cn } from '@bcsdlab/utils';
+import { Outlet } from 'react-router-dom';
+
 import styles from './SendAuthNumber.module.scss';
 
 export default function FindPassword() {

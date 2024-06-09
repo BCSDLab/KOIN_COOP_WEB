@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
+
+import useMediaQuery from 'hooks/useMediaQuery';
 import useUploadToken from 'store/uploadToken';
 import useStepStore from 'store/useStepStore';
-import useMediaQuery from 'hooks/useMediaQuery';
 
 export default function useRegisterStep() {
   const {

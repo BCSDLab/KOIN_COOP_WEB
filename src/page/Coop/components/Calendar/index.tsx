@@ -1,6 +1,8 @@
-import dayjs from 'dayjs';
 import { getDayOfWeek } from 'page/Coop/hook/useGetDayOfWeek';
-import cn from 'utils/ts/className';
+
+import { cn } from '@bcsdlab/utils';
+import dayjs from 'dayjs';
+
 import styles from './Calendar.module.scss';
 
 interface DateProps {

@@ -1,16 +1,17 @@
-import useMediaQuery from 'hooks/useMediaQuery';
-import { ReactComponent as Logo } from 'assets/svg/auth/koin-logo.svg';
-import { ReactComponent as Back } from 'assets/svg/common/back-arrow.svg';
-import { Link } from 'react-router-dom';
-import ProgressBar from 'component/common/ProgressBar';
-import PreviousStep from 'component/common/Auth/PreviousStep';
 import { useRef } from 'react';
-import OwnerData from './view/OwnerDataPage';
-import TermsOfService from './view/TermsOfServicePage';
-import UserData from './view/UserDataPage';
+
+import Logo from 'assets/svg/auth/koin-logo.svg?react';
+import Back from 'assets/svg/common/back-arrow.svg?react';
+import PreviousStep from 'component/Auth/PreviousStep';
+import ProgressBar from 'component/ProgressBar';
+import useMediaQuery from 'hooks/useMediaQuery';
+
+import { Link } from 'react-router-dom';
+
+import useRegisterStep from './hooks/useRegisterStep';
 import styles from './SignUp.module.scss';
 import Complete from './view/CompletePage';
-import useRegisterStep from './hooks/useRegisterStep';
+import TermsOfService from './view/TermsOfServicePage';
 
 export default function Signup() {
   const { isMobile } = useMediaQuery();
@@ -20,8 +21,6 @@ export default function Signup() {
   const termsRef = useRef<HTMLDivElement>(null);
   const STEPS = [
     <TermsOfService clickEvent={goNext} termsRef={termsRef} />,
-    <UserData goNext={goNext} />,
-    <OwnerData goNext={goNext} />,
   ];
   return (
     <div className={styles.page}>

@@ -1,16 +1,19 @@
 /* eslint-disable no-nested-ternary */
-import { useGetDining, useUploadDiningImage, useUpdateSoldOut } from 'query/coop';
+import { useEffect, useRef, useState } from 'react';
+
+import { getCoopUrl } from 'api/uploadFile/index';
+import Photo from 'assets/svg/coop/photo.svg?react';
+import SoldOut from 'assets/svg/coop/soldout.svg?react';
 import {
   Dinings, Menus, DINING_TYPES, Corner,
 } from 'model/Coop';
-import SoldoutToggle from 'page/Coop/components/SoldoutToggle';
-import { ReactComponent as Photo } from 'assets/svg/coop/photo.svg';
-import { ReactComponent as SoldOut } from 'assets/svg/coop/soldout.svg';
-import { useEffect, useRef, useState } from 'react';
-import { getCoopUrl } from 'api/uploadFile/index';
 import SoldoutModal from 'page/Coop/components/SoldoutModal';
-import axios from 'axios';
+import SoldoutToggle from 'page/Coop/components/SoldoutToggle';
 import { getOpenMenuType, OperatingStatus, OPEN } from 'page/Coop/hook/useGetCurrentMenuType';
+import { useGetDining, useUploadDiningImage, useUpdateSoldOut } from 'query/coop';
+
+import axios from 'axios';
+
 import styles from './MenuCard.module.scss';
 
 interface MenuCardProps {

@@ -1,5 +1,4 @@
-/* stylelint-disable property-no-vendor-prefix */
-@use "src/utils/styles/mediaQuery" as media;
+@use "src/assets/styles/mediaQuery" as media;
 
 .template {
   display: flex;

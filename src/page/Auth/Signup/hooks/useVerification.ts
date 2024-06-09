@@ -1,8 +1,10 @@
-import { isKoinError } from '@bcsdlab/koin';
-import { useVerificationAuthCode } from 'query/register';
 import { useEffect, useRef, useState } from 'react';
+
+import { useVerificationAuthCode } from 'query/register';
 import useRegisterInfo from 'store/registerStore';
 import useUploadToken from 'store/uploadToken';
+
+import { isKoinError } from '@bcsdlab/koin';
 
 export default function useVerification(
   eamil:string,

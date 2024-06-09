@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
-import { ReactComponent as BlindIcon } from 'assets/svg/auth/blind.svg';
-import { ReactComponent as KoinLogo } from 'assets/svg/auth/koin-logo.svg';
-import { ReactComponent as ShowIcon } from 'assets/svg/auth/show.svg';
-import { ReactComponent as ErrorIcon } from 'assets/svg/error/auth-error.svg';
+import BlindIcon from 'assets/svg/auth/blind.svg?react';
+import KoinLogo from 'assets/svg/auth/koin-logo.svg?react';
+import ShowIcon from 'assets/svg/auth/show.svg?react';
+import ErrorIcon from 'assets/svg/error/auth-error.svg?react';
 import useBooleanState from 'hooks/useBooleanState';
 import { useRouteCheck } from 'page/Auth/FindPassword/hooks/useRouteCheck';
 import { useNewPassword } from 'query/auth';
 import useEmailAuthStore from 'store/useEmailAuth';
-import cn from 'utils/ts/className';
-import sha256 from 'utils/ts/SHA-256';
+
+import { cn, sha256 } from '@bcsdlab/utils';
 
 import styles from './NewPassword.module.scss';
 
@@ -60,12 +60,10 @@ export default function NewPassword() {
       <form className={styles.form}>
         <label className={styles.form__label} htmlFor="new-password">
           새 비밀번호
-          <div className={
-            cn({
-              [styles['form__input-container']]: true,
-              [styles['form__input-container--error']]: passwordError,
-            })
-          }
+          <div className={cn({
+            [styles['form__input-container']]: true,
+            [styles['form__input-container--error']]: passwordError,
+          })}
           >
             <input
               className={styles.form__input}

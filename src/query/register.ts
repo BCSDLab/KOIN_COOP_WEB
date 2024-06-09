@@ -1,5 +1,3 @@
-import { isKoinError } from '@bcsdlab/koin';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   getEmailAuthCode, getEmailDuplicate, getFileUrls, registerUser, verificationAuthCode,
 } from 'api/register';
@@ -7,7 +5,11 @@ import parseRegisterData from 'page/Auth/Signup/utils/parseRegisterData';
 import useRegisterInfo from 'store/registerStore';
 import useShopRegistrationStore from 'store/shopRegistration';
 import useUploadToken from 'store/uploadToken';
-import showToast from 'utils/ts/showToast';
+import showToast from 'utils/showToast';
+
+import { isKoinError } from '@bcsdlab/koin';
+import { useMutation, useQuery } from '@tanstack/react-query';
+
 import { registerKeys } from './KeyFactory/registerKeys';
 
 export const useCheckDuplicate = (email:string) => {

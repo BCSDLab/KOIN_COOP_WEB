@@ -1,15 +1,16 @@
-import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
+
 import {
   postLogin, postLogout, findPasswordVerify, findPassword, newPassword,
 } from 'api/auth';
-import axios, { AxiosError } from 'axios';
 import { LoginForm } from 'model/auth';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useErrorMessageStore } from 'store/errorMessageStore';
-import useUserTypeStore from 'store/useUserTypeStore';
 import useUserStore from 'store/user';
+
 import { isKoinError, sendClientError } from '@bcsdlab/koin';
+import { useMutation } from '@tanstack/react-query';
+import axios, { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 interface VerifyInput {
   email: string;
@@ -32,7 +33,6 @@ export interface ErrorResponse {
 }
 
 export const useLogin = () => {
-  const { updateUserType } = useUserTypeStore();
   const { setLoginError, setLoginErrorStatus } = useErrorMessageStore();
 
   const {
@@ -47,8 +47,6 @@ export const useLogin = () => {
       if (variables.isAutoLogin) {
         localStorage.setItem('refresh_token', data.refresh_token);
       }
-
-      updateUserType();
     },
     onError: (err) => {
       if (isKoinError(err)) {
@@ -83,7 +81,6 @@ export const useLogin = () => {
 };
 
 export const useLogout = () => {
-  const { updateUserType } = useUserTypeStore();
   const { removeUser } = useUserStore();
   const { setLogoutError, setLogoutErrorCode } = useErrorMessageStore();
 
@@ -100,7 +97,6 @@ export const useLogout = () => {
       sessionStorage.removeItem('user_type');
       localStorage.removeItem('refresh_token');
       removeUser();
-      updateUserType();
     },
     onError: (err) => {
       if (isKoinError(err)) {
