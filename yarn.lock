@@ -1695,6 +1695,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@bcsdlab/utils@npm:^0.0.15":
+  version: 0.0.15
+  resolution: "@bcsdlab/utils@npm:0.0.15"
+  dependencies:
+    "@types/josa": ^3.0.5
+    josa: ^3.0.1
+  checksum: 4fc9c8bdb39a705a5bdcc1b9fa931129b723d329c02eafc323ee7a3ef348cc3b4a6191861d7768db1ab8f0dcad48ce7ad3a9bebae1d86c2dd864f866b785d393
+  languageName: node
+  linkType: hard
+
 "@csstools/css-parser-algorithms@npm:^2.6.3":
   version: 2.6.3
   resolution: "@csstools/css-parser-algorithms@npm:2.6.3"
@@ -3501,6 +3511,13 @@ __metadata:
     expect: ^29.0.0
     pretty-format: ^29.0.0
   checksum: 19b1efdeed9d9a60a81edc8226cdeae5af7479e493eaed273e01243891c9651f7b8b4c08fc633a7d0d1d379b091c4179bbaa0807af62542325fd72f2dd17ce1c
+  languageName: node
+  linkType: hard
+
+"@types/josa@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "@types/josa@npm:3.0.5"
+  checksum: 33680d6f4e0f435b16b4f04744e1df28b8443766fc2f30f5c85e18116ca27c182cf301a05855e4d69f103e179bf418fb14abcd9f5c14f893c420433337f6d229
   languageName: node
   linkType: hard
 
@@ -9860,6 +9877,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jongseong@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "jongseong@npm:0.4.2"
+  checksum: e3904d8644f6c4910b34391fa826c831aad4b845ae8f0c01c5f2f4bf5165076c609bdb3e824135ad0692e38852d989236b95538d381878cfbc12197ea0d2bf97
+  languageName: node
+  linkType: hard
+
+"josa@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "josa@npm:3.0.1"
+  dependencies:
+    jongseong: ^0.4.2
+  checksum: 0930d8a1bcffe6778ee6306a4488d9feff84ba8231d97873794a831c5f8bd36dd09e479bd5927114caf19f28a6c04bd1b6ef96e12f482004f4a3aebcc1814970
+  languageName: node
+  linkType: hard
+
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -10102,6 +10135,7 @@ __metadata:
   resolution: "koin-coop-web@workspace:."
   dependencies:
     "@bcsdlab/koin": ^0.0.15
+    "@bcsdlab/utils": ^0.0.15
     "@hookform/resolvers": ^3.1.0
     "@tanstack/react-query": ^5.40.0
     "@testing-library/jest-dom": ^6.4.5

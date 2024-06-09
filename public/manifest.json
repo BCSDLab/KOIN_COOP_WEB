@@ -1,0 +1,25 @@
+{
+  "short_name": "코인 생협",
+  "name": "코인 생협 기능 관리 어플리케이션",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo32.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo32.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
