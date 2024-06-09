@@ -62,7 +62,7 @@ function isAxiosErrorWithResponseData(error: AxiosError<KoinError>) {
 }
 
 function createKoinErrorFromAxiosError(error: AxiosError<KoinError>): KoinError | CustomAxiosError {
-  if (isAxiosErrorWithResponseData(error)) {
+  if (isAxiosErrorWithResponseData(error) && error.response) {
     const koinError = error.response;
     return {
       type: 'KOIN_ERROR',
