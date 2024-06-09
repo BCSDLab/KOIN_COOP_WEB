@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-prop-types */
 import React, { ReactNode } from 'react';
 
 import ErrorIcon from 'assets/svg/error/error.svg?react';
