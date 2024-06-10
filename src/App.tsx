@@ -9,22 +9,23 @@ import Login from 'page/Auth/Login';
 import Signup from 'page/Auth/Signup';
 import Coop from 'page/Coop';
 
-import { Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 export default function App() {
   return (
     <Suspense fallback={<div />}>
-      <Route path="/coop" element={<DefaultLayout />}>
-        <Route path="/coop" element={<Coop />} />
-      </Route>
-
-      <Route element={<AuthLayout />}>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/find-password" element={<FindPassword />} />
-        <Route path="/new-password" element={<NewPassword />} />
-        <Route path="/complete-change-password" element={<CompleteChangePassword />} />
-      </Route>
+      <Routes>
+        <Route element={<DefaultLayout />}>
+          <Route path="/" element={<Coop />} />
+        </Route>
+        <Route element={<AuthLayout />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/find-password" element={<FindPassword />} />
+          <Route path="/new-password" element={<NewPassword />} />
+          <Route path="/complete-change-password" element={<CompleteChangePassword />} />
+        </Route>
+      </Routes>
     </Suspense>
   );
 }

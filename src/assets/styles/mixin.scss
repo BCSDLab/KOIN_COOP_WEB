@@ -29,7 +29,7 @@
     $spaceless-font-name: str-replace($font-name, " ", "");
 
     // local() 함수 + url() 함수 사용하는 폰트 소스 코드
-    $font-source: 'local("#{$spaceless-font-name}"), local("#{$font-name}"), local("#{$hyphenated-font-name}"), url("#{$file-name}.woff2") format("woff2")';
+    $font-source: 'local("#{$spaceless-font-name}"), local("#{$font-name}"), local("#{$hyphenated-font-name}"), url("#{$file-name}.woff2") format("font-woff2")';
 
     // 구형 브라우저 호환을 위한 추가 문자열 설정
     @if $support-legacy {
