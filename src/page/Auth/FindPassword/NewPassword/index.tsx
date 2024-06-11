@@ -8,8 +8,8 @@ import useBooleanState from 'hooks/useBooleanState';
 import { useRouteCheck } from 'page/Auth/FindPassword/hooks/useRouteCheck';
 import { useNewPassword } from 'query/auth';
 import useEmailAuthStore from 'store/useEmailAuthStore';
-
-import { cn, sha256 } from '@bcsdlab/utils';
+import cn from 'utils/ts/className';
+import sha256 from 'utils/ts/sha256';
 
 import styles from './NewPassword.module.scss';
 

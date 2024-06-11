@@ -9,8 +9,8 @@ import useMediaQuery from 'hooks/useMediaQuery';
 import useSuspenseUser from 'hooks/useSuspenseUser';
 import { useLogout } from 'query/auth';
 import usePrevPathStore from 'store/usePrevPathStore';
+import cn from 'utils/ts/className';
 
-import { cn } from '@bcsdlab/utils';
 import { createPortal } from 'react-dom';
 
 import styles from './MobilePanel.module.scss';

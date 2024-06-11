@@ -5,8 +5,7 @@ import useMegaMenu from 'component/Header/hooks/useMegaMenu';
 import { CATEGORY_COOP, HeaderCategory } from 'constant/category';
 import { useLogout } from 'query/auth';
 import usePrevPathStore from 'store/usePrevPathStore';
-
-import { cn } from '@bcsdlab/utils';
+import cn from 'utils/ts/className';
 
 import styles from './PCPanel.module.scss';
 

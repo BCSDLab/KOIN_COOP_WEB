@@ -1,13 +1,16 @@
+import { useEffect } from 'react';
+
 import useMediaQuery from 'hooks/useMediaQuery';
 import CustomButton from 'page/Auth/Signup/component/CustomButton';
-import useValidateEmail from 'page/Auth/Signup/hooks/useValidateEmail';
-import useAuthCheck from 'page/Auth/Signup/hooks/useAuthCheck';
-import useVerification from 'page/Auth/Signup/hooks/useVerification';
 import ErrorMessage from 'page/Auth/Signup/component/ErrorMessage';
-import useRegisterInfo from 'store/registerStore';
+import useAuthCheck from 'page/Auth/Signup/hooks/useAuthCheck';
 import useTimer from 'page/Auth/Signup/hooks/useTimer';
-import { useEffect } from 'react';
+import useValidateEmail from 'page/Auth/Signup/hooks/useValidateEmail';
+import useVerification from 'page/Auth/Signup/hooks/useVerification';
+import useRegisterInfo from 'store/registerStore';
+
 import { isKoinError } from '@bcsdlab/koin';
+
 import styles from './UserEmail.module.scss';
 
 export default function UserEmail() {

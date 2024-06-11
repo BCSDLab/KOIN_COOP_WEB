@@ -9,8 +9,9 @@ import useMediaQuery from 'hooks/useMediaQuery';
 import { LoginParams } from 'model/auth';
 import { useLogin } from 'query/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
+import cn from 'utils/ts/className';
+import sha256 from 'utils/ts/sha256';
 
-import { cn, sha256 } from '@bcsdlab/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 // 이 컴포넌트의 주석은 당장 생협 기능에 필요 없는 부분이므로 주석 처리했습니다.
