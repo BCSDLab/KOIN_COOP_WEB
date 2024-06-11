@@ -3,8 +3,8 @@ import useMegaMenu from 'component/Header/hooks/useMegaMenu';
 import { CATEGORY_COOP, HeaderCategory } from 'constant/category';
 import { useLogout } from 'query/auth';
 import usePrevPathStore from 'store/path';
+import cn from 'utils/ts/className';
 
-import { cn } from '@bcsdlab/utils';
 import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './PCPanel.module.scss';

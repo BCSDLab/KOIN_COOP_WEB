@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
 import CustomButton from 'page/Auth/Signup/component/CustomButton';
+import cn from 'utils/ts/className';
 
-import { cn } from '@bcsdlab/utils';
 import { createPortal } from 'react-dom';
 
 import styles from './SoldoutModal.module.scss';

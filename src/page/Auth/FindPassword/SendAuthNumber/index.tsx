@@ -4,8 +4,8 @@ import KoinLogo from 'assets/svg/auth/koin-logo.svg?react';
 import ErrorIcon from 'assets/svg/error/auth-error.svg?react';
 import { useVerifyEmail, useSubmit } from 'query/auth';
 import useEmailAuthStore from 'store/useEmailAuth';
+import cn from 'utils/ts/className';
 
-import { cn } from '@bcsdlab/utils';
 import { Outlet } from 'react-router-dom';
 
 import styles from './SendAuthNumber.module.scss';
