@@ -1,4 +1,4 @@
-import Copyright from 'component/common/Copyright';
+import Copyright from 'component/Copyright';
 
 import { Outlet } from 'react-router-dom';
 

@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import Toast from 'component/common/Toast';
 import AuthLayout from 'layout/AuthLayout';
 import CoopLayout from 'layout/CoopLayout';
-import OwnerLayout from 'layout/OwnerLayout';
+import DefaultLayout from 'layout/DefaultLayout';
 import { UserType } from 'model/auth';
 import CompleteChangePassword from 'page/Auth/FindPassword/CompleteChangePassword';
 import NewPassword from 'page/Auth/FindPassword/NewPassword';
@@ -42,25 +42,17 @@ function App() {
   return (
     <Suspense fallback={<div />}>
       <Routes>
-        <Route element={<ProtectedRoute userTypeRequired="COOP" />}>
-          <Route path="/coop" element={<CoopLayout />}>
-            <Route path="/coop" element={<Coop />} />
-          </Route>
+        <Route element={<DefaultLayout />}>
+          <Route path="/" element={<Coop />} />
         </Route>
-
         <Route element={<AuthLayout />}>
-          <Route element={<ProtectedRoute userTypeRequired={null} />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/find-id" element={<PageNotFound />} />
-            <Route path="/find-password" element={<FindPassword />} />
-          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/find-password" element={<FindPassword />} />
           <Route path="/new-password" element={<NewPassword />} />
           <Route path="/complete-change-password" element={<CompleteChangePassword />} />
         </Route>
       </Routes>
-      <Toast />
-      <LogPage />
     </Suspense>
   );
 }

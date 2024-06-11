@@ -29,6 +29,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["@bcsdlab/koin", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:0.0.15"],\
+            ["@bcsdlab/utils", "npm:0.0.15"],\
             ["@hookform/resolvers", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:3.4.2"],\
             ["@tanstack/react-query", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:5.40.0"],\
             ["@testing-library/jest-dom", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:6.4.5"],\
@@ -3258,6 +3259,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@bcsdlab/utils", [\
+        ["npm:0.0.15", {\
+          "packageLocation": "./.yarn/cache/@bcsdlab-utils-npm-0.0.15-dd5b1007f1-4fc9c8bdb3.zip/node_modules/@bcsdlab/utils/",\
+          "packageDependencies": [\
+            ["@bcsdlab/utils", "npm:0.0.15"],\
+            ["@types/josa", "npm:3.0.5"],\
+            ["josa", "npm:3.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@csstools/css-parser-algorithms", [\
         ["npm:2.6.3", {\
           "packageLocation": "./.yarn/cache/@csstools-css-parser-algorithms-npm-2.6.3-10a2ad3aa7-f1bfcb6680.zip/node_modules/@csstools/css-parser-algorithms/",\
@@ -5767,6 +5779,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:29.5.12"],\
             ["expect", "npm:29.7.0"],\
             ["pretty-format", "npm:29.7.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/josa", [\
+        ["npm:3.0.5", {\
+          "packageLocation": "./.yarn/cache/@types-josa-npm-3.0.5-a7b1759723-33680d6f4e.zip/node_modules/@types/josa/",\
+          "packageDependencies": [\
+            ["@types/josa", "npm:3.0.5"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -13552,6 +13573,25 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["jongseong", [\
+        ["npm:0.4.2", {\
+          "packageLocation": "./.yarn/cache/jongseong-npm-0.4.2-59df5ce5d2-e3904d8644.zip/node_modules/jongseong/",\
+          "packageDependencies": [\
+            ["jongseong", "npm:0.4.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["josa", [\
+        ["npm:3.0.1", {\
+          "packageLocation": "./.yarn/cache/josa-npm-3.0.1-29853dc8f4-0930d8a1bc.zip/node_modules/josa/",\
+          "packageDependencies": [\
+            ["josa", "npm:3.0.1"],\
+            ["jongseong", "npm:0.4.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["js-tokens", [\
         ["npm:4.0.0", {\
           "packageLocation": "./.yarn/cache/js-tokens-npm-4.0.0-0ac852e9e2-8a95213a5a.zip/node_modules/js-tokens/",\
@@ -13820,6 +13860,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["koin-coop-web", "workspace:."],\
             ["@bcsdlab/koin", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:0.0.15"],\
+            ["@bcsdlab/utils", "npm:0.0.15"],\
             ["@hookform/resolvers", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:3.4.2"],\
             ["@tanstack/react-query", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:5.40.0"],\
             ["@testing-library/jest-dom", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:6.4.5"],\

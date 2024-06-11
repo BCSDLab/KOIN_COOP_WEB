@@ -1,8 +1,8 @@
-/// <reference types="vite/client" />
-// eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference types="react" />
-/// <reference types="react-dom" />
-/// <reference types="vite-plugin-svgr/client" />
+import 'vite/client';
+import 'react-dom';
+import 'vite-plugin-svgr/client';
+
+import * as React from 'react';
 
 import { z } from 'zod';
 
@@ -54,8 +54,6 @@ declare module '*.webp' {
 }
 
 declare module '*.svg' {
-  import * as React from 'react';
-
   export const ReactComponent: React.FunctionComponent<React.SVGProps<
   SVGSVGElement
   > & { title?: string }>;
