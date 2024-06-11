@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 
 import { Route, Routes } from 'react-router-dom';
 
+import Toast from 'component/common/Toast';
 import AuthLayout from 'layout/AuthLayout';
 import DefaultLayout from 'layout/DefaultLayout';
 import Login from 'page/Auth/Login';
@@ -11,7 +12,7 @@ import Coop from 'page/Coop';
 // import FindPassword from 'page/Auth/FindPassword/SendAuthNumber';
 // import Signup from 'page/Auth/Signup';
 
-export default function App() {
+function App() {
   return (
     <Suspense fallback={<div />}>
       <Routes>
@@ -29,3 +30,5 @@ export default function App() {
     </Suspense>
   );
 }
+
+export default App;

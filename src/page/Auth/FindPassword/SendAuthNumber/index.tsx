@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 
+import { Outlet } from 'react-router-dom';
+
 import KoinLogo from 'assets/svg/auth/koin-logo.svg?react';
 import ErrorIcon from 'assets/svg/error/auth-error.svg?react';
 import { useVerifyEmail, useSubmit } from 'query/auth';
 import useEmailAuthStore from 'store/useEmailAuthStore';
 
 import { cn } from '@bcsdlab/utils';
-import { Outlet } from 'react-router-dom';
 
 import styles from './SendAuthNumber.module.scss';
 
