@@ -2,24 +2,20 @@ import { useState } from 'react';
 
 import BlindIcon from 'assets/svg/auth/blind.svg?react';
 import Logo from 'assets/svg/auth/koin-logo.svg?react';
-// import LockIcon from 'assets/svg/auth/lock.svg?react';
 import ShowIcon from 'assets/svg/auth/show.svg?react';
 import useBooleanState from 'hooks/useBooleanState';
 import useMediaQuery from 'hooks/useMediaQuery';
-import { LoginParams } from 'model/auth';
+import { LoginParams } from 'models/auth';
 import { useLogin } from 'query/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
-import cn from 'utils/ts/className';
-import sha256 from 'utils/ts/sha256';
+import cn from 'utils/className';
+import sha256 from 'utils/sha256';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
-// 이 컴포넌트의 주석은 당장 생협 기능에 필요 없는 부분이므로 주석 처리했습니다.
-// import { Link, useNavigate } from 'react-router-dom';
 
 import ApprovalModal from './ApprovalModal';
 import styles from './Login.module.scss';
-// import OPTION from './static/option';
 
 export default function Login() {
   const { value: isBlind, changeValue: changeIsBlind } = useBooleanState();
@@ -27,7 +23,6 @@ export default function Login() {
   const { isMobile } = useMediaQuery();
   const { login, isError: isServerError } = useLogin();
   const [isFormError, setIsFormError] = useState(false);
-  // const navigate = useNavigate();
   const { loginError, loginErrorStatus } = useErrorMessageStore();
   const [emailError, setEmailError] = useState('');
   const isError = isServerError || isFormError;
@@ -114,29 +109,6 @@ export default function Login() {
           >
             로그인
           </button>
-          {/* {isMobile && (
-            <button
-              className={styles.form__button}
-              type="button"
-              onClick={() => navigate('/signup')}
-            >
-              회원가입
-            </button>
-          )}
-          <div className={styles.option}>
-            {isMobile
-              ? (
-                <Link to={OPTION[1].path} className={styles.option__link}>
-                  <LockIcon aria-hidden />
-                  {OPTION[1].name}
-                </Link>
-              )
-              : OPTION.map((option) => (
-                <Link to={option.path} key={option.name} className={styles.option__link}>
-                  {option.name}
-                </Link>
-              ))}
-          </div> */}
         </form>
       </div>
       {loginErrorStatus === 403 && <ApprovalModal />}

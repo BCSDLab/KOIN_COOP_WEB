@@ -1,4 +1,4 @@
-import { Day } from 'model/coop';
+import { Day } from 'models/coop';
 
 import dayjs from 'dayjs';
 

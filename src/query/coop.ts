@@ -1,7 +1,7 @@
 import {
   getCoopInfo, getDining, updateSoldOut, uploadDiningImage,
 } from 'api/coop';
-import { DiningImages, SoldOut } from 'model/coop';
+import { DiningImages, SoldOut } from 'models/coop';
 
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 

@@ -1,4 +1,4 @@
-import { Menus } from 'model/coop';
+import { Menus } from 'models/coop';
 
 import dayjs from 'dayjs';
 

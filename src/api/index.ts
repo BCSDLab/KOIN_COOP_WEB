@@ -2,8 +2,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-underscore-dangle */
 import API_PATH from 'config/env';
-import { RefreshParams, RefreshResponse } from 'model/auth';
-import { CustomAxiosError, KoinError } from 'model/error';
+import { RefreshParams, RefreshResponse } from 'models/auth';
+import { CustomAxiosError, KoinError } from 'models/error';
 
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 

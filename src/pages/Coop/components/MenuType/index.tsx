@@ -1,5 +1,5 @@
-import { Menus } from 'model/coop';
-import cn from 'utils/ts/className';
+import { Menus } from 'models/coop';
+import cn from 'utils/className';
 
 import styles from './MenuType.module.scss';
 

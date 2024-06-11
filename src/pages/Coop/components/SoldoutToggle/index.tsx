@@ -1,4 +1,4 @@
-import { Dinings } from 'model/coop';
+import { Dinings } from 'models/coop';
 import useToggleStore from 'store/useToggleStore';
 
 import styles from './SoldoutToggle.module.scss';

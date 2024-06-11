@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import CustomButton from 'page/Auth/Signup/component/CustomButton';
-import cn from 'utils/ts/className';
+import cn from 'utils/className';
 
 import { createPortal } from 'react-dom';
 

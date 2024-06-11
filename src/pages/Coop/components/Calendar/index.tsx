@@ -1,5 +1,5 @@
-import { getDayOfWeek } from 'page/Coop/hook/useGetDayOfWeek';
-import cn from 'utils/ts/className';
+import { getDayOfWeek } from 'pages/Coop/hook/useGetDayOfWeek';
+import cn from 'utils/className';
 
 import dayjs from 'dayjs';
 

@@ -6,10 +6,10 @@ import Photo from 'assets/svg/coop/photo.svg?react';
 import SoldOut from 'assets/svg/coop/soldout.svg?react';
 import {
   Dinings, Menus, DINING_TYPES, Corner,
-} from 'model/coop';
-import SoldoutModal from 'page/Coop/components/SoldoutModal';
-import SoldoutToggle from 'page/Coop/components/SoldoutToggle';
-import { getOpenMenuType, OperatingStatus, OPEN } from 'page/Coop/hook/useGetCurrentMenuType';
+} from 'models/coop';
+import SoldoutModal from 'pages/Coop/components/SoldoutModal';
+import SoldoutToggle from 'pages/Coop/components/SoldoutToggle';
+import { getOpenMenuType, OperatingStatus, OPEN } from 'pages/Coop/hook/useGetCurrentMenuType';
 import { useGetDining, useUploadDiningImage, useUpdateSoldOut } from 'query/coop';
 
 import axios from 'axios';

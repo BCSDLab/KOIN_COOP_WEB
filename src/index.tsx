@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom/client';
 import { ZodError } from 'zod';
 
 import App from './App';
-import ErrorBoundary from './component/ErrorBoundary';
+import ErrorBoundary from './components/ErrorBoundary';
 import './index.scss';
 
 const queryClient = new QueryClient({

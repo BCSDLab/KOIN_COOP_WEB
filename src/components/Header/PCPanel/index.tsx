@@ -1,11 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 
 import LogoIcon from 'assets/svg/common/koin-logo.svg?react';
-import useMegaMenu from 'component/Header/hooks/useMegaMenu';
-import { CATEGORY_COOP, HeaderCategory } from 'model/headerCategory';
+import useMegaMenu from 'components/Header/hooks/useMegaMenu';
+import { CATEGORY_COOP, HeaderCategory } from 'models/headerCategory';
 import { useLogout } from 'query/auth';
 import usePrevPathStore from 'store/usePrevPathStore';
-import cn from 'utils/ts/className';
+import cn from 'utils/className';
 
 import styles from './PCPanel.module.scss';
 

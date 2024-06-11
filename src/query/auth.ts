@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { postLogin, postLogout } from 'api/auth';
-import { LoginForm } from 'model/auth';
+import { LoginForm } from 'models/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
 
 import { isKoinError, sendClientError } from '@bcsdlab/koin';

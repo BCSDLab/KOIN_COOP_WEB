@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { Menus } from 'model/coop';
-import { getCurrentMenuType } from 'page/Coop/hook/useGetCurrentMenuType';
+import { Menus } from 'models/coop';
+import { getCurrentMenuType } from 'pages/Coop/hook/useGetCurrentMenuType';
 
 import dayjs from 'dayjs';
 

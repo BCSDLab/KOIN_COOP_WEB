@@ -1,5 +1,5 @@
 import { accessClient } from 'api';
-import { CoopResponse, DiningImages, SoldOut } from 'model/coop';
+import { CoopResponse, DiningImages, SoldOut } from 'models/coop';
 
 export const getCoopInfo = async () => {
   const { data } = await accessClient.get<CoopResponse>('/user/coop/me');

@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-import Copyright from 'component/Copyright';
+import Copyright from 'components/Copyright';
 
 import styles from './AuthLayout.module.scss';
 
