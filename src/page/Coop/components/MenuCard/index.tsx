@@ -6,7 +6,7 @@ import Photo from 'assets/svg/coop/photo.svg?react';
 import SoldOut from 'assets/svg/coop/soldout.svg?react';
 import {
   Dinings, Menus, DINING_TYPES, Corner,
-} from 'model/Coop';
+} from 'model/coop';
 import SoldoutModal from 'page/Coop/components/SoldoutModal';
 import SoldoutToggle from 'page/Coop/components/SoldoutToggle';
 import { getOpenMenuType, OperatingStatus, OPEN } from 'page/Coop/hook/useGetCurrentMenuType';

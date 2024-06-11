@@ -7,18 +7,3 @@ export const postLogin = async (param: LoginParams) => {
 };
 
 export const postLogout = () => accessClient.post('/user/logout');
-
-export const findPasswordVerify = ({ email }: { email: string }) => client.post('/owners/password/reset/verification', { address: email });
-
-export const findPassword = ({
-  address,
-  certificationCode,
-}: {
-  address: string;
-  certificationCode: string;
-}) => client.post('/owners/password/reset/send', {
-  address,
-  certification_code: certificationCode,
-});
-
-export const newPassword = ({ address, password }: { address: string, password: string }) => client.put('/owners/password/reset', { address, password });

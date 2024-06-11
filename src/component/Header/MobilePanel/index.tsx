@@ -4,9 +4,9 @@ import BackArrowIcon from 'assets/svg/common/back-arrow.svg?react';
 import MenuIcon from 'assets/svg/common/hamburger-menu.svg?react';
 import MobileLogoIcon from 'assets/svg/common/mobile-koin-logo.svg?react';
 import useMobileSidebar from 'component/Header/hooks/useMobileSidebar';
-import { CATEGORY_COOP, HeaderCategory } from 'constant/category';
 import useMediaQuery from 'hooks/useMediaQuery';
 import useSuspenseUser from 'hooks/useSuspenseUser';
+import { CATEGORY_COOP, HeaderCategory } from 'model/headerCategory';
 import { useLogout } from 'query/auth';
 import usePrevPathStore from 'store/usePrevPathStore';
 import cn from 'utils/ts/className';
@@ -50,7 +50,7 @@ export default function MobilePanel() {
   const { isMobile } = useMediaQuery();
   const { data: user } = useSuspenseUser();
 
-  const { setPrevPath } = usePrevPathStore((state) => state);
+  const { setPrevPath } = usePrevPathStore();
   const { logout } = useLogout();
 
   const {

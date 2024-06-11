@@ -1,4 +1,5 @@
-import { Menus } from 'model/Coop';
+import { Menus } from 'model/coop';
+
 import dayjs from 'dayjs';
 
 export type OperatingStatus = '운영중' | '운영종료';

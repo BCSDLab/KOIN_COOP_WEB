@@ -27,14 +27,6 @@ export const RefreshResponse = z.object({
 
 export type RefreshResponse = z.infer<typeof RefreshResponse>;
 
-export const UserFile = z.object({
-  file_name: z.string(),
-  file_url: z.string(),
-  id: z.number(),
-});
-
-export type UserFile = z.infer<typeof UserFile>;
-
 export interface LoginForm extends LoginParams {
   isAutoLogin: boolean;
 }

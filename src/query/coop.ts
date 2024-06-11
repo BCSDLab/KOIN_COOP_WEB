@@ -1,8 +1,10 @@
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import {
   getCoopInfo, getDining, updateSoldOut, uploadDiningImage,
 } from 'api/coop';
-import { DiningImages, SoldOut } from 'model/Coop';
+import { DiningImages, SoldOut } from 'model/coop';
+
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+
 import { coopKeys } from './KeyFactory/coopKeys';
 
 export const useGetDining = (date: string) => {

@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import LogoIcon from 'assets/svg/common/koin-logo.svg?react';
 import useMegaMenu from 'component/Header/hooks/useMegaMenu';
-import { CATEGORY_COOP, HeaderCategory } from 'constant/category';
+import { CATEGORY_COOP, HeaderCategory } from 'model/headerCategory';
 import { useLogout } from 'query/auth';
 import usePrevPathStore from 'store/usePrevPathStore';
 import cn from 'utils/ts/className';
@@ -86,7 +86,7 @@ function HeaderContent({ categoryArray }: Prop) {
 export default function PCPanel() {
   const navigate = useNavigate();
 
-  const { setPrevPath } = usePrevPathStore((state) => state);
+  const { setPrevPath } = usePrevPathStore();
   const { logout } = useLogout();
 
   const handleLogout = () => {
@@ -110,12 +110,6 @@ export default function PCPanel() {
       <HeaderContent categoryArray={CATEGORY_COOP} />
 
       <ul className={styles['header__auth-menu']}>
-        {/* Auth 완료시 수정 필요 */}
-        {/* <li className={styles['header__auth-link']}>
-          <Link to="/owner/modify-info">
-            정보수정
-          </Link>
-        </li> */}
         <li className={styles['header__auth-link']}>
           <button type="button" onClick={handleLogout}>
             로그아웃

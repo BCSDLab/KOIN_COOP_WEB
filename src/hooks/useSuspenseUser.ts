@@ -1,5 +1,5 @@
 import { getCoopInfo } from 'api/coop';
-import { CoopResponse } from 'model/Coop';
+import { CoopResponse } from 'model/coop';
 import { userKeys } from 'query/KeyFactory/userKeys';
 
 import { useSuspenseQuery } from '@tanstack/react-query';

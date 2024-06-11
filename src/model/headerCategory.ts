@@ -12,8 +12,6 @@ export interface HeaderCategory {
   submenu: SubMenu[]
 }
 
-export const TOTAL_CATEGORY = 1;
-
 export const CATEGORY_COOP: HeaderCategory[] = [
   {
     title: '식단관리',

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-throw-literal */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-underscore-dangle */
-import API_PATH from 'config/constants';
+import API_PATH from 'config/env';
 import { RefreshParams, RefreshResponse } from 'model/auth';
 import { CustomAxiosError, KoinError } from 'model/error';
 

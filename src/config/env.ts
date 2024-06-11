@@ -1,4 +1,4 @@
-import { EnvVar } from '../vite-env.d';
+import { EnvVar } from '../vite-env';
 
 const number = (value: string) => {
   const result = Number(value);

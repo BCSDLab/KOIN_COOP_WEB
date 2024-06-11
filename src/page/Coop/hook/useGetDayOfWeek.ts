@@ -1,4 +1,5 @@
-import { Day } from 'model/Coop';
+import { Day } from 'model/coop';
+
 import dayjs from 'dayjs';
 
 export const getDayOfWeek = (date: string): Day => {
