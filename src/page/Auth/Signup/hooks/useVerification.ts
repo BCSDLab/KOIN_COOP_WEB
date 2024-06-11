@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useVerificationAuthCode } from 'query/register';
 import useRegisterInfo from 'store/registerStore';
-import useUploadToken from 'store/uploadToken';
+import useUploadToken from 'store/useUploadToken';
 
 import { isKoinError } from '@bcsdlab/koin';
 

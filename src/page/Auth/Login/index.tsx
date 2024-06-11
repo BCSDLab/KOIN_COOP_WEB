@@ -2,22 +2,23 @@ import { useState } from 'react';
 
 import BlindIcon from 'assets/svg/auth/blind.svg?react';
 import Logo from 'assets/svg/auth/koin-logo.svg?react';
-import LockIcon from 'assets/svg/auth/lock.svg?react';
+// import LockIcon from 'assets/svg/auth/lock.svg?react';
 import ShowIcon from 'assets/svg/auth/show.svg?react';
 import useBooleanState from 'hooks/useBooleanState';
 import useMediaQuery from 'hooks/useMediaQuery';
 import { LoginParams } from 'model/auth';
 import { useLogin } from 'query/auth';
-import { useErrorMessageStore } from 'store/errorMessageStore';
+import { useErrorMessageStore } from 'store/useErrorMessageStore';
 
 import { cn, sha256 } from '@bcsdlab/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+// 이 컴포넌트의 주석은 당장 생협 기능에 필요 없는 부분이므로 주석 처리했습니다.
+// import { Link, useNavigate } from 'react-router-dom';
 
 import ApprovalModal from './ApprovalModal';
 import styles from './Login.module.scss';
-import OPTION from './static/option';
+// import OPTION from './static/option';
 
 export default function Login() {
   const { value: isBlind, changeValue: changeIsBlind } = useBooleanState();
@@ -25,7 +26,7 @@ export default function Login() {
   const { isMobile } = useMediaQuery();
   const { login, isError: isServerError } = useLogin();
   const [isFormError, setIsFormError] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { loginError, loginErrorStatus } = useErrorMessageStore();
   const [emailError, setEmailError] = useState('');
   const isError = isServerError || isFormError;
@@ -61,7 +62,7 @@ export default function Login() {
                 [styles['form__input--error']]: isError,
               })}
               type="text"
-              placeholder={isMobile ? '이메일' : '아이디 입력'}
+              placeholder="아이디 입력"
               {...register('email')}
             />
           </div>
@@ -72,7 +73,7 @@ export default function Login() {
                 [styles['form__input--error']]: isError,
               })}
               type={isBlind ? 'text' : 'password'}
-              placeholder={isMobile ? '비밀번호' : '비밀번호 입력'}
+              placeholder="비밀번호 입력"
               {...register('password')}
             />
             <button
@@ -109,12 +110,15 @@ export default function Login() {
               [styles['form__button--login']]: true,
             })}
             type="submit"
-            // onClick={toggle}
           >
             로그인
           </button>
-          {isMobile && (
-            <button className={styles.form__button} type="button" onClick={() => navigate('/signup')}>
+          {/* {isMobile && (
+            <button
+              className={styles.form__button}
+              type="button"
+              onClick={() => navigate('/signup')}
+            >
               회원가입
             </button>
           )}
@@ -123,7 +127,6 @@ export default function Login() {
               ? (
                 <Link to={OPTION[1].path} className={styles.option__link}>
                   <LockIcon aria-hidden />
-                  {/* 비밀번호 찾기 */}
                   {OPTION[1].name}
                 </Link>
               )
@@ -132,7 +135,7 @@ export default function Login() {
                   {option.name}
                 </Link>
               ))}
-          </div>
+          </div> */}
         </form>
       </div>
       {loginErrorStatus === 403 && <ApprovalModal />}

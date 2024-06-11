@@ -57,6 +57,11 @@ module.exports = {
             "pattern": "react",
             "group": "builtin",
             "position": "before"
+          },
+          {
+            "pattern": "react-router-dom",
+            "group": "external",
+            "position": "before"
           }
         ],
         "pathGroupsExcludedImportTypes": ["builtin"],

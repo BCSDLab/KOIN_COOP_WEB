@@ -6,7 +6,7 @@ import { CATEGORY_COOP, HeaderCategory } from 'constant/category';
 import useMediaQuery from 'hooks/useMediaQuery';
 import useSuspenseUser from 'hooks/useSuspenseUser';
 import { useLogout } from 'query/auth';
-import usePrevPathStore from 'store/path';
+import usePrevPathStore from 'store/usePrevPathStore';
 
 import { cn } from '@bcsdlab/utils';
 import { createPortal } from 'react-dom';

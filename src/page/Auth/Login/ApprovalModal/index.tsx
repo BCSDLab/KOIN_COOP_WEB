@@ -1,4 +1,4 @@
-import { useErrorMessageStore } from 'store/errorMessageStore';
+import { useErrorMessageStore } from 'store/useErrorMessageStore';
 import showToast from 'utils/showToast';
 
 import { createPortal } from 'react-dom';

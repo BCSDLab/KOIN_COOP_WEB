@@ -7,7 +7,7 @@ import ErrorIcon from 'assets/svg/error/auth-error.svg?react';
 import useBooleanState from 'hooks/useBooleanState';
 import { useRouteCheck } from 'page/Auth/FindPassword/hooks/useRouteCheck';
 import { useNewPassword } from 'query/auth';
-import useEmailAuthStore from 'store/useEmailAuth';
+import useEmailAuthStore from 'store/useEmailAuthStore';
 
 import { cn, sha256 } from '@bcsdlab/utils';
 

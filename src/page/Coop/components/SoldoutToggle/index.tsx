@@ -1,5 +1,5 @@
 import { Dinings } from 'model/Coop';
-import useToggleStore from 'store/soldoutToggleStore';
+import useToggleStore from 'store/useToggleStore';
 
 import styles from './SoldoutToggle.module.scss';
 

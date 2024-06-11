@@ -2,7 +2,7 @@ import LogoIcon from 'assets/svg/common/koin-logo.svg?react';
 import useMegaMenu from 'component/Header/hooks/useMegaMenu';
 import { CATEGORY_COOP, HeaderCategory } from 'constant/category';
 import { useLogout } from 'query/auth';
-import usePrevPathStore from 'store/path';
+import usePrevPathStore from 'store/usePrevPathStore';
 
 import { cn } from '@bcsdlab/utils';
 import { Link, useNavigate } from 'react-router-dom';

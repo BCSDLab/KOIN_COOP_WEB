@@ -4,7 +4,7 @@ import {
 import parseRegisterData from 'page/Auth/Signup/utils/parseRegisterData';
 import useRegisterInfo from 'store/registerStore';
 import useShopRegistrationStore from 'store/shopRegistration';
-import useUploadToken from 'store/uploadToken';
+import useUploadToken from 'store/useUploadToken';
 import showToast from 'utils/showToast';
 
 import { isKoinError } from '@bcsdlab/koin';
