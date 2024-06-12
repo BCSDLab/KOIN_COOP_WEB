@@ -1,11 +1,12 @@
 /* eslint-disable no-nested-ternary */
 import { useEffect, useRef, useState } from 'react';
 
+import { getCoopUrl } from 'api/uploadFile';
 import Photo from 'assets/svg/coop/photo.svg?react';
 import SoldOut from 'assets/svg/coop/sold-out.svg?react';
-import { DiningPlace, Dinings, DiningType } from 'models/dinings';
+import { DiningPlace, Dining, DiningType } from 'models/dinings';
 import SoldOutModal from 'pages/Coop/components/SoldOutModal';
-import SoldOutToggle from 'pages/Coop/components/SoldOutToggle';
+import SoldOutToggle from 'pages/Coop/components/SoldOutToggleButton';
 import { getOpenMenuType, OperatingStatus, OPEN } from 'pages/Coop/hook/useGetCurrentMenuType';
 import { useUploadDiningImage, useSoldOut } from 'query/coop';
 import { useGetDining } from 'query/dinings';
@@ -29,7 +30,7 @@ export default function MenuCard({ selectedMenuType, selectedDate }: MenuCardPro
   const { updateSoldOut: updateSoldOutMutation } = useSoldOut();
   const fileInputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
   const [isSoldOutModalOpen, setIsSoldOutModalOpen] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState<Dinings | null>(null);
+  const [selectedMenu, setSelectedMenu] = useState<Dining | null>(null);
   const [selectedPlace, setSelectedPlace] = useState<DiningPlace | null>(null);
   const [formmatDate, setFormmatDate] = useState<string>('');
   const { data } = useGetDining(formmatDate);
@@ -69,16 +70,16 @@ export default function MenuCard({ selectedMenuType, selectedDate }: MenuCardPro
     fileInputRefs.current[menuId]?.click();
   };
 
-  const filteredData = data?.filter((menu: Dinings) => ['A코너', 'B코너', 'C코너'].includes(menu.place));
+  const filteredData = data?.filter((menu: Dining) => ['A코너', 'B코너', 'C코너'].includes(menu.place));
 
-  const getDiningDataForCorner = (place: DiningPlace, diningData: Dinings[]):
-  Dinings | null => diningData.find(
+  const getDiningDataForCorner = (place: DiningPlace, diningData: Dining[]):
+  Dining | null => diningData.find(
     (menu) => menu.place === place,
   ) || null;
 
-  const handleToggleSoldOutModal = (menu: Dinings, type: DiningType) => {
+  const handleToggleSoldOutModal = (menu: Dining) => {
     setSelectedMenu(menu || null);
-    setSelectedPlace(type || null);
+    setSelectedPlace(menu.place || null);
     if (menu?.soldout_at === null) {
       setIsSoldOutModalOpen((prev) => !prev);
     } else if (menu) {

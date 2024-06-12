@@ -32,12 +32,19 @@ export const RefreshResponse = z.object({
 
 export type RefreshResponse = z.infer<typeof RefreshResponse>;
 
+export const UserType = z.union([
+  z.literal('COOP'),
+  z.null(),
+]);
+
+export type UserType = z.infer<typeof UserType>;
+
 export const CoopMeResponse = z.object({
   email: z.string(),
   gender: z.number(),
   name: z.string(),
   phone_number: z.number(),
-  user_type: z.string(),
+  user_type: UserType,
 });
 
 export type CoopMeResponse = z.infer<typeof CoopMeResponse>;

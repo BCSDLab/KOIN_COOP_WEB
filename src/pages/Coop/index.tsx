@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
+import Calendar from 'pages/Coop/components/Calendar';
+import MenuCard from 'pages/Coop/components/MenuCard';
+import MenuType from 'pages/Coop/components/MenuType';
 import { getCurrentMenuType } from 'pages/Coop/hook/useGetCurrentMenuType';
 
 import dayjs from 'dayjs';
 
-import Calendar from './components/Calendar';
-import MenuCard from './components/MenuCard';
-import MenuType from './components/MenuType';
 import styles from './Coop.module.scss';
 
 export default function Coop() {

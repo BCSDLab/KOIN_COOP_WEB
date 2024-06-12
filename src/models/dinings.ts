@@ -28,7 +28,7 @@ export const PlaceSchema = z.union([
   z.literal('2캠퍼스'),
 ]);
 
-export const Dinings = z.object({
+export const Dining = z.object({
   id: z.number(),
   date: z.string(),
   type: DiningTypeSchema,
@@ -44,4 +44,4 @@ export const Dinings = z.object({
   changed_at: z.string().nullable(),
 });
 
-export type Dinings = z.infer<typeof Dinings>;
+export type Dining = z.infer<typeof Dining>;
