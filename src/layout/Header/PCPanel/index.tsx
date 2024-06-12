@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 
 import LogoIcon from 'assets/svg/common/koin-logo.svg?react';
-import useMegaMenu from 'components/Header/hooks/useMegaMenu';
+import useMegaMenu from 'layout/Header/hooks/useMegaMenu';
 import { CATEGORY_COOP, HeaderCategory } from 'models/headerCategory';
 import { useLogout } from 'query/auth';
 import usePrevPathStore from 'store/usePrevPathStore';

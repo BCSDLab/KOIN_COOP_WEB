@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 
+import { useLocation } from 'react-router-dom';
+
 import BackArrowIcon from 'assets/svg/common/back-arrow.svg?react';
 import useMediaQuery from 'hooks/useMediaQuery';
-
-import { useLocation } from 'react-router-dom';
 
 import styles from './Header.module.scss';
 import MobilePanel from './MobilePanel';
