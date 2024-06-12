@@ -1,4 +1,4 @@
-import z from 'zod';
+import { z } from 'zod';
 
 export const LoginParams = z.object({
   email: z.string(),
@@ -7,9 +7,14 @@ export const LoginParams = z.object({
 
 export type LoginParams = z.infer<typeof LoginParams>;
 
+export interface LoginForm extends LoginParams {
+  isAutoLogin: boolean;
+}
+
 export const LoginResponse = z.object({
   refresh_token: z.string(),
   token: z.string(),
+  user_type: z.string(),
 });
 
 export type LoginResponse = z.infer<typeof LoginResponse>;
@@ -27,6 +32,12 @@ export const RefreshResponse = z.object({
 
 export type RefreshResponse = z.infer<typeof RefreshResponse>;
 
-export interface LoginForm extends LoginParams {
-  isAutoLogin: boolean;
-}
+export const CoopMeResponse = z.object({
+  email: z.string(),
+  gender: z.number(),
+  name: z.string(),
+  phone_number: z.number(),
+  user_type: z.string(),
+});
+
+export type CoopMeResponse = z.infer<typeof CoopMeResponse>;

@@ -1,11 +1,11 @@
-import { Menus } from 'models/coop';
+import { DiningType } from 'models/dinings';
 import cn from 'utils/className';
 
 import styles from './MenuType.module.scss';
 
 interface MenuTypeProps {
-  selectedMenuType: Menus;
-  setSelectedMenuType: (menuType: Menus) => void;
+  selectedMenuType: DiningType;
+  setSelectedMenuType: (menuType: DiningType) => void;
 }
 
 export default function MenuType({ selectedMenuType, setSelectedMenuType }: MenuTypeProps) {
@@ -13,11 +13,11 @@ export default function MenuType({ selectedMenuType, setSelectedMenuType }: Menu
     <div className={styles.place__container}>
       <button
         className={cn({
-          [styles['place__button--selected']]: selectedMenuType === '아침',
-          [styles.place__button]: selectedMenuType !== '아침',
+          [styles['place__button--selected']]: selectedMenuType === 'BREAKFAST',
+          [styles.place__button]: selectedMenuType !== 'BREAKFAST',
         })}
-        onClick={() => setSelectedMenuType('아침')}
-        onKeyDown={(e) => e.key === 'Enter' && setSelectedMenuType('아침')}
+        onClick={() => setSelectedMenuType('BREAKFAST')}
+        onKeyDown={(e) => e.key === 'Enter' && setSelectedMenuType('BREAKFAST')}
         type="button"
         tabIndex={0}
       >
@@ -25,11 +25,11 @@ export default function MenuType({ selectedMenuType, setSelectedMenuType }: Menu
       </button>
       <button
         className={cn({
-          [styles['place__button--selected']]: selectedMenuType === '점심',
-          [styles.place__button]: selectedMenuType !== '점심',
+          [styles['place__button--selected']]: selectedMenuType === 'LUNCH',
+          [styles.place__button]: selectedMenuType !== 'LUNCH',
         })}
-        onClick={() => setSelectedMenuType('점심')}
-        onKeyDown={(e) => e.key === 'Enter' && setSelectedMenuType('점심')}
+        onClick={() => setSelectedMenuType('LUNCH')}
+        onKeyDown={(e) => e.key === 'Enter' && setSelectedMenuType('LUNCH')}
         type="button"
         tabIndex={0}
       >
@@ -37,11 +37,11 @@ export default function MenuType({ selectedMenuType, setSelectedMenuType }: Menu
       </button>
       <button
         className={cn({
-          [styles['place__button--selected']]: selectedMenuType === '저녁',
-          [styles.place__button]: selectedMenuType !== '저녁',
+          [styles['place__button--selected']]: selectedMenuType === 'DINNER',
+          [styles.place__button]: selectedMenuType !== 'DINNER',
         })}
-        onClick={() => setSelectedMenuType('저녁')}
-        onKeyDown={(e) => e.key === 'Enter' && setSelectedMenuType('저녁')}
+        onClick={() => setSelectedMenuType('DINNER')}
+        onKeyDown={(e) => e.key === 'Enter' && setSelectedMenuType('DINNER')}
         type="button"
         tabIndex={0}
       >

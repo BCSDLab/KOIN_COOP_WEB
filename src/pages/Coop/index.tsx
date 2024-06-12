@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { Menus } from 'models/coop';
 import { getCurrentMenuType } from 'pages/Coop/hook/useGetCurrentMenuType';
 
 import dayjs from 'dayjs';
@@ -11,7 +10,7 @@ import MenuType from './components/MenuType';
 import styles from './Coop.module.scss';
 
 export default function Coop() {
-  const [selectedMenuType, setSelectedMenuType] = useState<Menus>(getCurrentMenuType());
+  const [selectedMenuType, setSelectedMenuType] = useState(getCurrentMenuType());
   const [selectedDate, setSelectedDate] = useState(dayjs().format('YYYY-MM-DD'));
   return (
     <div className={styles['container-wrapper']}>

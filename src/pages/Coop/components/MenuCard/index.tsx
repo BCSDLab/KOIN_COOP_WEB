@@ -4,9 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { getCoopUrl } from 'api/uploadFile/index';
 import Photo from 'assets/svg/coop/photo.svg?react';
 import SoldOut from 'assets/svg/coop/soldout.svg?react';
-import {
-  Dinings, Menus, DINING_TYPES, Corner,
-} from 'models/coop';
+import { Dinings, Corner } from 'models/coop';
+import { DiningType, DINING_TYPE_MAP } from 'models/dinings';
 import SoldoutModal from 'pages/Coop/components/SoldoutModal';
 import SoldoutToggle from 'pages/Coop/components/SoldoutToggle';
 import { getOpenMenuType, OperatingStatus, OPEN } from 'pages/Coop/hook/useGetCurrentMenuType';
@@ -17,7 +16,7 @@ import axios from 'axios';
 import styles from './MenuCard.module.scss';
 
 interface MenuCardProps {
-  selectedMenuType: Menus;
+  selectedMenuType: DiningType;
   selectedDate: string;
 }
 
@@ -71,7 +70,7 @@ export default function MenuCard({ selectedMenuType, selectedDate }: MenuCardPro
     fileInputRefs.current[menuId]?.click();
   };
 
-  const getDiningType = (menuType: Menus) => DINING_TYPES[menuType];
+  const getDiningType = (menuType: DiningType) => DINING_TYPE_MAP[menuType];
 
   const filteredData = data?.filter((menu:Dinings) => {
     const diningType = getDiningType(selectedMenuType);

@@ -1,4 +1,3 @@
-import { uploadFile } from 'api/uploadFile';
 import { useRef, useState } from 'react';
 
 export default function useImageUpload() {
