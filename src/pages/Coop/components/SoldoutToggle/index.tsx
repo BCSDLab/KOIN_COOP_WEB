@@ -1,7 +1,7 @@
-import { Dinings } from 'models/coop';
+import { Dinings } from 'models/dinings';
 import useToggleStore from 'store/useToggleStore';
 
-import styles from './SoldoutToggle.module.scss';
+import styles from './SoldOutToggle.module.scss';
 
 interface SoldoutToggleProps {
   onClick: () => void;

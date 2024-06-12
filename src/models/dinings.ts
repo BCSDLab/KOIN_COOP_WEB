@@ -18,7 +18,7 @@ export const DINING_TYPE_MAP = {
   DINNER: '저녁',
 } as const;
 
-export type Place = 'A코너' | 'B코너' | 'C코너' | '능수관' | '2캠퍼스';
+export type DiningPlace = 'A코너' | 'B코너' | 'C코너' | '능수관' | '2캠퍼스';
 
 export const PlaceSchema = z.union([
   z.literal('A코너'),

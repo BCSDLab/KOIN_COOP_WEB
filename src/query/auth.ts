@@ -1,26 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
-import { postLogin, postLogout } from 'api/auth';
-import { LoginForm } from 'models/auth';
+import { postLogin, postRefresh, postLogout } from 'api/auth';
+import { LoginForm, RefreshParams } from 'models/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
 
 import { isKoinError, sendClientError } from '@bcsdlab/koin';
 import { useMutation } from '@tanstack/react-query';
-
-export interface ErrorResponse {
-  response: undefined | {
-    message: string;
-    data: {
-      code: number;
-      message: string;
-      violations: {
-        field: string;
-        message: string;
-      }[];
-    }
-  }
-  message: string;
-}
 
 export const useLogin = () => {
   const { setLoginError, setLoginErrorStatus } = useErrorMessageStore();
@@ -29,13 +14,15 @@ export const useLogin = () => {
   const {
     mutate, error, isError, isSuccess,
   } = useMutation({
-    mutationFn: (variables: LoginForm) => postLogin({
-      email: variables.email, password: variables.password,
+    mutationFn: (form: LoginForm) => postLogin({
+      email: form.email, password: form.password,
     }),
-    onSuccess: async (data, variables) => {
-      if (data.token) { sessionStorage.setItem('access_token', data.token); }
+    onSuccess: async (data, form) => {
+      if (data.token) {
+        sessionStorage.setItem('access_token', data.token);
+      }
 
-      if (variables.isAutoLogin) {
+      if (form.isAutoLogin) {
         localStorage.setItem('refresh_token', data.refresh_token);
       }
       navigate('/');
@@ -85,7 +72,6 @@ export const useLogout = () => {
     },
     onSuccess: () => {
       sessionStorage.removeItem('access_token');
-      sessionStorage.removeItem('user_type');
       localStorage.removeItem('refresh_token');
     },
     onError: (err) => {

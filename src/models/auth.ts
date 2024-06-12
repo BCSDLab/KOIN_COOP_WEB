@@ -12,9 +12,9 @@ export interface LoginForm extends LoginParams {
 }
 
 export const LoginResponse = z.object({
-  refresh_token: z.string(),
   token: z.string(),
-  user_type: z.string(),
+  refresh_token: z.string(),
+  user_type: z.string(), // 삭제 가능성 있음
 });
 
 export type LoginResponse = z.infer<typeof LoginResponse>;
