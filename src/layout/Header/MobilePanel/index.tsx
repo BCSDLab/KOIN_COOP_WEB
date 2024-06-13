@@ -1,14 +1,16 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
+import { getCoopMe } from 'api/auth';
 import BackArrowIcon from 'assets/svg/common/back-arrow.svg?react';
 import MenuIcon from 'assets/svg/common/hamburger-menu.svg?react';
 import MobileLogoIcon from 'assets/svg/common/mobile-koin-logo.svg?react';
 import useMediaQuery from 'hooks/useMediaQuery';
-import useSuspenseUser from 'hooks/useSuspenseUser';
 import useMobileSidebar from 'layout/Header/hooks/useMobileSidebar';
 import { CATEGORY_COOP, HeaderCategory } from 'models/headerCategory';
 import { useLogout } from 'query/auth';
 import usePrevPathStore from 'store/usePrevPathStore';
+import useUserStore from 'store/useUserStore';
+import useUserTypeStore from 'store/useUserTypeStore';
 import cn from 'utils/className';
 
 import { createPortal } from 'react-dom';
@@ -48,7 +50,8 @@ export default function MobilePanel() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { isMobile } = useMediaQuery();
-  const { data: user } = useSuspenseUser();
+  const { user } = useUserStore();
+  const { setUserType } = useUserTypeStore();
 
   const { setPrevPath } = usePrevPathStore();
   const { logout } = useLogout();
@@ -59,13 +62,14 @@ export default function MobilePanel() {
     hideSidebar,
   } = useMobileSidebar(pathname, isMobile);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     logout(undefined, {
       onSettled: () => {
         setPrevPath('/login');
         navigate('/login');
       },
     });
+    await getCoopMe().then((userInfo) => setUserType(userInfo.user_type));
   };
 
   return (

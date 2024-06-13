@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
-import { getCoopMe, postLogin, postLogout } from 'api/auth';
+import { postLogin, postLogout } from 'api/auth';
 import { LoginForm } from 'models/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
-import useUserTypeStore from 'store/useUserTypeStore';
 
 import { isKoinError, sendClientError } from '@bcsdlab/koin';
 import { useMutation } from '@tanstack/react-query';
@@ -86,28 +85,4 @@ export const useLogout = () => {
   });
 
   return { logout: mutate, error, isError };
-};
-
-export const useCoopMe = () => {
-  const { setUserType } = useUserTypeStore();
-
-  const {
-    mutate, error, isError, isSuccess,
-  } = useMutation({
-    mutationFn: () => getCoopMe(),
-    onSuccess: async (data) => {
-      if (data.user_type) {
-        setUserType(data.user_type);
-      }
-    },
-    onError: (err) => {
-      if (isKoinError(err)) {
-        console.error(err);
-      }
-    },
-  });
-
-  return {
-    getCoopInfo: mutate, error, isError, isSuccess,
-  };
 };

@@ -1,16 +1,5 @@
 import { accessClient } from 'api';
-
-interface File {
-  content_length: number;
-  content_type: string;
-  file_name: string;
-}
-
-export interface FileResponse {
-  pre_signed_url: string;
-  file_url: string;
-  expiration_date: string;
-}
+import { CustomFileType, FileResponse } from 'models/file';
 
 export const uploadFile = (formData: FormData) => accessClient.post('/OWNERS/upload/file', formData, {
   headers: { 'Content-Type': 'multipart/form-data' },
@@ -20,4 +9,4 @@ export const uploadFiles = (formData: FormData) => accessClient.post('/OWNERS/up
   headers: { 'Content-Type': 'multipart/form-data' },
 });
 
-export const getCoopUrl = (fileName: File) => accessClient.post<FileResponse>('/coop/upload/url', fileName);
+export const getCoopUrl = (fileName: CustomFileType) => accessClient.post<FileResponse>('/coop/upload/url', fileName);

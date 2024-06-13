@@ -41,9 +41,9 @@ export type UserType = z.infer<typeof UserType>;
 
 export const CoopMeResponse = z.object({
   email: z.string(),
-  gender: z.number(),
+  gender: z.number().nullable(),
   name: z.string(),
-  phone_number: z.number(),
+  phone_number: z.string(),
   user_type: UserType,
 });
 

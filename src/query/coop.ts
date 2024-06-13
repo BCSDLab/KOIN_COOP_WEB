@@ -1,6 +1,7 @@
 import { getCoopMe } from 'api/auth';
 import { patchSoldOut, uploadDiningImage } from 'api/coop';
 import { DiningImagesParams, SoldOutParams } from 'models/coop';
+import { Dining } from 'models/dinings';
 
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 
@@ -8,14 +9,18 @@ import { coopKeys } from './KeyFactory/coopKeys';
 
 export const useSoldOut = () => {
   const queryClient = useQueryClient();
-  const { mutate: updateSoldOut } = useMutation({
-    mutationFn: (data: SoldOutParams) => updateSoldOut(data),
+  const { mutate: toggleSoldOut } = useMutation({
+    mutationFn: (data: Dining) => {
+      const current = !!data.soldout_at;
+      const params: SoldOutParams = { menu_id: data.id, sold_out: !current };
+      return patchSoldOut(params);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries();
     },
   });
   return {
-    updateSoldOut,
+    toggleSoldOut,
   };
 };
 

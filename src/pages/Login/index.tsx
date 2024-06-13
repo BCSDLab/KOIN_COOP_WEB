@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { getCoopMe } from 'api/auth';
 import BlindIcon from 'assets/svg/auth/blind.svg?react';
 import Logo from 'assets/svg/auth/koin-logo.svg?react';
 import ShowIcon from 'assets/svg/auth/show.svg?react';
@@ -8,6 +9,7 @@ import useMediaQuery from 'hooks/useMediaQuery';
 import { LoginParams } from 'models/auth';
 import { useLogin } from 'query/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
+import useUserTypeStore from 'store/useUserTypeStore';
 import cn from 'utils/className';
 import sha256 from 'utils/sha256';
 
@@ -22,6 +24,7 @@ export default function Login() {
   const { value: isAutoLogin, changeValue: changeIsAutoLogin } = useBooleanState(true);
   const { isMobile } = useMediaQuery();
   const { login, isError: isServerError } = useLogin();
+  const { setUserType } = useUserTypeStore();
   const [isFormError, setIsFormError] = useState(false);
   const { loginError, loginErrorStatus } = useErrorMessageStore();
   const [emailError, setEmailError] = useState('');
@@ -37,6 +40,7 @@ export default function Login() {
   const onSubmit: SubmitHandler<LoginParams> = async (data) => {
     const hashedPassword = await sha256(data.password);
     login({ email: data.email, password: hashedPassword, isAutoLogin });
+    await getCoopMe().then((userInfo) => setUserType(userInfo.user_type));
   };
 
   const onError = (error: FieldErrors<LoginParams>) => {

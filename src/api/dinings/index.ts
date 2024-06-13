@@ -1,7 +1,7 @@
 import { accessClient } from 'api';
-import { DiningsParams } from 'models/dinings';
+import { Dinings, DiningsParams } from 'models/dinings';
 
 export const getDining = async (date: DiningsParams) => {
-  const { data } = await accessClient.get(`/dinings?date=${date}`);
-  return data;
+  const { data } = await accessClient.get<DiningsParams>(`/dinings?date=${date}`);
+  return Dinings.parse(data);
 };

@@ -2,22 +2,24 @@ import { Suspense, useEffect } from 'react';
 
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
-import useErrorBoundary from 'hooks/useErrorBoundary';
 import AuthLayout from 'layout/AuthLayout';
 import DefaultLayout from 'layout/DefaultLayout';
 import Coop from 'pages/Coop';
 import Login from 'pages/Login';
-import useUserTypeStore from 'store/useUserTypeStore';
+import useUserStore from 'store/useUserStore';
 
 function App() {
+  const { isAuthenticated, initializeAuth } = useUserStore();
   const navigate = useNavigate();
-  const { userType } = useUserTypeStore();
 
   useEffect(() => {
-    if (!userType) {
-      navigate('/login', { replace: true });
+    initializeAuth();
+    if (isAuthenticated) {
+      navigate('/');
+    } else {
+      navigate('/login');
     }
-  }, [userType, navigate]);
+  }, [isAuthenticated, initializeAuth, navigate]);
 
   return (
     <Suspense fallback={<div />}>

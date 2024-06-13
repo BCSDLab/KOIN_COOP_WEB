@@ -45,3 +45,5 @@ export const Dining = z.object({
 });
 
 export type Dining = z.infer<typeof Dining>;
+
+export const Dinings = z.array(Dining);
