@@ -1,30 +1,32 @@
 import { Dining } from 'models/dinings';
-import useToggleStore from 'store/useToggleStore';
+import useSoldOutToggleStore from 'store/useSoldOutToggleStore';
+import cn from 'utils/className';
 
 import styles from './SoldOutToggleButton.module.scss';
 
 interface Props {
-  onClick: () => void;
   menu: Dining;
+  onClick: () => void;
 }
 
-function SoldOutToggleButton({ onClick, menu }: Props) {
-  const { toggleSoldOut } = useToggleStore();
-  const handleToggle = () => {
-    onClick();
-    toggleSoldOut(menu.id);
-  };
-
+function SoldOutToggleButton({ menu, onClick }: Props) {
   return (
-    <div>
-      <button
-        type="button"
-        className={styles['toggle-button']}
-        onClick={handleToggle}
-      >
-        버튼
-      </button>
-    </div>
+    <button
+      type="button"
+      aria-label="품절 버튼"
+      className={cn({
+        [styles.container]: true,
+        [styles['container--sold-out']]: !!menu.soldout_at,
+      })}
+      onClick={onClick}
+    >
+      <span
+        className={cn({
+          [styles.circle]: true,
+          [styles['circle--sold-out']]: !!menu.soldout_at,
+        })}
+      />
+    </button>
   );
 }
 

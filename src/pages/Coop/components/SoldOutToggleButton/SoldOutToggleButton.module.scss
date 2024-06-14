@@ -1,7 +1,27 @@
-.toggle-button {
+.container {
+  position: relative;
   width: 46px;
-  height: 23px;
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
-  -webkit-tap-highlight-color: transparent;
+  height: 22px;
+  border-radius: 11px;
+  background-color: #e1e1e1;
+
+  &--sold-out {
+    background-color: #175c8e;
+  }
+}
+
+.circle {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background-color: #8e8e8e;
+  transition: all 0.3s;
+
+  &--sold-out {
+    transform: translateX(24px);
+    background-color: #fff;
+  }
 }

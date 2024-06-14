@@ -6,7 +6,7 @@ interface ToggleState {
   toggleSoldOut: (menuId: number) => void;
 }
 
-const useToggleStore = create<ToggleState>((set) => ({
+const useSoldOutToggleStore = create<ToggleState>((set) => ({
   isSoldOut: {},
   setInitialSoldOutState: (menuId: number, soldOut: string | null) => set((state) => ({
     isSoldOut: {
@@ -27,4 +27,4 @@ const useToggleStore = create<ToggleState>((set) => ({
   }),
 }));
 
-export default useToggleStore;
+export default useSoldOutToggleStore;

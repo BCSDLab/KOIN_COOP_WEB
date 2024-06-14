@@ -1,15 +1,19 @@
 /* eslint-disable no-nested-ternary */
-import { useEffect, useRef, useState } from 'react';
+import {
+  Suspense, useEffect, useRef, useState,
+} from 'react';
 
 import { getCoopUrl } from 'api/uploadFile';
 import Photo from 'assets/svg/coop/photo.svg?react';
 import SoldOut from 'assets/svg/coop/sold-out.svg?react';
-import { DiningPlace, Dining, DiningType } from 'models/dinings';
+import {
+  DiningPlace, Dining, DiningType,
+} from 'models/dinings';
 import SoldOutModal from 'pages/Coop/components/SoldOutModal';
-import SoldOutToggle from 'pages/Coop/components/SoldOutToggleButton';
+import SoldOutToggleButton from 'pages/Coop/components/SoldOutToggleButton';
 import { getOpenMenuType, OperatingStatus, OPEN } from 'pages/Coop/hook/useGetCurrentMenuType';
 import { useUploadDiningImage, useSoldOut } from 'query/coop';
-import { useGetDining as useGetDinings } from 'query/dinings';
+import { useGetDinings } from 'query/dinings';
 
 import axios from 'axios';
 
@@ -32,7 +36,7 @@ export default function MenuCard({ selectedMenuType, selectedDate }: Props) {
   const [isSoldOutModalOpen, setIsSoldOutModalOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState<Dining | null>(null);
   const formattedDate = selectedDate.replace('-', '').replace('-', '').substring(2);
-  const { data } = useGetDinings(formattedDate);
+  const { data: dinings } = useGetDinings(formattedDate);
   const [openMenu, setOpenMenu] = useState<OperatingStatus>(
     getOpenMenuType(selectedMenuType, formattedDate),
   );
@@ -77,7 +81,7 @@ export default function MenuCard({ selectedMenuType, selectedDate }: Props) {
     fileInputRefs.current[menuId]?.click();
   };
 
-  const filteredData = data.filter((menu: Dining) => ['A코너', 'B코너', 'C코너'].includes(menu.place));
+  const filteredData: Dining[] = dinings.filter((menu) => ['A코너', 'B코너', 'C코너'].includes(menu.place));
 
   const getDiningDataForCorner = (
     place: DiningPlace,
@@ -105,7 +109,7 @@ export default function MenuCard({ selectedMenuType, selectedDate }: Props) {
   }, [selectedMenuType, formattedDate]);
 
   return (
-    <>
+    <Suspense fallback={<div />}>
       <div className={styles.container}>
         {(['A코너', 'B코너', 'C코너'] as const).map((place) => {
           const menu = getDiningDataForCorner(place, filteredData);
@@ -116,9 +120,7 @@ export default function MenuCard({ selectedMenuType, selectedDate }: Props) {
                   <div className={styles['card__common-wrapper']}>
                     <span className={styles.card__title}>{place}</span>
                     <div className={styles.card__kcal}>
-                      {menu.kcal}
-                      {' '}
-                      kcal
+                      {`${menu.kcal}kcal`}
                     </div>
                     <div className={styles.card__changed}>변경됨</div>
                   </div>
@@ -127,17 +129,18 @@ export default function MenuCard({ selectedMenuType, selectedDate }: Props) {
                     <div className={styles['card__common-wrapper']}>
                       <span className={styles.card__title}>{place}</span>
                       <div className={styles.card__kcal}>
-                        {menu.kcal}
-                        {' '}
-                        kcal
+                        {`${menu.kcal}kcal`}
                       </div>
                     </div>
                   )
                 )}
                 <div className={styles['card__common-wrapper']}>
-                  {menu && <span className={styles.card__soldout}>품절</span>}
+                  {menu && <span className={styles['card__sold-out']}>품절</span>}
                   {menu && (
-                    <SoldOutToggle onClick={() => handleToggleSoldOutModal(menu)} menu={menu} />
+                    <SoldOutToggleButton
+                      menu={menu}
+                      onClick={() => handleToggleSoldOutModal(menu)}
+                    />
                   )}
                 </div>
               </div>
@@ -320,6 +323,6 @@ export default function MenuCard({ selectedMenuType, selectedDate }: Props) {
           </div>
         )}
       </SoldOutModal>
-    </>
+    </Suspense>
   );
 }
