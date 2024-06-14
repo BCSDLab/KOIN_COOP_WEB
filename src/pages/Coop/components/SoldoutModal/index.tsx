@@ -17,7 +17,7 @@ interface Props {
   children: React.ReactNode
 }
 
-export default function SoldOutModal({
+export default function SoldOutCheckModal({
   buttonText = '', modalSize, hasFooter, isOpen, isOverflowVisible, onCancel, children,
 }: Props) {
   useEffect(() => {

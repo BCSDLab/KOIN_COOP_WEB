@@ -9,7 +9,7 @@ import SoldOut from 'assets/svg/coop/sold-out.svg?react';
 import {
   DiningPlace, Dining, DiningType,
 } from 'models/dinings';
-import SoldOutModal from 'pages/Coop/components/SoldOutModal';
+import SoldOutCheckModal from 'pages/Coop/components/SoldOutModal';
 import SoldOutToggleButton from 'pages/Coop/components/SoldOutToggleButton';
 import { getOpenMenuType, OperatingStatus, OPEN } from 'pages/Coop/hook/useGetCurrentMenuType';
 import { useUploadDiningImage, useSoldOut } from 'query/coop';
@@ -195,7 +195,7 @@ export default function MenuCard({ selectedMenuType, selectedDate }: Props) {
           );
         })}
       </div>
-      <SoldOutModal
+      <SoldOutCheckModal
         modalSize="mobile"
         hasFooter={false}
         isOpen={isSoldOutModalOpen}
@@ -314,7 +314,7 @@ export default function MenuCard({ selectedMenuType, selectedDate }: Props) {
             </div>
           </div>
         )}
-      </SoldOutModal>
+      </SoldOutCheckModal>
     </Suspense>
   );
 }
