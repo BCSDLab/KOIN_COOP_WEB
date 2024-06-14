@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { HeaderCategory, SubMenu } from 'utils/constant/category';
+import { HeaderCategory, SubMenu } from 'models/headerCategory';
 
 const useMegaMenu = (category: HeaderCategory[]) => {
   const [panelMenuList, setPanelMenuList] = useState<SubMenu[] | null>();

@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react';
 
+import { uploadFile } from 'api/uploadFile';
+
 export default function useImageUpload() {
   const [imageFile, setImageFile] = useState('');
   const [uploadError, setUploadError] = useState('');

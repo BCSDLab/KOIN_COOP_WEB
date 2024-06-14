@@ -7,7 +7,7 @@ import { createPortal } from 'react-dom';
 
 import styles from './SoldoutModal.module.scss';
 
-interface SoldoutModalProps {
+interface Props {
   buttonText?: string;
   modalSize: string;
   hasFooter: boolean;
@@ -19,7 +19,7 @@ interface SoldoutModalProps {
 
 export default function SoldOutModal({
   buttonText = '', modalSize, hasFooter, isOpen, isOverflowVisible, onCancel, children,
-}: SoldoutModalProps) {
+}: Props) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.cssText = `

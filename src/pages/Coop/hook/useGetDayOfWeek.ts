@@ -1,6 +1,6 @@
-import { Day } from 'models/coop';
-
 import dayjs from 'dayjs';
+
+export type Day = '일' | '월' | '화' | '수' | '목' | '금' | '토';
 
 export const getDayOfWeek = (date: string): Day => {
   const dayOfWeek = dayjs(date).day();
