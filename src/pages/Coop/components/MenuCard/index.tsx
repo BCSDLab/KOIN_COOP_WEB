@@ -9,7 +9,7 @@ import SoldOut from 'assets/svg/coop/sold-out.svg?react';
 import {
   DiningPlace, Dining, DiningType,
 } from 'models/dinings';
-import SoldOutCheckModal from 'pages/Coop/components/SoldOutModal';
+import SoldOutCheckModal from 'pages/Coop/components/SoldOutCheckModal';
 import SoldOutToggleButton from 'pages/Coop/components/SoldOutToggleButton';
 import { getOpenMenuType, OperatingStatus, OPEN } from 'pages/Coop/hook/useGetCurrentMenuType';
 import { useUploadDiningImage, useSoldOut } from 'query/coop';
