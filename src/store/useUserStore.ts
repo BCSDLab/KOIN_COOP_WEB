@@ -39,7 +39,6 @@ const useUserStore = create<State>()(
             const user = await getCoopMe();
             set({ isAuthenticated: true, user });
           } catch (error) {
-            console.error('Failed to initialize auth', error);
             set({ isAuthenticated: false, user: null });
             sessionStorage.removeItem('access_token');
           }

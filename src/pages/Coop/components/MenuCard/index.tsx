@@ -42,15 +42,11 @@ export default function MenuCard({ selectedMenuType, selectedDate }: Props) {
   );
 
   const uploadImage = async ({ presignedUrl, file }: FileInfo) => {
-    try {
-      await axios.put(presignedUrl, file, {
-        headers: {
-          'Content-Type': 'image/jpeg, image/png, image/svg+xml, image/webp',
-        },
-      });
-    } catch (error) {
-      console.error('Failed to upload image', error);
-    }
+    await axios.put(presignedUrl, file, {
+      headers: {
+        'Content-Type': 'image/jpeg, image/png, image/svg+xml, image/webp',
+      },
+    });
   };
 
   const handleImageChange = (menuId: number) => async (
@@ -58,21 +54,17 @@ export default function MenuCard({ selectedMenuType, selectedDate }: Props) {
   ) => {
     const file = event.target.files?.[0];
     if (file) {
-      try {
-        const presigned = await getCoopUrl({
-          content_length: file.size,
-          content_type: file.type,
-          file_name: file.name,
+      const presigned = await getCoopUrl({
+        content_length: file.size,
+        content_type: file.type,
+        file_name: file.name,
+      });
+      if (presigned.data.pre_signed_url) {
+        await uploadImage({ presignedUrl: presigned.data.pre_signed_url, file });
+        uploadDiningImageMutation({
+          menu_id: menuId,
+          image_url: presigned.data.file_url,
         });
-        if (presigned.data.pre_signed_url) {
-          await uploadImage({ presignedUrl: presigned.data.pre_signed_url, file });
-          uploadDiningImageMutation({
-            menu_id: menuId,
-            image_url: presigned.data.file_url,
-          });
-        }
-      } catch (error) {
-        console.error('Failed to handle image change', error);
       }
     }
   };

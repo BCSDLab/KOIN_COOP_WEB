@@ -22,7 +22,6 @@ const useAuthInitialization = () => {
           setUser(user);
         } catch (error) {
           if (isKoinError(error)) {
-            console.error(error);
             clearUser();
             navigate('/login');
           }

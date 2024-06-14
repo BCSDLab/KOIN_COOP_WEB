@@ -1,5 +1,4 @@
 import { Dining } from 'models/dinings';
-import useSoldOutToggleStore from 'store/useSoldOutToggleStore';
 import cn from 'utils/className';
 
 import styles from './SoldOutToggleButton.module.scss';
