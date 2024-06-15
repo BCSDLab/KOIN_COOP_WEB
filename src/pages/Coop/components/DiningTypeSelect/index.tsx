@@ -1,14 +1,14 @@
 import { DiningType } from 'models/dinings';
 import cn from 'utils/className';
 
-import styles from './MenuType.module.scss';
+import styles from './DiningTypeSelect.module.scss';
 
 interface MenuTypeProps {
   diningType: DiningType;
   setDiningType: (diningType: DiningType) => void;
 }
 
-export default function MenuType({ diningType, setDiningType }: MenuTypeProps) {
+export default function DiningTypeSelect({ diningType, setDiningType }: MenuTypeProps) {
   return (
     <div className={styles.place__container}>
       <button

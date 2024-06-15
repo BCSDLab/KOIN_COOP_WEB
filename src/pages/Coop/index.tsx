@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import Calendar from 'pages/Coop/components/Calendar';
-import MenuCard from 'pages/Coop/components/MenuCard';
-import MenuType from 'pages/Coop/components/MenuType';
+import DiningBlocks from 'pages/Coop/components/DiningBlocks';
+import DiningTypeSelect from 'pages/Coop/components/DiningTypeSelect';
 import { getDiningTypeOnTime } from 'pages/Coop/hook/useGetCurrentMenuType';
 
 import dayjs from 'dayjs';
@@ -17,8 +17,8 @@ export default function Coop() {
     <div className={styles['container-wrapper']}>
       <div className={styles.container}>
         <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-        <MenuType diningType={diningType} setDiningType={setDiningType} />
-        <MenuCard diningType={diningType} date={selectedDate} />
+        <DiningTypeSelect diningType={diningType} setDiningType={setDiningType} />
+        <DiningBlocks diningType={diningType} date={selectedDate} />
       </div>
     </div>
   );

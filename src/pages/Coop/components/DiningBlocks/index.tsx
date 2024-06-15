@@ -17,7 +17,7 @@ import { useGetDinings } from 'query/dinings';
 
 import axios from 'axios';
 
-import styles from './MenuCard.module.scss';
+import styles from './DiningBlocks.module.scss';
 
 interface Props {
   diningType: DiningType;
@@ -29,7 +29,7 @@ interface FileInfo {
   presignedUrl: string;
 }
 
-export default function MenuCard({ diningType, date }: Props) {
+export default function DiningBlocks({ diningType, date }: Props) {
   const { uploadDiningImageMutation } = useUploadDiningImage();
   const { toggleSoldOut } = useSoldOut();
   const fileInputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
