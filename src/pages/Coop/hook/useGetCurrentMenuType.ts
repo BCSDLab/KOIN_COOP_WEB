@@ -6,22 +6,13 @@ export type OperatingStatus = '운영중' | '운영종료';
 
 export const OPEN = '운영중';
 
-export const getCurrentMenuType = (): DiningType => {
+export const getDiningTypeOnTime = (): DiningType => {
   const now = new Date();
-  const hour = now.getHours();
-  const minute = now.getMinutes();
-  const time = hour * 60 + minute;
+  const time = now.getHours() * 60 + now.getMinutes();
 
-  // 00:01~10:30
-  if (time >= 1 && time <= 630) {
-    return 'BREAKFAST';
-  }
-  // 10:31~15:00
-  if (time <= 900) {
-    return 'LUNCH';
-  }
-  // 15:01~24:00
-  return 'DINNER';
+  if (time <= 630) return 'BREAKFAST'; // 00:01~10:30
+  if (time <= 900) return 'LUNCH'; // 10:31~15:00
+  return 'DINNER'; // 15:01~24:00
 };
 
 // date = 'yyMMdd'

@@ -20,8 +20,8 @@ import axios from 'axios';
 import styles from './MenuCard.module.scss';
 
 interface Props {
-  selectedMenuType: DiningType;
-  selectedDate: string;
+  diningType: DiningType;
+  date: string;
 }
 
 interface FileInfo {
@@ -29,16 +29,16 @@ interface FileInfo {
   presignedUrl: string;
 }
 
-export default function MenuCard({ selectedMenuType, selectedDate }: Props) {
+export default function MenuCard({ diningType, date }: Props) {
   const { uploadDiningImageMutation } = useUploadDiningImage();
   const { toggleSoldOut } = useSoldOut();
   const fileInputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
   const [isSoldOutModalOpen, setIsSoldOutModalOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState<Dining | null>(null);
-  const formattedDate = selectedDate.replace('-', '').replace('-', '').substring(2);
+  const formattedDate = date.replace('-', '').replace('-', '').substring(2);
   const { data: dinings } = useGetDinings(formattedDate);
   const [openMenu, setOpenMenu] = useState<OperatingStatus>(
-    getOpenMenuType(selectedMenuType, formattedDate),
+    getOpenMenuType(diningType, formattedDate),
   );
 
   const uploadImage = async ({ presignedUrl, file }: FileInfo) => {
@@ -97,8 +97,8 @@ export default function MenuCard({ selectedMenuType, selectedDate }: Props) {
   };
 
   useEffect(() => {
-    setOpenMenu(getOpenMenuType(selectedMenuType, formattedDate));
-  }, [selectedMenuType, formattedDate]);
+    setOpenMenu(getOpenMenuType(diningType, formattedDate));
+  }, [diningType, formattedDate]);
 
   return (
     <Suspense fallback={<div />}>

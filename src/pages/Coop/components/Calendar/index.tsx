@@ -1,67 +1,49 @@
-import { getDayOfWeek } from 'pages/Coop/hook/useGetDayOfWeek';
 import cn from 'utils/className';
+import { getDayOfWeek } from 'utils/date';
 
 import dayjs from 'dayjs';
 
 import styles from './Calendar.module.scss';
 
-interface DateProps {
-  selectedDate: string;
+interface Props {
+  selectedDate: string; // .format('YYYY-MM-DD') 형식
   setSelectedDate: (dateType: string) => void;
 }
-export default function Calendar({ selectedDate, setSelectedDate }: DateProps) {
+export default function Calendar({ selectedDate, setSelectedDate }: Props) {
   const today = dayjs();
-  const weekDays = Array.from({ length: 7 }, (_, i) => today.add(i - 3, 'day'));
+  const weekDays = Array.from(
+    { length: 7 },
+    (_, i) => today.add(i - 3, 'day').format('YYYY-MM-DD'),
+  );
 
   return (
-    <div className={styles.container__calendar}>
-      <div className={styles.container__week}>
-        {weekDays.map((day) => (
-          <div key={day.format('YYYY-MM-DD')}>
-            <div className={styles['container__date--common']}>{getDayOfWeek(day.format('YYYY-MM-DD'))}</div>
-          </div>
-        ))}
-      </div>
-      <div className={styles.container__date}>
-        {weekDays.map((day) => {
-          const dayFormat = day.format('YYYY-MM-DD');
-          return (
-            <div
-              key={dayFormat}
-              tabIndex={0}
-              role="button"
-              onClick={() => setSelectedDate(dayFormat)}
-              className={cn({
-                [styles['container__date--wrapper']]: true,
-                [styles['container__date--future']]: day.isAfter(today, 'day'),
-                [styles['container__date--today-font']]: day.isSame(today, 'day'),
-              })}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  setSelectedDate(dayFormat);
-                }
-              }}
-            >
-              <div
-                className={cn({
-                  [styles['container__date--selected']]: dayFormat === selectedDate,
-                  [styles['container__date--common']]: !day.isSame(today, 'day') && dayFormat !== selectedDate,
-                  [styles['cursor-pointer']]: true,
-                  [styles['container__date--wrapper']]: day.isSame(today, 'day'),
-                  [styles['container__date--today']]: day.isSame(today, 'day') && dayFormat !== selectedDate,
-                })}
-              >
-                {day.format('DD')}
-              </div>
-              <div className={cn({
-                [styles['container__today--border']]: day.isSame(today, 'day'),
-                [styles['container__common--border']]: !day.isSame(today, 'day'),
-              })}
-              />
-            </div>
-          );
-        })}
-      </div>
+    <div className={styles.container}>
+      {weekDays.map((day) => (
+        <button
+          key={day}
+          type="button"
+          className={styles.day}
+          onClick={() => setSelectedDate(day)}
+        >
+          <span className={cn({
+            [styles['day-of-week']]: true,
+            [styles['day-of-week--after']]: dayjs(day).isAfter(today, 'day'),
+            [styles['day-of-week--selected']]: day === selectedDate,
+          })}
+          >
+            {getDayOfWeek(day)}
+          </span>
+          <span className={cn({
+            [styles.date]: true,
+            [styles['date--previous']]: dayjs(day).isBefore(today, 'day'),
+            [styles['date--today']]: day === today.format('YYYY-MM-DD'),
+            [styles['date--selected']]: day === selectedDate,
+          })}
+          >
+            {dayjs(day).format('DD')}
+          </span>
+        </button>
+      ))}
     </div>
   );
 }

@@ -4,20 +4,20 @@ import cn from 'utils/className';
 import styles from './MenuType.module.scss';
 
 interface MenuTypeProps {
-  selectedMenuType: DiningType;
-  setSelectedMenuType: (menuType: DiningType) => void;
+  diningType: DiningType;
+  setDiningType: (diningType: DiningType) => void;
 }
 
-export default function MenuType({ selectedMenuType, setSelectedMenuType }: MenuTypeProps) {
+export default function MenuType({ diningType, setDiningType }: MenuTypeProps) {
   return (
     <div className={styles.place__container}>
       <button
         className={cn({
-          [styles['place__button--selected']]: selectedMenuType === 'BREAKFAST',
-          [styles.place__button]: selectedMenuType !== 'BREAKFAST',
+          [styles['place__button--selected']]: diningType === 'BREAKFAST',
+          [styles.place__button]: diningType !== 'BREAKFAST',
         })}
-        onClick={() => setSelectedMenuType('BREAKFAST')}
-        onKeyDown={(e) => e.key === 'Enter' && setSelectedMenuType('BREAKFAST')}
+        onClick={() => setDiningType('BREAKFAST')}
+        onKeyDown={(e) => e.key === 'Enter' && setDiningType('BREAKFAST')}
         type="button"
         tabIndex={0}
       >
@@ -25,11 +25,11 @@ export default function MenuType({ selectedMenuType, setSelectedMenuType }: Menu
       </button>
       <button
         className={cn({
-          [styles['place__button--selected']]: selectedMenuType === 'LUNCH',
-          [styles.place__button]: selectedMenuType !== 'LUNCH',
+          [styles['place__button--selected']]: diningType === 'LUNCH',
+          [styles.place__button]: diningType !== 'LUNCH',
         })}
-        onClick={() => setSelectedMenuType('LUNCH')}
-        onKeyDown={(e) => e.key === 'Enter' && setSelectedMenuType('LUNCH')}
+        onClick={() => setDiningType('LUNCH')}
+        onKeyDown={(e) => e.key === 'Enter' && setDiningType('LUNCH')}
         type="button"
         tabIndex={0}
       >
@@ -37,11 +37,11 @@ export default function MenuType({ selectedMenuType, setSelectedMenuType }: Menu
       </button>
       <button
         className={cn({
-          [styles['place__button--selected']]: selectedMenuType === 'DINNER',
-          [styles.place__button]: selectedMenuType !== 'DINNER',
+          [styles['place__button--selected']]: diningType === 'DINNER',
+          [styles.place__button]: diningType !== 'DINNER',
         })}
-        onClick={() => setSelectedMenuType('DINNER')}
-        onKeyDown={(e) => e.key === 'Enter' && setSelectedMenuType('DINNER')}
+        onClick={() => setDiningType('DINNER')}
+        onKeyDown={(e) => e.key === 'Enter' && setDiningType('DINNER')}
         type="button"
         tabIndex={0}
       >
