@@ -1,40 +1,29 @@
-.place {
-  &__container {
-    display: flex;
-    height: 45px;
-    background-color: #fff;
-    align-items: center;
-    justify-content: center;
-    margin-top: 8px;
-    margin-bottom: -10px;
-  }
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+  background-color: #fff;
+  margin-top: 8px;
+  margin-bottom: -10px;
+}
 
-  &__button {
-    flex-grow: 1;
-    height: 35px;
-    color: #8e8e8e;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-family: Pretendard, sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    border-bottom: 1.5px solid #e1e1e1;
-  }
+.button {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  background-color: #fff;
+  color: #8e8e8e;
+  font-family: Pretendard, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  border-bottom: 1.5px solid #e1e1e1;
+  cursor: pointer;
 
-  &__button--selected {
-    flex-grow: 1;
-    height: 35px;
+  &--selected {
     color: #175c8e;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-family: Pretendard, sans-serif;
-    font-size: 14px;
     font-weight: 500;
     border-bottom: 1.5px solid #10477a;
   }

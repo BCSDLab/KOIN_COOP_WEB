@@ -12,6 +12,8 @@ export const DiningTypeSchema = z.union([
   z.literal('DINNER'),
 ]);
 
+export const DINING_TYPES = ['BREAKFAST', 'LUNCH', 'DINNER'] as const;
+
 export const DINING_TYPE_MAP = {
   BREAKFAST: '아침',
   LUNCH: '점심',

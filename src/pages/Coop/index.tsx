@@ -10,15 +10,15 @@ import dayjs from 'dayjs';
 import styles from './Coop.module.scss';
 
 export default function Coop() {
+  const [date, setDate] = useState(dayjs().format('YYYY-MM-DD'));
   const [diningType, setDiningType] = useState(getDiningTypeOnTime());
-  const [selectedDate, setSelectedDate] = useState(dayjs().format('YYYY-MM-DD'));
 
   return (
     <div className={styles['container-wrapper']}>
       <div className={styles.container}>
-        <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-        <DiningTypeSelect diningType={diningType} setDiningType={setDiningType} />
-        <DiningBlocks diningType={diningType} date={selectedDate} />
+        <Calendar selectedDate={date} setSelectedDate={setDate} />
+        <DiningTypeSelect selectedDiningType={diningType} setSelectedDiningType={setDiningType} />
+        <DiningBlocks diningType={diningType} date={date} />
       </div>
     </div>
   );
