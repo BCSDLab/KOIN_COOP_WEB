@@ -115,18 +115,15 @@ export default function DiningBlocks({ diningType, date }: Props) {
                       onClick={() => fileInputRefs.current[dining.id]?.click()}
                     >
                       {dining.image_url ? (
-                        <img src={dining.image_url} alt="" className={styles.card__image} />
+                        <img src={dining.image_url} alt="" className={styles.content__image} />
                       ) : (
                         !dining.soldout_at && (
-                          <div className={styles['card__image--no-image']}>
-                            <NoPhotoIcon />
-                          </div>
+                          <NoPhotoIcon />
                         )
                       )}
                       {dining.soldout_at && (
-                        <div className={styles['card__image--sold-out']}>
+                        <div className={styles['content__image--sold-out']}>
                           <SoldOutIcon />
-                          <span>품절된 메뉴입니다.</span>
                         </div>
                       )}
                     </button>

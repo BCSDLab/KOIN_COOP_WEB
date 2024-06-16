@@ -67,7 +67,10 @@
     width: 200px;
     height: 130px;
     border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #fff;
     overflow: hidden;
+    cursor: pointer;
 
     & img {
       width: 100%;
@@ -75,9 +78,16 @@
       object-fit: cover;
     }
 
-    &--no-image {
-      box-sizing: border-box;
-      overflow: visible;
+    &--sold-out {
+      width: 200px;
+      height: 130px;
+      background: linear-gradient(0deg, rgb(0 0 0 / 50%) 0%, rgb(0 0 0 / 50%) 100%);
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border-radius: 8px;
     }
   }
 
