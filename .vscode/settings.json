@@ -5,7 +5,8 @@
     "**/.eslintrc.json": true,
     "**/tsconfig.json": true,
     "**/.yarn": true,
-    "**/.pnp.*": true
+    "**/.pnp.*": true,
+    "**.svg": true
   },
   "eslint.nodePath": ".yarn/sdks",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
