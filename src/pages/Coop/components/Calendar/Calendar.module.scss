@@ -11,7 +11,7 @@
   height: 55px;
   display: flex;
   flex-direction: column;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
   background-color: transparent;
   cursor: pointer;
@@ -61,7 +61,7 @@
     border: 1px solid #175c8e;
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: -9px;
       border: 1px solid #175c8e;

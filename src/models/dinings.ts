@@ -12,7 +12,7 @@ export const DiningTypeSchema = z.union([
   z.literal('DINNER'),
 ]);
 
-export const DINING_TYPES = ['BREAKFAST', 'LUNCH', 'DINNER'] as const;
+export const DINING_TYPES: DiningType[] = ['BREAKFAST', 'LUNCH', 'DINNER'];
 
 export const DINING_TYPE_MAP = {
   BREAKFAST: '아침',
@@ -30,7 +30,9 @@ export const PlaceSchema = z.union([
   z.literal('2캠퍼스'),
 ]);
 
-export const Dining = z.object({
+export const MANAGING_PLACE: DiningPlace[] = ['A코너', 'B코너', 'C코너'];
+
+export const OriginalDining = z.object({
   id: z.number(),
   date: z.string(),
   type: DiningTypeSchema,
@@ -46,8 +48,15 @@ export const Dining = z.object({
   changed_at: z.string().nullable(),
 });
 
+export type OriginalDining = z.infer<typeof OriginalDining>;
+
+export const OriginalDinings = z.array(OriginalDining);
+
+export const Dining = OriginalDining.omit({ menu: true }).extend({
+  menus: z.array(z.object({
+    id: z.number(),
+    name: z.string(),
+  })),
+});
+
 export type Dining = z.infer<typeof Dining>;
-
-export const Dinings = z.array(Dining);
-
-export type Dinings = z.infer<typeof Dinings>;

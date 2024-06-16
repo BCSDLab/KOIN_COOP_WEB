@@ -4,16 +4,16 @@ import {
 } from 'react';
 
 import { getCoopUrl } from 'api/uploadFile';
-import Photo from 'assets/svg/coop/photo.svg?react';
-import SoldOut from 'assets/svg/coop/sold-out.svg?react';
-import {
-  DiningPlace, Dining, DiningType,
-} from 'models/dinings';
+import NoPhotoIcon from 'assets/svg/coop/no-photo.svg?react';
+import SoldOutIcon from 'assets/svg/coop/sold-out.svg?react';
+import { Dining, DiningType } from 'models/dinings';
+import { FileInfo } from 'models/file';
 import SoldOutCheckModal from 'pages/Coop/components/SoldOutCheckModal';
 import SoldOutToggleButton from 'pages/Coop/components/SoldOutToggleButton';
 import { getOpenMenuType, OperatingStatus, OPEN } from 'pages/Coop/hook/useGetCurrentMenuType';
 import { useUploadDiningImage, useSoldOut } from 'query/coop';
 import { useGetDinings } from 'query/dinings';
+import { filterDinings } from 'utils/dinings';
 
 import axios from 'axios';
 
@@ -24,11 +24,6 @@ interface Props {
   date: string;
 }
 
-interface FileInfo {
-  file: File;
-  presignedUrl: string;
-}
-
 export default function DiningBlocks({ diningType, date }: Props) {
   const { uploadDiningImageMutation } = useUploadDiningImage();
   const { toggleSoldOut } = useSoldOut();
@@ -36,7 +31,8 @@ export default function DiningBlocks({ diningType, date }: Props) {
   const [isSoldOutModalOpen, setIsSoldOutModalOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState<Dining | null>(null);
   const formattedDate = date.replace('-', '').replace('-', '').substring(2);
-  const { data: dinings } = useGetDinings(formattedDate);
+  const { dinings } = useGetDinings(formattedDate);
+  const filteredDinings = filterDinings(dinings, diningType);
   const [openMenu, setOpenMenu] = useState<OperatingStatus>(
     getOpenMenuType(diningType, formattedDate),
   );
@@ -69,17 +65,6 @@ export default function DiningBlocks({ diningType, date }: Props) {
     }
   };
 
-  const handleImageClick = (menuId: number) => () => {
-    fileInputRefs.current[menuId]?.click();
-  };
-
-  const filteredData: Dining[] = dinings.filter((menu) => ['A코너', 'B코너', 'C코너'].includes(menu.place));
-
-  const getDiningDataForCorner = (
-    place: DiningPlace,
-    diningData: Dining[],
-  ): Dining | null => diningData.find((menu) => menu.place === place) || null;
-
   const handleToggleSoldOutModal = (menu: Dining) => {
     setSelectedMenu(menu);
     setIsSoldOutModalOpen(true);
@@ -101,114 +86,79 @@ export default function DiningBlocks({ diningType, date }: Props) {
   }, [diningType, formattedDate]);
 
   return (
-    <Suspense fallback={<div />}>
-      <div className={styles.container}>
-        {(['A코너', 'B코너', 'C코너'] as const).map((place) => {
-          const menu = getDiningDataForCorner(place, filteredData);
-          return (
-            <div key={place} className={styles.card}>
-              <div className={styles.card__header}>
-                {menu && menu.changed_at !== null ? (
-                  <div className={styles['card__common-wrapper']}>
-                    <span className={styles.card__title}>{place}</span>
-                    <div className={styles.card__kcal}>
-                      {`${menu.kcal}kcal`}
-                    </div>
-                    <div className={styles.card__changed}>변경됨</div>
-                  </div>
-                ) : (
-                  menu && (
-                    <div className={styles['card__common-wrapper']}>
-                      <span className={styles.card__title}>{place}</span>
-                      <div className={styles.card__kcal}>
-                        {`${menu.kcal}kcal`}
-                      </div>
-                    </div>
-                  )
-                )}
-                <div className={styles['card__common-wrapper']}>
-                  {menu && <span className={styles['card__sold-out']}>품절</span>}
-                  {menu && (
-                    <SoldOutToggleButton
-                      menu={menu}
-                      onClick={() => handleToggleSoldOutModal(menu)}
-                    />
-                  )}
+    <>
+      <Suspense fallback={<div />}>
+        <div className={styles.container}>
+          {filteredDinings.map((dining) => (
+            <div
+              key={dining.id}
+              className={styles.card}
+            >
+              {dining.menus[0].name === '미제공' ? (
+                <div className={styles['card--not-served']}>
+                  {`${dining.place}에서 제공하는 식단 정보가 없습니다.`}
                 </div>
-              </div>
-              <div className={styles.card__wrapper}>
-                {menu ? (
-                  <>
-                    <div className={styles.image__wrapper}>
-                      <div
-                        className={styles.card__image}
-                        onClick={handleImageClick(menu.id)}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={(event) => {
-                          if (event.key === 'Enter') handleImageClick(menu.id)();
-                        }}
-                      >
-                        {menu.image_url ? (
-                          <img src={menu.image_url} alt="" className={styles.card__image} />
-                        ) : (
-                          !menu.soldout_at && (
-                            <div className={styles['card__image--add']}>
-                              <Photo />
-                              <span>사진 추가하기</span>
-                            </div>
-                          )
-                        )}
-                        {menu.soldout_at && (
-                          <div className={styles['card__image--sold-out']}>
-                            <SoldOut />
-                            <span>품절된 메뉴입니다.</span>
+              ) : (
+                <div>
+                  <div className={styles.header}>
+                    <span className={styles.header__title}>{dining.place}</span>
+                    <span className={styles.header__kcal}>{`${dining.kcal}kcal`}</span>
+                    <SoldOutToggleButton
+                      menu={dining}
+                      onClick={() => handleToggleSoldOutModal(dining)}
+                    />
+                  </div>
+                  <div className={styles.content}>
+                    <button
+                      type="button"
+                      className={styles.content__image}
+                      onClick={() => fileInputRefs.current[dining.id]?.click()}
+                    >
+                      {dining.image_url ? (
+                        <img src={dining.image_url} alt="" className={styles.card__image} />
+                      ) : (
+                        !dining.soldout_at && (
+                          <div className={styles['card__image--no-image']}>
+                            <NoPhotoIcon />
                           </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className={styles.card__content}>
-                      {menu.menu.map((item) => (
-                        <div key={item}>{item}</div>
+                        )
+                      )}
+                      {dining.soldout_at && (
+                        <div className={styles['card__image--sold-out']}>
+                          <SoldOutIcon />
+                          <span>품절된 메뉴입니다.</span>
+                        </div>
+                      )}
+                    </button>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      onChange={handleImageChange(dining.id)}
+                      ref={(e) => { fileInputRefs.current[dining.id] = e; }}
+                    />
+                    <div className={styles.content__menus}>
+                      {dining.menus.map((menu) => (
+                        <div key={menu.id} className={styles['content__menu-name']}>
+                          {menu.name}
+                        </div>
                       ))}
                     </div>
-                  </>
-                ) : (
-                  <div className={styles['card__content--none']}>
-                    {place}
-                    에서 제공하는 식단 정보가 없습니다.
                   </div>
-                )}
-              </div>
-              <input
-                type="file"
-                accept="image/*"
-                style={{ display: 'none' }}
-                onChange={menu ? handleImageChange(menu.id) : undefined}
-                ref={(el) => {
-                  if (menu) {
-                    fileInputRefs.current[menu.id] = el;
-                  }
-                }}
-              />
+                </div>
+              )}
             </div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
+      </Suspense>
       <SoldOutCheckModal
-        modalSize="mobile"
-        hasFooter={false}
         isOpen={isSoldOutModalOpen}
-        isOverflowVisible
-        onCancel={handleSoldOutModalClose}
-        buttonText="품절설정"
       >
         {openMenu === OPEN ? (
           selectedMenu?.soldout_at === null ? (
             <div className={styles.modal}>
               <span className={styles.modal__header}>
-                {selectedMenu?.place}
-                를
+                {`${selectedMenu?.place}를 `}
                 <span className={styles['modal__header--primary']}>품절 상태</span>
                 로 설정할까요?
               </span>
@@ -315,6 +265,6 @@ export default function DiningBlocks({ diningType, date }: Props) {
           </div>
         )}
       </SoldOutCheckModal>
-    </Suspense>
+    </>
   );
 }

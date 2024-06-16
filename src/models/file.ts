@@ -9,3 +9,8 @@ export interface FileResponse {
   file_url: string;
   expiration_date: string;
 }
+
+export interface FileInfo {
+  file: File;
+  presignedUrl: string;
+}
