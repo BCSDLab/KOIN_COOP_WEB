@@ -6,14 +6,14 @@ import dayjs from 'dayjs';
 import styles from './Calendar.module.scss';
 
 interface Props {
-  selectedDate: string; // .format('YYYY-MM-DD') 형식
+  selectedDate: string; // .format('YYMMDD') 형식
   setSelectedDate: (dateType: string) => void;
 }
 export default function Calendar({ selectedDate, setSelectedDate }: Props) {
   const today = dayjs();
   const weekDays = Array.from(
     { length: 7 },
-    (_, i) => today.add(i - 3, 'day').format('YYYY-MM-DD'),
+    (_, i) => today.add(i - 3, 'day').format('YYMMDD'),
   );
 
   return (
@@ -36,11 +36,11 @@ export default function Calendar({ selectedDate, setSelectedDate }: Props) {
           <span className={cn({
             [styles.date]: true,
             [styles['date--previous']]: dayjs(day).isBefore(today, 'day'),
-            [styles['date--today']]: day === today.format('YYYY-MM-DD'),
+            [styles['date--today']]: day === today.format('YYMMDD'),
             [styles['date--selected']]: day === selectedDate,
           })}
           >
-            {dayjs(day).format('DD')}
+            {day.slice(4)}
           </span>
         </button>
       ))}

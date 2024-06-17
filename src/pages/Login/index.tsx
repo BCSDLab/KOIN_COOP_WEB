@@ -20,8 +20,8 @@ import ApprovalModal from './ApprovalModal';
 import styles from './Login.module.scss';
 
 export default function Login() {
-  const { value: isBlind, changeValue: changeIsBlind } = useBooleanState();
-  const { value: isAutoLogin, changeValue: changeIsAutoLogin } = useBooleanState(true);
+  const [isBlind,,,, changeIsBlind] = useBooleanState();
+  const [isAutoLogin,,,, changeIsAutoLogin] = useBooleanState(true);
   const { isMobile } = useMediaQuery();
   const { login, isError: isServerError } = useLogin();
   const { setUserType } = useUserTypeStore();

@@ -1,21 +1,22 @@
-/* eslint-disable no-nested-ternary */
 import {
-  Suspense, useEffect, useRef, useState,
+  Suspense, useRef, useState,
 } from 'react';
 
 import { getCoopUrl } from 'api/uploadFile';
 import NoPhotoIcon from 'assets/svg/coop/no-photo.svg?react';
 import SoldOutIcon from 'assets/svg/coop/sold-out.svg?react';
+import useBooleanState from 'hooks/useBooleanState';
 import { Dining, DiningType } from 'models/dinings';
 import { FileInfo } from 'models/file';
-import SoldOutCheckModal from 'pages/Coop/components/SoldOutCheckModal';
+import ConfirmModal from 'pages/Coop/components/ConfirmModal';
 import SoldOutToggleButton from 'pages/Coop/components/SoldOutToggleButton';
-import { getOpenMenuType, OperatingStatus, OPEN } from 'pages/Coop/hook/useGetCurrentMenuType';
-import { useUploadDiningImage, useSoldOut } from 'query/coop';
+import { useSoldOut, useUploadDiningImage } from 'query/coop';
 import { useGetDinings } from 'query/dinings';
 import { filterDinings } from 'utils/dinings';
+import { getIsOperating } from 'utils/operate';
 
 import axios from 'axios';
+import { createPortal } from 'react-dom';
 
 import styles from './DiningBlocks.module.scss';
 
@@ -25,17 +26,24 @@ interface Props {
 }
 
 export default function DiningBlocks({ diningType, date }: Props) {
-  const { uploadDiningImageMutation } = useUploadDiningImage();
-  const { toggleSoldOut } = useSoldOut();
-  const fileInputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
-  const [isSoldOutModalOpen, setIsSoldOutModalOpen] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState<Dining | null>(null);
-  const formattedDate = date.replace('-', '').replace('-', '').substring(2);
-  const { dinings } = useGetDinings(formattedDate);
+  const { dinings } = useGetDinings(date);
   const filteredDinings = filterDinings(dinings, diningType);
-  const [openMenu, setOpenMenu] = useState<OperatingStatus>(
-    getOpenMenuType(diningType, formattedDate),
-  );
+  const [selectedDining, setSelectedDining] = useState({} as Dining);
+  const { uploadDiningImageMutation } = useUploadDiningImage();
+  const fileInputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
+  const isOperating = getIsOperating(diningType, date);
+  const [isModalOpen, , openModal, closeModal] = useBooleanState(false);
+  const toggleSoldOut = useSoldOut();
+
+  const hadleSoldOutClick = (dining: Dining) => {
+    setSelectedDining(dining);
+    openModal();
+  };
+
+  const handleConfirm = () => {
+    toggleSoldOut(selectedDining);
+    closeModal();
+  };
 
   const uploadImage = async ({ presignedUrl, file }: FileInfo) => {
     await axios.put(presignedUrl, file, {
@@ -65,26 +73,6 @@ export default function DiningBlocks({ diningType, date }: Props) {
     }
   };
 
-  const handleToggleSoldOutModal = (menu: Dining) => {
-    setSelectedMenu(menu);
-    setIsSoldOutModalOpen(true);
-  };
-
-  const handleSoldOutModalClose = () => {
-    setIsSoldOutModalOpen(false);
-  };
-
-  const handleSoldOutModalConfirm = () => {
-    if (selectedMenu) {
-      toggleSoldOut(selectedMenu);
-      setIsSoldOutModalOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    setOpenMenu(getOpenMenuType(diningType, formattedDate));
-  }, [diningType, formattedDate]);
-
   return (
     <>
       <Suspense fallback={<div />}>
@@ -104,8 +92,8 @@ export default function DiningBlocks({ diningType, date }: Props) {
                     <span className={styles.header__title}>{dining.place}</span>
                     <span className={styles.header__kcal}>{`${dining.kcal}kcal`}</span>
                     <SoldOutToggleButton
-                      menu={dining}
-                      onClick={() => handleToggleSoldOutModal(dining)}
+                      dining={dining}
+                      onClick={() => hadleSoldOutClick(dining)}
                     />
                   </div>
                   <div className={styles.content}>
@@ -148,120 +136,15 @@ export default function DiningBlocks({ diningType, date }: Props) {
           ))}
         </div>
       </Suspense>
-      <SoldOutCheckModal
-        isOpen={isSoldOutModalOpen}
-      >
-        {openMenu === OPEN ? (
-          selectedMenu?.soldout_at === null ? (
-            <div className={styles.modal}>
-              <span className={styles.modal__header}>
-                {`${selectedMenu?.place}를 `}
-                <span className={styles['modal__header--primary']}>품절 상태</span>
-                로 설정할까요?
-              </span>
-              <span className={styles.modal__description}>알림이 발송되니 신중하게 설정해주세요.</span>
-              <div className={styles.modal__wrapper}>
-                <button
-                  type="button"
-                  onClick={handleSoldOutModalClose}
-                  className={styles.modal__button}
-                >
-                  취소
-                </button>
-                <button
-                  type="button"
-                  onClick={handleSoldOutModalConfirm}
-                  className={styles['modal__button--primary']}
-                >
-                  품절설정
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className={styles.modal}>
-              <span className={styles.modal__header}>
-                {selectedMenu?.place}
-                를
-                <span className={styles['modal__header--primary']}>품절 취소</span>
-                로 설정할까요?
-              </span>
-              <span className={styles.modal__description}>이미 발송된 알림은 취소되지 않습니다.</span>
-              <div className={styles.modal__wrapper}>
-                <button
-                  type="button"
-                  onClick={handleSoldOutModalClose}
-                  className={styles.modal__button}
-                >
-                  취소
-                </button>
-                <button
-                  type="button"
-                  onClick={handleSoldOutModalConfirm}
-                  className={styles['modal__button--primary']}
-                >
-                  품절취소
-                </button>
-              </div>
-            </div>
-          )
-        ) : selectedMenu?.soldout_at === null ? (
-          <div className={styles.modal}>
-            <span className={styles.modal__header}>
-              현재
-              <span className={styles['modal__header--secondary']}>운영 중</span>
-              인 식단이 아닙니다.
-            </span>
-            <span className={styles.modal__description}>
-              {selectedMenu?.place}
-              를 품절 상태로 설정할까요?
-            </span>
-            <div className={styles.modal__wrapper}>
-              <button
-                type="button"
-                onClick={handleSoldOutModalClose}
-                className={styles.modal__button}
-              >
-                취소
-              </button>
-              <button
-                type="button"
-                onClick={handleSoldOutModalConfirm}
-                className={styles['modal__button--secondary']}
-              >
-                품절설정
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className={styles.modal}>
-            <span className={styles.modal__header}>
-              현재
-              <span className={styles['modal__header--secondary']}>운영 중</span>
-              인 식단이 아닙니다.
-            </span>
-            <span className={styles.modal__description}>
-              {selectedMenu?.place}
-              를 품절 취소로 설정할까요?
-            </span>
-            <div className={styles.modal__wrapper}>
-              <button
-                type="button"
-                onClick={handleSoldOutModalClose}
-                className={styles.modal__button}
-              >
-                취소
-              </button>
-              <button
-                type="button"
-                onClick={handleSoldOutModalConfirm}
-                className={styles['modal__button--secondary']}
-              >
-                품절취소
-              </button>
-            </div>
-          </div>
-        )}
-      </SoldOutCheckModal>
+      {isModalOpen && createPortal(
+        <ConfirmModal
+          isOperating={isOperating}
+          dining={selectedDining}
+          closeModal={closeModal}
+          confirm={() => handleConfirm()}
+        />,
+        document.body,
+      )}
     </>
   );
 }

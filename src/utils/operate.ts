@@ -2,10 +2,6 @@ import { DiningType } from 'models/dinings';
 
 import dayjs from 'dayjs';
 
-export type OperatingStatus = '운영중' | '운영종료';
-
-export const OPEN = '운영중';
-
 export const getDiningTypeOnTime = (): DiningType => {
   const now = new Date();
   const time = now.getHours() * 60 + now.getMinutes();
@@ -16,7 +12,7 @@ export const getDiningTypeOnTime = (): DiningType => {
 };
 
 // date = 'yyMMdd'
-export const getOpenMenuType = (selectedMenuType: DiningType, date: string): OperatingStatus => {
+export const getIsOperating = (selectedDiningType: DiningType, date: string) => {
   const today = dayjs().format('YYMMDD');
   const now = new Date();
   const hour = now.getHours();
@@ -24,20 +20,20 @@ export const getOpenMenuType = (selectedMenuType: DiningType, date: string): Ope
   const time = hour * 60 + minute;
 
   if (date !== today) {
-    return '운영종료';
+    return false;
   }
 
   // 08:00~10:00
-  if (selectedMenuType === 'BREAKFAST' && (time >= 480 && time <= 600)) {
-    return '운영중';
+  if (selectedDiningType === 'BREAKFAST' && (time >= 480 && time <= 600)) {
+    return true;
   }
   // 11:00~14:00
-  if (selectedMenuType === 'LUNCH' && (time >= 660 && time <= 840)) {
-    return '운영중';
+  if (selectedDiningType === 'LUNCH' && (time >= 660 && time <= 840)) {
+    return true;
   }
   // 17:00~19:00
-  if (selectedMenuType === 'DINNER' && (time >= 1020 && time <= 1140)) {
-    return '운영중';
+  if (selectedDiningType === 'DINNER' && (time >= 1020 && time <= 1140)) {
+    return true;
   }
-  return '운영종료';
+  return false;
 };

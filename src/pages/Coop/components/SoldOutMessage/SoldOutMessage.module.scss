@@ -1,0 +1,37 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 237px;
+  height: 59px;
+  background-color: #ffffff;
+  overflow: auto;
+  border-radius: 4px;
+
+  &__title {
+    font-family: Pretendard, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28.8px;
+    text-align: center;
+    color: #1f1f1f;
+
+    &--blue {
+      color: #175c8e;
+    }
+
+    &--orange {
+      color: #f7941e;
+    }
+  }
+
+  &__subtitle {
+    font-family: Pretendard, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22.4px;
+    text-align: center;
+    color: #8e8e8e;
+  }
+}
