@@ -15,32 +15,33 @@ export default function Calendar({ selectedDate, setSelectedDate }: Props) {
     { length: 7 },
     (_, i) => today.add(i - 3, 'day').format('YYMMDD'),
   );
+  console.log(weekDays);
 
   return (
     <div className={styles.container}>
-      {weekDays.map((day) => (
+      {weekDays.map((date) => (
         <button
-          key={day}
+          key={date}
           type="button"
           className={styles.day}
-          onClick={() => setSelectedDate(day)}
+          onClick={() => setSelectedDate(date)}
         >
           <span className={cn({
             [styles['day-of-week']]: true,
-            [styles['day-of-week--after']]: dayjs(day).isAfter(today, 'day'),
-            [styles['day-of-week--selected']]: day === selectedDate,
+            [styles['day-of-week--after']]: dayjs(date).isAfter(today, 'day'),
+            [styles['day-of-week--selected']]: date === selectedDate,
           })}
           >
-            {getDayOfWeek(day)}
+            {getDayOfWeek(date)}
           </span>
           <span className={cn({
             [styles.date]: true,
-            [styles['date--previous']]: dayjs(day).isBefore(today, 'day'),
-            [styles['date--today']]: day === today.format('YYMMDD'),
-            [styles['date--selected']]: day === selectedDate,
+            [styles['date--previous']]: dayjs(date).isBefore(today, 'day'),
+            [styles['date--today']]: date === today.format('YYMMDD'),
+            [styles['date--selected']]: date === selectedDate,
           })}
           >
-            {day.slice(4)}
+            {date.slice(4)}
           </span>
         </button>
       ))}
