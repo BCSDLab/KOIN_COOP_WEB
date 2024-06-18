@@ -1,12 +1,10 @@
-import { getCoopMe } from 'api/auth';
-import { patchSoldOut, uploadDiningImage } from 'api/coop';
-import { DiningImagesParams, SoldOutParams } from 'models/coop';
+import { patchSoldOut } from 'api/coop';
+import { SoldOutParams } from 'models/coop';
 import { Dining } from 'models/dinings';
 
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 
-import { coopKeys } from './KeyFactory/coopKeys';
 import { diningsKeys } from './KeyFactory/diningsKeys';
 
 export const useSoldOut = () => {
@@ -24,25 +22,4 @@ export const useSoldOut = () => {
     },
   });
   return toggleSoldOut;
-};
-
-export const useUploadDiningImage = () => {
-  const queryClient = useQueryClient();
-  const { mutate: uploadDiningImageMutation } = useMutation({
-    mutationFn: (data: DiningImagesParams) => uploadDiningImage(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries();
-    },
-  });
-  return {
-    uploadDiningImageMutation,
-  };
-};
-
-export const useSuspenseCoopUser = () => {
-  const { data } = useSuspenseQuery({
-    queryKey: coopKeys.coopInfo,
-    queryFn: getCoopMe,
-  });
-  return { data };
 };

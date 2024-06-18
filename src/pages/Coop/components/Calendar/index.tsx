@@ -15,7 +15,6 @@ export default function Calendar({ selectedDate, setSelectedDate }: Props) {
     { length: 7 },
     (_, i) => today.add(i - 3, 'day').format('YYMMDD'),
   );
-  console.log(weekDays);
 
   return (
     <div className={styles.container}>

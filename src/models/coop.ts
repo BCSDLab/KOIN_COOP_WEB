@@ -7,9 +7,9 @@ export const SoldOutParams = z.object({
 
 export type SoldOutParams = z.infer<typeof SoldOutParams>;
 
-export const DiningImagesParams = z.object({
+export const DiningImageParams = z.object({
   menu_id: z.number(),
   image_url: z.string(),
 });
 
-export type DiningImagesParams = z.infer<typeof DiningImagesParams>;
+export type DiningImageParams = z.infer<typeof DiningImageParams>;

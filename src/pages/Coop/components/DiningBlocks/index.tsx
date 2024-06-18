@@ -2,16 +2,16 @@ import {
   Suspense, useRef, useState,
 } from 'react';
 
-import { getCoopUrl } from 'api/uploadFile';
 import NoPhotoIcon from 'assets/svg/coop/no-photo.svg?react';
 import SoldOutIcon from 'assets/svg/coop/sold-out.svg?react';
 import useBooleanState from 'hooks/useBooleanState';
 import { Dining, DiningType } from 'models/dinings';
-import { FileInfo } from 'models/file';
+import { UPLOAD_HEADER } from 'models/file';
 import ConfirmModal from 'pages/Coop/components/ConfirmModal';
 import SoldOutToggleButton from 'pages/Coop/components/SoldOutToggleButton';
-import { useSoldOut, useUploadDiningImage } from 'query/coop';
+import { useSoldOut } from 'query/coop';
 import { useGetDinings } from 'query/dinings';
+import { useUploadDiningImage, useUploadUrl } from 'query/upload';
 import { filterDinings } from 'utils/dinings';
 import { getIsOperating } from 'utils/operate';
 
@@ -29,11 +29,12 @@ export default function DiningBlocks({ diningType, date }: Props) {
   const { dinings } = useGetDinings(date);
   const filteredDinings = filterDinings(dinings, diningType);
   const [selectedDining, setSelectedDining] = useState({} as Dining);
-  const { uploadDiningImageMutation } = useUploadDiningImage();
   const fileInputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
   const isOperating = getIsOperating(diningType, date);
   const [isModalOpen, , openModal, closeModal] = useBooleanState(false);
   const toggleSoldOut = useSoldOut();
+  const getUploadUrl = useUploadUrl();
+  const uploadDiningImage = useUploadDiningImage();
 
   const hadleSoldOutClick = (dining: Dining) => {
     setSelectedDining(dining);
@@ -45,29 +46,15 @@ export default function DiningBlocks({ diningType, date }: Props) {
     closeModal();
   };
 
-  const uploadImage = async ({ presignedUrl, file }: FileInfo) => {
-    await axios.put(presignedUrl, file, {
-      headers: {
-        'Content-Type': 'image/jpeg, image/png, image/svg+xml, image/webp',
-      },
-    });
-  };
-
-  const handleImageChange = (menuId: number) => async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const file = event.target.files?.[0];
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>, diningId: number) => {
+    const file = e.target.files?.[0];
     if (file) {
-      const presigned = await getCoopUrl({
-        content_length: file.size,
-        content_type: file.type,
-        file_name: file.name,
-      });
-      if (presigned.data.pre_signed_url) {
-        await uploadImage({ presignedUrl: presigned.data.pre_signed_url, file });
-        uploadDiningImageMutation({
-          menu_id: menuId,
-          image_url: presigned.data.file_url,
+      const uploadUrl = await getUploadUrl(file);
+      if (uploadUrl) {
+        await axios.put(uploadUrl.pre_signed_url, file, UPLOAD_HEADER);
+        uploadDiningImage({
+          menu_id: diningId,
+          image_url: uploadUrl.file_url,
         });
       }
     }
@@ -119,7 +106,7 @@ export default function DiningBlocks({ diningType, date }: Props) {
                       type="file"
                       accept="image/*"
                       style={{ display: 'none' }}
-                      onChange={handleImageChange(dining.id)}
+                      onChange={(e) => handleImageChange(e, dining.id)}
                       ref={(e) => { fileInputRefs.current[dining.id] = e; }}
                     />
                     <div className={styles.content__menus}>
