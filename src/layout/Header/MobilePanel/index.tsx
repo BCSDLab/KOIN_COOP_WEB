@@ -78,7 +78,7 @@ export default function MobilePanel() {
         className={styles['mobile-header']}
       >
         <span className={styles['mobile-header__title']}>
-          {pathname === '/owner' || pathname === '/coop' ? (
+          {pathname === '/' ? (
             <MobileLogoIcon title="코인 로고" />
           ) : (CATEGORY_COOP
             .flatMap((categoryValue) => categoryValue.submenu)
@@ -122,7 +122,7 @@ export default function MobilePanel() {
               </div>
               <ul className={styles['mobile-header__auth-menu']}>
                 <li className={styles['mobile-header__my-info']}>
-                  <Link to="/owner/modify-info">
+                  <Link to="/">
                     내 정보
                   </Link>
                 </li>

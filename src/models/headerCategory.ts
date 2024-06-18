@@ -19,7 +19,7 @@ export const CATEGORY_COOP: HeaderCategory[] = [
     submenu: [
       {
         title: '식단정보',
-        link: '/coop',
+        link: '/',
         newFlag: true,
         planFlag: true,
         tag: null,

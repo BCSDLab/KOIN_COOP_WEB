@@ -5,23 +5,13 @@ import { DiningImageParams } from 'models/coop';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const useUploadUrl = () => {
-  const { mutateAsync } = useMutation({
+  const { mutateAsync: getUploadUrl } = useMutation({
     mutationFn: (file: File) => postUploadUrl({
       content_length: file.size,
       content_type: file.type,
       file_name: file.name,
     }),
   });
-
-  const getUploadUrl = async (file: File) => {
-    try {
-      const result = await mutateAsync(file);
-      return result;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  };
 
   return getUploadUrl;
 };
