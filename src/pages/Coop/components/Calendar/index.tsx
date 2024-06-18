@@ -27,7 +27,7 @@ export default function Calendar({ selectedDate, setSelectedDate }: Props) {
         >
           <span className={cn({
             [styles['day-of-week']]: true,
-            [styles['day-of-week--after']]: dayjs(date).isAfter(today, 'day'),
+            [styles['day-of-week--after']]: dayjs(`20${date}`).isAfter(today, 'day'),
             [styles['day-of-week--selected']]: date === selectedDate,
           })}
           >
@@ -35,7 +35,7 @@ export default function Calendar({ selectedDate, setSelectedDate }: Props) {
           </span>
           <span className={cn({
             [styles.date]: true,
-            [styles['date--previous']]: dayjs(date).isBefore(today, 'day'),
+            [styles['date--previous']]: dayjs(`20${date}`).isBefore(today, 'day'),
             [styles['date--today']]: date === today.format('YYMMDD'),
             [styles['date--selected']]: date === selectedDate,
           })}
