@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
+import { client } from 'api';
 import { postLogin, postLogout } from 'api/auth';
-import { LoginForm } from 'models/auth';
+import { LoginForm, LoginResponse } from 'models/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
 
 import { isKoinError, sendClientError } from '@bcsdlab/koin';
@@ -14,10 +15,8 @@ export const useLogin = () => {
   const {
     mutate, error, isError, isSuccess,
   } = useMutation({
-    mutationFn: (form: LoginForm) => postLogin({
-      email: form.email, password: form.password,
-    }),
-    onSuccess: async (data, form) => {
+    mutationFn: (form: LoginForm) => postLogin(form),
+    onSuccess: async (data: LoginResponse, form: LoginForm) => {
       if (data.token) {
         sessionStorage.setItem('access_token', data.token);
       }
@@ -32,24 +31,24 @@ export const useLogin = () => {
         setLoginError(err.message || '로그인을 실패했습니다.');
         sessionStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
-        if (err.status === 400) {
-          setLoginError('아이디 혹은 비밀번호가 일치하지 않습니다.');
-          return;
+
+        switch (err.status) {
+          case 400:
+            setLoginError('아이디 혹은 비밀번호가 일치하지 않습니다.');
+            break;
+          case 403:
+            setLoginErrorStatus(err.status);
+            setLoginError('관리자 승인 대기 중입니다.');
+            break;
+          case 404:
+            setLoginError('가입되지 않은 이메일입니다.');
+            break;
+          case 500:
+            setLoginError('서버 오류가 발생했습니다.');
+            break;
+          default:
+            sendClientError(err);
         }
-        if (err.status === 403) {
-          setLoginErrorStatus(err.status);
-          setLoginError('관리자 승인 대기 중입니다.');
-          return;
-        }
-        if (err.status === 404) {
-          setLoginError('가입되지 않은 이메일입니다.');
-          return;
-        }
-        if (err.status === 500) {
-          setLoginError('서버 오류가 발생했습니다.');
-          return;
-        }
-        sendClientError(err);
       }
     },
   });
