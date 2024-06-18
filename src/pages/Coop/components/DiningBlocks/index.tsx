@@ -62,67 +62,65 @@ export default function DiningBlocks({ diningType, date }: Props) {
 
   return (
     <>
-      <Suspense fallback={<div />}>
-        <div className={styles.container}>
-          {filteredDinings.map((dining) => (
-            <div
-              key={dining.id}
-              className={styles.card}
-            >
-              {dining.menus[0].name === '미제공' ? (
-                <div className={styles['card--not-served']}>
-                  {`${dining.place}에서 제공하는 식단 정보가 없습니다.`}
+      <div className={styles.container}>
+        {filteredDinings.map((dining) => (
+          <div
+            key={dining.id}
+            className={styles.card}
+          >
+            {dining.menus[0].name === '미제공' ? (
+              <div className={styles['card--not-served']}>
+                {`${dining.place}에서 제공하는 식단 정보가 없습니다.`}
+              </div>
+            ) : (
+              <div>
+                <div className={styles.header}>
+                  <span className={styles.header__title}>{dining.place}</span>
+                  <span className={styles.header__kcal}>{`${dining.kcal}kcal`}</span>
+                  <SoldOutToggleButton
+                    dining={dining}
+                    onClick={() => hadleSoldOutClick(dining)}
+                  />
                 </div>
-              ) : (
-                <div>
-                  <div className={styles.header}>
-                    <span className={styles.header__title}>{dining.place}</span>
-                    <span className={styles.header__kcal}>{`${dining.kcal}kcal`}</span>
-                    <SoldOutToggleButton
-                      dining={dining}
-                      onClick={() => hadleSoldOutClick(dining)}
-                    />
-                  </div>
-                  <div className={styles.content}>
-                    <button
-                      type="button"
-                      className={styles.content__image}
-                      onClick={() => fileInputRefs.current[dining.id]?.click()}
-                    >
-                      {dining.image_url ? (
-                        <img src={dining.image_url} alt="" className={styles.content__image} />
-                      ) : (
-                        !dining.soldout_at && (
-                          <NoPhotoIcon />
-                        )
-                      )}
-                      {dining.soldout_at && (
-                        <div className={styles['content__image--sold-out']}>
-                          <SoldOutIcon />
-                        </div>
-                      )}
-                    </button>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      style={{ display: 'none' }}
-                      onChange={(e) => handleImageChange(e, dining.id)}
-                      ref={(e) => { fileInputRefs.current[dining.id] = e; }}
-                    />
-                    <div className={styles.content__menus}>
-                      {dining.menus.map((menu) => (
-                        <div key={menu.id} className={styles['content__menu-name']}>
-                          {menu.name}
-                        </div>
-                      ))}
-                    </div>
+                <div className={styles.content}>
+                  <button
+                    type="button"
+                    className={styles.content__image}
+                    onClick={() => fileInputRefs.current[dining.id]?.click()}
+                  >
+                    {dining.image_url ? (
+                      <img src={dining.image_url} alt="" className={styles.content__image} />
+                    ) : (
+                      !dining.soldout_at && (
+                        <NoPhotoIcon />
+                      )
+                    )}
+                    {dining.soldout_at && (
+                      <div className={styles['content__image--sold-out']}>
+                        <SoldOutIcon />
+                      </div>
+                    )}
+                  </button>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={(e) => handleImageChange(e, dining.id)}
+                    ref={(e) => { fileInputRefs.current[dining.id] = e; }}
+                  />
+                  <div className={styles.content__menus}>
+                    {dining.menus.map((menu) => (
+                      <div key={menu.id} className={styles['content__menu-name']}>
+                        {menu.name}
+                      </div>
+                    ))}
                   </div>
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </Suspense>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
       {isModalOpen && createPortal(
         <ConfirmModal
           isOperating={isOperating}

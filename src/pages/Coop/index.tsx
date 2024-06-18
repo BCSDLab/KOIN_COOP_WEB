@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 import Calendar from 'pages/Coop/components/Calendar';
 import DiningBlocks from 'pages/Coop/components/DiningBlocks';
@@ -18,7 +18,9 @@ export default function Coop() {
       <div className={styles.container}>
         <Calendar selectedDate={date} setSelectedDate={setDate} />
         <DiningTypeSelect selectedDiningType={diningType} setSelectedDiningType={setDiningType} />
-        <DiningBlocks diningType={diningType} date={date} />
+        <Suspense>
+          <DiningBlocks diningType={diningType} date={date} />
+        </Suspense>
       </div>
     </div>
   );
