@@ -10,7 +10,7 @@ const SOLD_OUT_MESSAGE = {
   cancelTitle: '를 품절 취소로 설정할까요?',
   cancelSubtitle: '이미 발송된 알림은 취소되지 않습니다.',
   notOperating: '현재 운영 중인 식단이 아닙니다.',
-};
+} as const;
 
 interface Props {
   isOperating: boolean;
@@ -30,19 +30,22 @@ function SoldOutMessage({ isOperating, dining }: Props) {
       : place + SOLD_OUT_MESSAGE.title,
   };
 
-  const highlight = isOperating ? '운영 중' : (isSoldOut ? '품절 취소' : '품절 설정');
+  const highlight = isOperating ? (isSoldOut ? '품절 취소' : '품절 상태') : '운영 중';
 
   return (
     <div className={styles.message}>
-      <span className={styles.message__title}>{message.title.split(highlight)[0]}</span>
-      <span className={cn({
-        [styles['message__title--blue']]: highlight.includes('품절'),
-        [styles['message__title--yellow']]: highlight === '운영 중',
-      })}
-      >
-        {highlight}
-      </span>
-      <span className={styles.message__title}>{message.title.split(highlight)[1]}</span>
+      <div className={styles['message__title-box']}>
+        <span className={styles.message__title}>{message.title.split(highlight)[0]}</span>
+        <span className={cn({
+          [styles.message__title]: true,
+          [styles['message__title--blue']]: highlight.includes('품절'),
+          [styles['message__title--orange']]: highlight === '운영 중',
+        })}
+        >
+          {highlight}
+        </span>
+        <span className={styles.message__title}>{message.title.split(highlight)[1]}</span>
+      </div>
       <span className={styles.message__subtitle}>{message.subtitle}</span>
     </div>
   );
