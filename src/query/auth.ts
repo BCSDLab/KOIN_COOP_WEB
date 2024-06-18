@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-import { client } from 'api';
 import { postLogin, postLogout } from 'api/auth';
 import { LoginForm, LoginResponse } from 'models/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
