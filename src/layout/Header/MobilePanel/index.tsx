@@ -23,25 +23,31 @@ interface Props {
 }
 
 function PanelContent({ hideSidebar, category }: Props) {
+  const navigate = useNavigate();
   const { title, submenu } = category;
+
+  const handleClick = (link: string) => {
+    navigate(link);
+    hideSidebar();
+  };
 
   return (
     <div>
       <div className={styles.category__title}>
         {title}
       </div>
-      <ul className={styles.category__submenus}>
+      <div className={styles.category__submenus}>
         {submenu.map((subMenu) => (
-          <li
+          <button
             key={subMenu.title}
+            type="button"
             className={styles.category__submenu}
+            onClick={() => handleClick(subMenu.link)}
           >
-            <Link to={subMenu.link} onClick={hideSidebar}>
-              {subMenu.title}
-            </Link>
-          </li>
+            {subMenu.title}
+          </button>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
