@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
-import { postLogin, postLogout } from 'api/auth';
+import { getCoopMe, postLogin, postLogout } from 'api/auth';
 import { LoginForm, LoginResponse } from 'models/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
+import useUserTypeStore from 'store/useUserTypeStore';
 
 import { isKoinError, sendClientError } from '@bcsdlab/koin';
 import { useMutation } from '@tanstack/react-query';
@@ -10,6 +11,7 @@ import { useMutation } from '@tanstack/react-query';
 export const useLogin = () => {
   const { setLoginError, setLoginErrorStatus } = useErrorMessageStore();
   const navigate = useNavigate();
+  const { setUserType } = useUserTypeStore();
 
   const {
     mutate, error, isError, isSuccess,
@@ -23,12 +25,15 @@ export const useLogin = () => {
       if (form.isAutoLogin) {
         localStorage.setItem('refresh_token', data.refresh_token);
       }
+
+      getCoopMe().then((userInfo) => setUserType(userInfo.user_type));
       navigate('/');
     },
     onError: (err) => {
       if (isKoinError(err)) {
         setLoginError(err.message || '로그인을 실패했습니다.');
         sessionStorage.removeItem('access_token');
+        sessionStorage.removeItem('user_storage');
         localStorage.removeItem('refresh_token');
 
         switch (err.status) {
@@ -70,6 +75,7 @@ export const useLogout = () => {
     },
     onSuccess: () => {
       sessionStorage.removeItem('access_token');
+      sessionStorage.removeItem('user_storage');
       localStorage.removeItem('refresh_token');
     },
     onError: (err) => {

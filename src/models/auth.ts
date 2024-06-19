@@ -17,6 +17,13 @@ export const CoopMeResponse = z.object({
 
 export type CoopMeResponse = z.infer<typeof CoopMeResponse>;
 
+export const UserStorageInSession = z.object({
+  isAuthenticated: z.boolean(),
+  user: CoopMeResponse.nullable(),
+});
+
+export type UserStorageInSession = z.infer<typeof UserStorageInSession>;
+
 export const LoginParams = z.object({
   email: z.string(),
   password: z.string(),

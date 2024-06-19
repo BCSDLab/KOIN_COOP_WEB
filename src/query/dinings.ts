@@ -37,7 +37,7 @@ export const useGetDinings = (date: string) => {
               updated_at: thisDate,
               soldout_at: null,
               changed_at: null,
-            } as Dining);
+            });
           }
         });
       });
