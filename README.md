@@ -1,30 +1,38 @@
-# React + TypeScript + Vite
+# KOIN COOP WEB
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Project - [KOIN_COOP_WEB](https://github.com/BCSDLab/KOIN_COOP_WEB)
 
-Currently, two official plugins are available:
+Backoffice for [KOIN_WEB](https://koreatech.in/), specifically designed for the coop.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Purpose
 
-## Expanding the ESLint configuration
+KOIN_WEB is a convenient service designed specifically for the students of KOREATECH Univ.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To further improve this service, we have created this backoffice in collaboration with the coop.
 
-- Configure the top-level `parserOptions` property like this:
+# Want to Contibute?
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+See Our [Contribute Guide](./CONTRIBUTE.md).
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+# Learn Our Stack
+
+- Main UI Library/Framework
+  - [React](https://reactjs.org/docs/hello-world.html)
+  - [Vite](https://vitejs.dev/guide/)
+- Language
+  - [TypeScript](https://github.com/typescript-cheatsheets/react)
+- Server State Management Library
+  - [React Query](https://tanstack.com/query/latest)
+- Application State Management
+  - [Zustand](https://github.com/pmndrs/zustand)
+- Schema Validation Layer Library
+  - [Zod](https://zod.dev)
+- Routing Library
+  - [React Router v6](https://reactrouter.com/docs/en/v6/getting-started/tutorial)
+- Linting Library
+  - [ESLint](https://eslint.org/docs/latest/user-guide/getting-started)
+  - [StyleLint](https://stylelint.io/)
+- Styling Library
+  - [SCSS](https://sass-lang.com/guide)
+  - [BEM style](http://getbem.com/introduction/)
+  - [CSS Modules](https://github.com/css-modules/css-modules)
