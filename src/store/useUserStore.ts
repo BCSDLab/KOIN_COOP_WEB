@@ -1,5 +1,5 @@
 import { getCoopMe } from 'api/auth';
-import { CoopMeResponse, UserStorageInSession } from 'models/auth';
+import { CoopMeResponse } from 'models/auth';
 
 import { create } from 'zustand';
 import { persist, PersistStorage } from 'zustand/middleware';

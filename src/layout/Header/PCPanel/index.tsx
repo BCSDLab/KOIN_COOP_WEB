@@ -1,12 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 
-import { getCoopMe } from 'api/auth';
 import LogoIcon from 'assets/svg/common/koin-logo.svg?react';
 import useMegaMenu from 'layout/Header/hooks/useMegaMenu';
 import { CATEGORY_COOP, HeaderCategory } from 'models/headerCategory';
 import { useLogout } from 'query/auth';
 import usePrevPathStore from 'store/usePrevPathStore';
-import useUserTypeStore from 'store/useUserTypeStore';
 import cn from 'utils/className';
 
 import styles from './PCPanel.module.scss';
