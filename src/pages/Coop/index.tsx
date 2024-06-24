@@ -18,7 +18,7 @@ export default function Coop() {
       <div className={styles.container}>
         <Calendar selectedDate={date} setSelectedDate={setDate} />
         <DiningTypeSelect selectedDiningType={diningType} setSelectedDiningType={setDiningType} />
-        <Suspense>
+        <Suspense fallback={<div />}>
           <DiningBlocks diningType={diningType} date={date} />
         </Suspense>
       </div>

@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
-import { getCoopMe, postLogin, postLogout } from 'api/auth';
+import { postLogin, postLogout } from 'api/auth';
 import { LoginForm, LoginResponse } from 'models/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
-import useUserTypeStore from 'store/useUserTypeStore';
+import useUserStore from 'store/useUserStore';
 
 import { isKoinError, sendClientError } from '@bcsdlab/koin';
 import { useMutation } from '@tanstack/react-query';
@@ -11,7 +11,7 @@ import { useMutation } from '@tanstack/react-query';
 export const useLogin = () => {
   const { setLoginError, setLoginErrorStatus } = useErrorMessageStore();
   const navigate = useNavigate();
-  const { setUserType } = useUserTypeStore();
+  const { initializeAuth } = useUserStore();
 
   const {
     mutate, error, isError, isSuccess,
@@ -25,8 +25,7 @@ export const useLogin = () => {
       if (form.isAutoLogin) {
         localStorage.setItem('refresh_token', data.refresh_token);
       }
-
-      getCoopMe().then((userInfo) => setUserType(userInfo.user_type));
+      await initializeAuth();
       navigate('/');
     },
     onError: (err) => {

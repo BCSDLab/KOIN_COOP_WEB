@@ -33,17 +33,12 @@ const useUserStore = create<State>()(
       setUser: (user) => set({ isAuthenticated: true, user }),
       clearUser: () => set({ isAuthenticated: false, user: null }),
       initializeAuth: async () => {
-        const token = sessionStorage.getItem('access_token');
-        if (token) {
-          try {
-            const user = await getCoopMe();
-            set({ isAuthenticated: true, user });
-          } catch (error) {
-            set({ isAuthenticated: false, user: null });
-            sessionStorage.removeItem('access_token');
-          }
-        } else {
+        try {
+          const user = await getCoopMe();
+          set({ isAuthenticated: true, user });
+        } catch (error) {
           set({ isAuthenticated: false, user: null });
+          sessionStorage.removeItem('access_token');
         }
       },
     }),

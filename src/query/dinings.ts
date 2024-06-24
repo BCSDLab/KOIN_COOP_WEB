@@ -9,7 +9,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 export const useGetDinings = (date: string) => {
   const { data: dinings } = useSuspenseQuery<OriginalDining[], Error, Dining[]>({
     queryKey: diningsKeys.date(date),
-    queryFn: async () => getDinings(date),
+    queryFn: () => getDinings(date),
     select: (originalDinings) => {
       const menusFieldDinings = originalDinings.map((dining) => ({
         ...dining,

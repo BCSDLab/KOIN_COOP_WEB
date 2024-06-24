@@ -13,12 +13,16 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    initializeAuth();
-    if (isAuthenticated) {
-      navigate('/');
-    } else {
-      navigate('/login');
-    }
+    const checkAuth = async () => {
+      await initializeAuth();
+    };
+    checkAuth().then(() => {
+      if (isAuthenticated) {
+        navigate('/');
+      } else {
+        navigate('/login');
+      }
+    });
   }, [isAuthenticated, initializeAuth, navigate]);
 
   return (
