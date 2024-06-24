@@ -5,11 +5,11 @@ import dayjs from 'dayjs';
 
 import styles from './Calendar.module.scss';
 
-interface Props {
+interface CalendarProps {
   selectedDate: string; // .format('YYMMDD') 형식
   setSelectedDate: (dateType: string) => void;
 }
-export default function Calendar({ selectedDate, setSelectedDate }: Props) {
+export default function Calendar({ selectedDate, setSelectedDate }: CalendarProps) {
   const today = dayjs();
   const weekDays = Array.from(
     { length: 7 },

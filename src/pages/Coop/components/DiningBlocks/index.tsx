@@ -18,12 +18,12 @@ import { createPortal } from 'react-dom';
 
 import styles from './DiningBlocks.module.scss';
 
-interface Props {
+interface DiningBlocksProps {
   diningType: DiningType;
   date: string;
 }
 
-export default function DiningBlocks({ diningType, date }: Props) {
+export default function DiningBlocks({ diningType, date }: DiningBlocksProps) {
   const { dinings } = useGetDinings(date);
   const filteredDinings = filterDinings(dinings, diningType);
   const [selectedDining, setSelectedDining] = useState({} as Dining);

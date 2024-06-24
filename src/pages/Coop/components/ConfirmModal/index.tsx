@@ -7,7 +7,7 @@ import SoldOutMessage from '../SoldOutMessage/SoldOutMessage';
 
 import styles from './ConfirmModal.module.scss';
 
-interface Props {
+interface ConfirmModalProps {
   dining: Dining;
   isOperating: boolean;
   closeModal: () => void;
@@ -19,7 +19,7 @@ export default function ConfirmModal({
   isOperating,
   closeModal,
   confirm,
-}: Props) {
+}: ConfirmModalProps) {
   useEffect(() => {
     document.body.style.cssText = `
     position: fixed; 

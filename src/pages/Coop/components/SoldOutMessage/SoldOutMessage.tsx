@@ -12,12 +12,12 @@ const SOLD_OUT_MESSAGE = {
   notOperating: '현재 운영 중인 식단이 아닙니다.',
 } as const;
 
-interface Props {
+interface SoldOutMessageProps {
   isOperating: boolean;
   dining: Dining;
 }
 
-function SoldOutMessage({ isOperating, dining }: Props) {
+function SoldOutMessage({ isOperating, dining }: SoldOutMessageProps) {
   const { place, soldout_at: isSoldOut } = dining;
 
   const message = isOperating ? {

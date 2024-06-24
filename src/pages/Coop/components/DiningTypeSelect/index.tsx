@@ -3,12 +3,14 @@ import cn from 'utils/className';
 
 import styles from './DiningTypeSelect.module.scss';
 
-interface Props {
+interface DiningTypeSelectProps {
   selectedDiningType: DiningType;
   setSelectedDiningType: (diningType: DiningType) => void;
 }
 
-export default function DiningTypeSelect({ selectedDiningType, setSelectedDiningType }: Props) {
+export default function DiningTypeSelect({
+  selectedDiningType, setSelectedDiningType,
+}: DiningTypeSelectProps) {
   return (
     <div className={styles.container}>
       {DINING_TYPES.map((type: DiningType) => (

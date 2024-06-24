@@ -3,12 +3,12 @@ import cn from 'utils/className';
 
 import styles from './SoldOutToggleButton.module.scss';
 
-interface Props {
+interface SoldOutToggleButtonProps {
   dining: Dining;
   onClick: () => void;
 }
 
-function SoldOutToggleButton({ dining, onClick }: Props) {
+function SoldOutToggleButton({ dining, onClick }: SoldOutToggleButtonProps) {
   return (
     <button
       type="button"

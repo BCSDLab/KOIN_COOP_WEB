@@ -17,12 +17,12 @@ import { createPortal } from 'react-dom';
 
 import styles from './MobilePanel.module.scss';
 
-interface Props {
+interface PanelContentProps {
   hideSidebar: () => void;
   category: HeaderCategory;
 }
 
-function PanelContent({ hideSidebar, category }: Props) {
+function PanelContent({ hideSidebar, category }: PanelContentProps) {
   const navigate = useNavigate();
   const { title, submenu } = category;
 
