@@ -17,7 +17,7 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: true,
       refetchOnMount: true,
       refetchOnReconnect: true,
-      retry: 4,
+      retry: 1,
       staleTime: 1000 * 60 * 5,
       throwOnError: (err) => err instanceof ZodError,
     },
