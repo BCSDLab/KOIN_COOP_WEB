@@ -1,6 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { getCoopMe } from 'api/auth';
 import BackArrowIcon from 'assets/svg/common/back-arrow.svg?react';
 import MenuIcon from 'assets/svg/common/hamburger-menu.svg?react';
 import MobileLogoIcon from 'assets/svg/common/mobile-koin-logo.svg?react';
