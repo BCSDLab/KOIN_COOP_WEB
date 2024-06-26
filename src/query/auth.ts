@@ -76,7 +76,6 @@ export const useLogout = () => {
     onSuccess: async () => {
       sessionStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
-      await queryClient.invalidateQueries({ queryKey: userKeys.all });
       queryClient.clear();
       navigate('/login');
       setPrevPath('/login');
