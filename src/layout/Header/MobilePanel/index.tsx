@@ -7,7 +7,6 @@ import useMediaQuery from 'hooks/useMediaQuery';
 import useMobileSidebar from 'layout/Header/hooks/useMobileSidebar';
 import { CATEGORY_COOP, HeaderCategory } from 'models/headerCategory';
 import { useCoopMe, useLogout } from 'query/auth';
-import usePrevPathStore from 'store/usePrevPathStore';
 import cn from 'utils/className';
 
 import { createPortal } from 'react-dom';
@@ -50,12 +49,9 @@ function PanelContent({ hideSidebar, category }: PanelContentProps) {
 }
 
 export default function MobilePanel() {
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const { isMobile } = useMediaQuery();
   const { user } = useCoopMe();
-
-  const { setPrevPath } = usePrevPathStore();
   const { logout } = useLogout();
 
   const {
@@ -63,15 +59,6 @@ export default function MobilePanel() {
     expandSidebar,
     hideSidebar,
   } = useMobileSidebar(pathname, isMobile);
-
-  const handleLogout = async () => {
-    logout(undefined, {
-      onSettled: () => {
-        setPrevPath('/login');
-        navigate('/login');
-      },
-    });
-  };
 
   return (
     <>
@@ -128,7 +115,7 @@ export default function MobilePanel() {
                   </Link>
                 </li>
                 <li className={styles['mobile-header__link']}>
-                  <button type="button" onClick={handleLogout}>
+                  <button type="button" onClick={() => logout()}>
                     로그아웃
                   </button>
                 </li>

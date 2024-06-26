@@ -1,10 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import LogoIcon from 'assets/svg/common/koin-logo.svg?react';
 import useMegaMenu from 'layout/Header/hooks/useMegaMenu';
 import { CATEGORY_COOP, HeaderCategory } from 'models/headerCategory';
 import { useLogout } from 'query/auth';
-import usePrevPathStore from 'store/usePrevPathStore';
 import cn from 'utils/className';
 
 import styles from './PCPanel.module.scss';
@@ -84,19 +83,7 @@ function HeaderContent({ categoryArray }: Prop) {
 }
 
 export default function PCPanel() {
-  const navigate = useNavigate();
-
-  const { setPrevPath } = usePrevPathStore();
   const { logout } = useLogout();
-
-  const handleLogout = () => {
-    logout(undefined, {
-      onSettled: () => {
-        setPrevPath('/login');
-        navigate('/login');
-      },
-    });
-  };
 
   return (
     <>
@@ -111,7 +98,7 @@ export default function PCPanel() {
 
       <ul className={styles['header__auth-menu']}>
         <li className={styles['header__auth-link']}>
-          <button type="button" onClick={handleLogout}>
+          <button type="button" onClick={() => logout()}>
             로그아웃
           </button>
         </li>

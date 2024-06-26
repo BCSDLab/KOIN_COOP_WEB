@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCoopMe, postLogin, postLogout } from 'api/auth';
 import { LoginForm, LoginResponse } from 'models/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
+import usePrevPathStore from 'store/usePrevPathStore';
 
 import { isKoinError, sendClientError } from '@bcsdlab/koin';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -27,6 +28,7 @@ export const useLogin = () => {
 
       await queryClient.invalidateQueries({ queryKey: ['user'] });
       navigate('/');
+      setPrevPath('/');
     },
     onError: (err) => {
       if (isKoinError(err)) {
@@ -70,6 +72,8 @@ export const useLogout = () => {
       sessionStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
       queryClient.invalidateQueries({ queryKey: ['user'] });
+      navigate('/login');
+      setPrevPath('/login');
     },
     onError: (err) => {
       if (isKoinError(err)) {
