@@ -10,7 +10,6 @@ import { CATEGORY_COOP, HeaderCategory } from 'models/headerCategory';
 import { useLogout } from 'query/auth';
 import usePrevPathStore from 'store/usePrevPathStore';
 import useUserStore from 'store/useUserStore';
-import useUserTypeStore from 'store/useUserTypeStore';
 import cn from 'utils/className';
 
 import { createPortal } from 'react-dom';
@@ -57,7 +56,6 @@ export default function MobilePanel() {
   const { pathname } = useLocation();
   const { isMobile } = useMediaQuery();
   const { user } = useUserStore();
-  const { setUserType } = useUserTypeStore();
 
   const { setPrevPath } = usePrevPathStore();
   const { logout } = useLogout();
@@ -75,7 +73,6 @@ export default function MobilePanel() {
         navigate('/login');
       },
     });
-    await getCoopMe().then((userInfo) => setUserType(userInfo.user_type));
   };
 
   return (
