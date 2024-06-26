@@ -1,5 +1,6 @@
 import { Suspense, useState } from 'react';
 
+import ErrorBoundary from 'layout/ErrorBoundary';
 import Calendar from 'pages/Coop/components/Calendar';
 import DiningBlocks from 'pages/Coop/components/DiningBlocks';
 import DiningTypeSelect from 'pages/Coop/components/DiningTypeSelect';
@@ -18,9 +19,11 @@ export default function Coop() {
       <div className={styles.container}>
         <Calendar selectedDate={date} setSelectedDate={setDate} />
         <DiningTypeSelect selectedDiningType={diningType} setSelectedDiningType={setDiningType} />
-        <Suspense fallback={<div />}>
-          <DiningBlocks diningType={diningType} date={date} />
-        </Suspense>
+        <ErrorBoundary message="데이터를 불러오는 과정 중 문제가 발생하였습니다.">
+          <Suspense fallback={<div />}>
+            <DiningBlocks diningType={diningType} date={date} />
+          </Suspense>
+        </ErrorBoundary>
       </div>
     </div>
   );

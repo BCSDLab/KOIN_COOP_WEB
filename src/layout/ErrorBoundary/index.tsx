@@ -6,7 +6,7 @@ import styles from './ErrorBoundary.module.scss';
 
 export interface Props {
   message?: string;
-  children?: ReactNode;
+  children: ReactNode;
 }
 
 interface State {
@@ -23,6 +23,11 @@ class ErrorBoundary extends React.Component<Props, State> {
 
   static getDerivedStateFromError() {
     return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // eslint-disable-next-line no-console
+    console.error('Error caught by ErrorBoundary:', error, errorInfo);
   }
 
   render() {

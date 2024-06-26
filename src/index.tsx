@@ -2,7 +2,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ReactDOM from 'react-dom/client';
-import { ZodError } from 'zod';
 
 import App from './App';
 import ErrorBoundary from './layout/ErrorBoundary';
@@ -16,10 +15,10 @@ const queryClient = new QueryClient({
       refetchOnReconnect: true,
       retry: 1,
       staleTime: 1000 * 60 * 5,
-      throwOnError: (err) => err instanceof ZodError,
+      throwOnError: true,
     },
     mutations: {
-      throwOnError: (err) => err instanceof ZodError,
+      throwOnError: true,
     },
   },
 });
