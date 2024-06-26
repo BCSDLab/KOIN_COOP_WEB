@@ -8,10 +8,13 @@ import usePrevPathStore from 'store/usePrevPathStore';
 import { isKoinError, sendClientError } from '@bcsdlab/koin';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { userKeys } from './KeyFactory/userKeys';
+
 export const useLogin = () => {
-  const { setLoginError, setLoginErrorStatus } = useErrorMessageStore();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { setPrevPath } = usePrevPathStore();
+  const { setLoginError, setLoginErrorStatus } = useErrorMessageStore();
 
   const {
     mutate, error, isError, isSuccess,
@@ -26,7 +29,7 @@ export const useLogin = () => {
         localStorage.setItem('refresh_token', data.refresh_token);
       }
 
-      await queryClient.invalidateQueries({ queryKey: ['user'] });
+      await queryClient.invalidateQueries({ queryKey: userKeys.all });
       navigate('/');
       setPrevPath('/');
     },
@@ -63,19 +66,22 @@ export const useLogin = () => {
 };
 
 export const useLogout = () => {
-  const { setLogoutError, setLogoutErrorCode } = useErrorMessageStore();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { setPrevPath } = usePrevPathStore();
+  const { setLogoutError, setLogoutErrorCode } = useErrorMessageStore();
 
   const { mutate, error, isError } = useMutation({
-    mutationFn: async () => postLogout(),
-    onSuccess: () => {
+    mutationFn: () => postLogout(),
+    onSuccess: async () => {
       sessionStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
-      queryClient.invalidateQueries({ queryKey: ['user'] });
+      await queryClient.invalidateQueries({ queryKey: userKeys.all });
+      queryClient.clear();
       navigate('/login');
       setPrevPath('/login');
     },
-    onError: (err) => {
+    onError: async (err) => {
       if (isKoinError(err)) {
         setLogoutError(err.message || '로그아웃을 실패했습니다.');
         setLogoutErrorCode(err.code);
@@ -94,7 +100,7 @@ export const useCoopMe = () => {
   const {
     data, error, isError, isLoading,
   } = useQuery({
-    queryKey: ['user'],
+    queryKey: userKeys.all,
     queryFn: async () => {
       const response = await getCoopMe();
       return response;

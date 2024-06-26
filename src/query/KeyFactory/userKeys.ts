@@ -1,3 +1,3 @@
 export const userKeys = {
-  userInfo: ['user', 'coop'] as const,
+  all: ['user'] as const,
 };
