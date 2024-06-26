@@ -1,41 +1,39 @@
-import { Suspense, useEffect } from 'react';
-
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import {
+  Route, Routes, Navigate, Outlet,
+} from 'react-router-dom';
 
 import AuthLayout from 'layout/AuthLayout';
 import DefaultLayout from 'layout/DefaultLayout';
 import Coop from 'pages/Coop';
 import Login from 'pages/Login';
-import useUserStore from 'store/useUserStore';
+import { useCoopMe } from 'query/auth';
+
+function ProtectedRoute() {
+  const { user, isLoading } = useCoopMe();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  return <Outlet />;
+}
 
 function App() {
-  const { isAuthenticated, initializeAuth } = useUserStore();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      await initializeAuth();
-    };
-    checkAuth().then(() => {
-      if (isAuthenticated) {
-        navigate('/');
-      } else {
-        navigate('/login');
-      }
-    });
-  }, [isAuthenticated, initializeAuth, navigate]);
-
   return (
-    <Suspense fallback={<div />}>
-      <Routes>
+    <Routes>
+      <Route element={<ProtectedRoute />}>
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<Coop />} />
         </Route>
-        <Route element={<AuthLayout />}>
-          <Route path="/login" element={<Login />} />
-        </Route>
-      </Routes>
-    </Suspense>
+      </Route>
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<Login />} />
+      </Route>
+    </Routes>
   );
 }
 

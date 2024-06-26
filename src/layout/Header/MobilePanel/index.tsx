@@ -6,9 +6,8 @@ import MobileLogoIcon from 'assets/svg/common/mobile-koin-logo.svg?react';
 import useMediaQuery from 'hooks/useMediaQuery';
 import useMobileSidebar from 'layout/Header/hooks/useMobileSidebar';
 import { CATEGORY_COOP, HeaderCategory } from 'models/headerCategory';
-import { useLogout } from 'query/auth';
+import { useCoopMe, useLogout } from 'query/auth';
 import usePrevPathStore from 'store/usePrevPathStore';
-import useUserStore from 'store/useUserStore';
 import cn from 'utils/className';
 
 import { createPortal } from 'react-dom';
@@ -54,7 +53,7 @@ export default function MobilePanel() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { isMobile } = useMediaQuery();
-  const { user } = useUserStore();
+  const { user } = useCoopMe();
 
   const { setPrevPath } = usePrevPathStore();
   const { logout } = useLogout();

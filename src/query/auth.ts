@@ -1,17 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 
-import { postLogin, postLogout } from 'api/auth';
+import { getCoopMe, postLogin, postLogout } from 'api/auth';
 import { LoginForm, LoginResponse } from 'models/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
-import useUserStore from 'store/useUserStore';
 
 import { isKoinError, sendClientError } from '@bcsdlab/koin';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useLogin = () => {
   const { setLoginError, setLoginErrorStatus } = useErrorMessageStore();
   const navigate = useNavigate();
-  const { initializeAuth } = useUserStore();
+  const queryClient = useQueryClient();
 
   const {
     mutate, error, isError, isSuccess,
@@ -25,14 +24,14 @@ export const useLogin = () => {
       if (form.isAutoLogin) {
         localStorage.setItem('refresh_token', data.refresh_token);
       }
-      await initializeAuth();
+
+      await queryClient.invalidateQueries({ queryKey: ['user'] });
       navigate('/');
     },
     onError: (err) => {
       if (isKoinError(err)) {
         setLoginError(err.message || '로그인을 실패했습니다.');
         sessionStorage.removeItem('access_token');
-        sessionStorage.removeItem('user_storage');
         localStorage.removeItem('refresh_token');
 
         switch (err.status) {
@@ -63,19 +62,14 @@ export const useLogin = () => {
 
 export const useLogout = () => {
   const { setLogoutError, setLogoutErrorCode } = useErrorMessageStore();
+  const queryClient = useQueryClient();
 
   const { mutate, error, isError } = useMutation({
-    mutationFn: async () => {
-      const response = await postLogout();
-      if (response) {
-        return true;
-      }
-      throw new Error('로그아웃 실패');
-    },
+    mutationFn: async () => postLogout(),
     onSuccess: () => {
       sessionStorage.removeItem('access_token');
-      sessionStorage.removeItem('user_storage');
       localStorage.removeItem('refresh_token');
+      queryClient.invalidateQueries({ queryKey: ['user'] });
     },
     onError: (err) => {
       if (isKoinError(err)) {
@@ -88,4 +82,23 @@ export const useLogout = () => {
   });
 
   return { logout: mutate, error, isError };
+};
+
+export const useCoopMe = () => {
+  const token = sessionStorage.getItem('access_token');
+
+  const {
+    data, error, isError, isLoading,
+  } = useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
+      const response = await getCoopMe();
+      return response;
+    },
+    enabled: !!token,
+  });
+
+  return {
+    user: data, error, isError, isLoading,
+  };
 };
