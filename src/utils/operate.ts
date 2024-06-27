@@ -11,7 +11,6 @@ export const getDiningTypeOnTime = (): DiningType => {
   return 'DINNER'; // 15:01~24:00
 };
 
-// date = 'yyMMdd'
 export const getIsOperating = (selectedDiningType: DiningType, date: string) => {
   const today = dayjs().format('YYMMDD');
   const now = new Date();

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import LogoIcon from 'assets/svg/common/koin-logo.svg?react';
 import useMegaMenu from 'layout/Header/hooks/useMegaMenu';
-import { CATEGORY_COOP, HeaderCategory } from 'models/headerCategory';
+import { HEADER_CATEGORY, HeaderCategory } from 'models/headerCategory';
 import { useLogout } from 'query/auth';
 import cn from 'utils/className';
 
@@ -94,7 +94,7 @@ export default function PCPanel() {
       >
         <LogoIcon title="코인 로고" />
       </Link>
-      <HeaderContent categoryArray={CATEGORY_COOP} />
+      <HeaderContent categoryArray={HEADER_CATEGORY} />
 
       <ul className={styles['header__auth-menu']}>
         <li className={styles['header__auth-link']}>

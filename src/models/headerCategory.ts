@@ -12,7 +12,7 @@ export interface HeaderCategory {
   submenu: SubMenu[]
 }
 
-export const CATEGORY_COOP: HeaderCategory[] = [
+export const HEADER_CATEGORY: HeaderCategory[] = [
   {
     title: '식단관리',
     planFlag: true,

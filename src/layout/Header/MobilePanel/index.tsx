@@ -5,7 +5,7 @@ import MenuIcon from 'assets/svg/common/hamburger-menu.svg?react';
 import MobileLogoIcon from 'assets/svg/common/mobile-koin-logo.svg?react';
 import useMediaQuery from 'hooks/useMediaQuery';
 import useMobileSidebar from 'layout/Header/hooks/useMobileSidebar';
-import { CATEGORY_COOP, HeaderCategory } from 'models/headerCategory';
+import { HEADER_CATEGORY, HeaderCategory } from 'models/headerCategory';
 import { useCoopMe, useLogout } from 'query/auth';
 import cn from 'utils/className';
 
@@ -68,7 +68,7 @@ export default function MobilePanel() {
         <span className={styles['mobile-header__title']}>
           {pathname === '/' ? (
             <MobileLogoIcon title="코인 로고" />
-          ) : (CATEGORY_COOP
+          ) : (HEADER_CATEGORY
             .flatMap((categoryValue) => categoryValue.submenu)
             .find((subMenuValue) => subMenuValue.link === pathname)
             ?.title ?? ''
@@ -122,7 +122,7 @@ export default function MobilePanel() {
               </ul>
             </div>
 
-            {CATEGORY_COOP.map((category: HeaderCategory) => (
+            {HEADER_CATEGORY.map((category: HeaderCategory) => (
               <PanelContent
                 key={category.title}
                 hideSidebar={hideSidebar}
