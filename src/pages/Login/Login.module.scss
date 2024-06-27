@@ -33,7 +33,7 @@
 
 .form {
   width: 368px;
-  margin-top: 47px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
 
@@ -56,7 +56,9 @@
     width: 304px;
     height: 20px;
     padding: 14px 50px 14px 14px;
-    border: 1px solid #d2dae2;
+    border: none;
+    border-radius: 4px;
+    background-color: #f5f5f5;
 
     @include media.media-breakpoint-down(mobile) {
       width: 295px;
@@ -122,6 +124,7 @@
     font-size: 16px;
     text-align: center;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
 
     @include media.media-breakpoint-down(mobile) {
