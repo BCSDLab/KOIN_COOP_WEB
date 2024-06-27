@@ -4,7 +4,7 @@ import {
 } from 'models/auth';
 
 export const postLogin = async (param: LoginParams) => {
-  const { data } = await client.post<LoginResponse>('/user/login', param);
+  const { data } = await client.post<LoginResponse>('/coop/login', param);
   return LoginResponse.parse(data);
 };
 

@@ -18,7 +18,7 @@ export const CoopMeResponse = z.object({
 export type CoopMeResponse = z.infer<typeof CoopMeResponse>;
 
 export const LoginParams = z.object({
-  email: z.string(),
+  id: z.string(),
   password: z.string(),
 });
 
@@ -31,7 +31,6 @@ export interface LoginForm extends LoginParams {
 export const LoginResponse = z.object({
   token: z.string(),
   refresh_token: z.string(),
-  user_type: UserType, // 삭제 가능성 있음
 });
 
 export type LoginResponse = z.infer<typeof LoginResponse>;

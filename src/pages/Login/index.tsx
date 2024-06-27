@@ -36,13 +36,13 @@ export default function Login() {
 
   const onSubmit: SubmitHandler<LoginParams> = async (data) => {
     const hashedPassword = await sha256(data.password);
-    login({ email: data.email, password: hashedPassword, isAutoLogin });
+    login({ id: data.id, password: hashedPassword, isAutoLogin });
   };
 
   const onError = (error: FieldErrors<LoginParams>) => {
     setIsFormError(true);
-    if (error.email) {
-      setEmailError(error.email?.message || '');
+    if (error.id) {
+      setEmailError(error.id?.message || '');
     }
   };
 
@@ -59,7 +59,7 @@ export default function Login() {
               })}
               type="text"
               placeholder="아이디 입력"
-              {...register('email')}
+              {...register('id')}
             />
           </div>
           <div className={styles.form__container}>
