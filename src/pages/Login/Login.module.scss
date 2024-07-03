@@ -100,6 +100,7 @@
   &__error-message {
     font-size: 12px;
     color: #f7941e;
+    margin-top: 4px;
   }
 
   &__icon {
@@ -133,6 +134,8 @@
     }
 
     &--login {
+      margin-top: 24px;
+
       @include media.media-breakpoint-down(mobile) {
         background: #f7941e;
         margin-top: 38px;
@@ -140,9 +143,23 @@
     }
   }
 
+  &__description {
+    font-size: 14px;
+    font-family: Pretendard, sans-serif;
+    color: #727272;
+
+    &--bold {
+      font-size: 14px;
+      font-weight: 600;
+      font-family: Pretendard, sans-serif;
+      color: #727272;
+    }
+  }
+
   &__auto-login {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: 8px 0 16px;
 
     @include media.media-breakpoint-down(mobile) {
@@ -158,35 +175,12 @@
       color: #999999;
       cursor: pointer;
       margin-left: auto;
+      gap: 4px;
     }
 
     &__checkbox {
-      appearance: none;
-      width: 22px;
-      height: 12px;
-      margin-right: 4px;
-      box-sizing: border-box;
-      background: #eeeeee;
-      border: 1px solid #eeeeee;
-      border-radius: 6px;
       cursor: pointer;
-
-      &::after {
-        transition: all 150ms;
-        content: "";
-        width: 10px;
-        height: 10px;
-        background: #858585;
-        border-radius: 50%;
-        position: absolute;
-      }
-
-      &:checked {
-        &::after {
-          background: #175c8e;
-          transform: translate(10px, 0);
-        }
-      }
+      accent-color: #175c8e;
     }
   }
 

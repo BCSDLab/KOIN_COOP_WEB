@@ -58,9 +58,12 @@ export default function Login() {
                 [styles['form__input--error']]: isError,
               })}
               type="text"
-              placeholder="아이디 입력"
+              placeholder="아이디를 입력하세요."
               {...register('id')}
             />
+            {(isError || !!isFormError) && (
+              <div className={styles['form__error-message']}>{loginError || emailError}</div>
+            )}
           </div>
           <div className={styles.form__container}>
             <input
@@ -69,9 +72,12 @@ export default function Login() {
                 [styles['form__input--error']]: isError,
               })}
               type={isBlind ? 'text' : 'password'}
-              placeholder="비밀번호 입력"
+              placeholder="비밀번호를 입력하세요."
               {...register('password')}
             />
+            {(isError || !!isFormError) && (
+              <div className={styles['form__error-message']}>{loginError || emailError}</div>
+            )}
             <button
               type="button"
               className={styles.form__icon}
@@ -79,26 +85,6 @@ export default function Login() {
             >
               {isBlind ? <ShowIcon aria-hidden /> : <BlindIcon aria-hidden />}
             </button>
-          </div>
-          <div className={styles['form__auto-login']}>
-            {(isError || !!isFormError) && (
-              <div className={styles['form__error-message']}>{loginError || emailError}</div>
-            )}
-            <label className={styles['form__auto-login__label']} htmlFor="auto-login">
-              <input
-                className={styles['form__auto-login__checkbox']}
-                type="checkbox"
-                id="auto-login"
-                defaultChecked
-                onChange={changeIsAutoLogin}
-              />
-              자동로그인
-            </label>
-          </div>
-          <div className={styles.form__error}>
-            {isMobile && (isError || !!isFormError) && (
-              <div className={styles['form__error-message']}>{loginError || emailError}</div>
-            )}
           </div>
           <button
             className={cn({
@@ -109,6 +95,27 @@ export default function Login() {
           >
             로그인
           </button>
+          <div className={styles['form__auto-login']}>
+            <span className={styles.form__description}>BCSD Lab에 </span>
+            &nbsp;
+            <span className={styles['form__description--bold']}>문의하기</span>
+            <label className={styles['form__auto-login__label']} htmlFor="auto-login">
+              <input
+                className={styles['form__auto-login__checkbox']}
+                type="checkbox"
+                id="auto-login"
+                defaultChecked
+                onChange={changeIsAutoLogin}
+              />
+              로그인 유지
+            </label>
+          </div>
+          <div className={styles.form__error}>
+            {isMobile && (isError || !!isFormError) && (
+              <div className={styles['form__error-message']}>{loginError || emailError}</div>
+            )}
+          </div>
+
         </form>
       </div>
       {loginErrorStatus === 403 && <ApprovalModal />}
