@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import BlindIcon from 'assets/svg/auth/blind.svg?react';
-import Logo from 'assets/svg/auth/koin-logo.svg?react';
+import KoinLogo from 'assets/svg/auth/koin-logo.svg?react';
 import ShowIcon from 'assets/svg/auth/show.svg?react';
 import useBooleanState from 'hooks/useBooleanState';
 import useMediaQuery from 'hooks/useMediaQuery';
@@ -49,7 +49,7 @@ export default function Login() {
   return (
     <div className={styles.template}>
       <div className={styles.contents}>
-        <Logo className={styles.logo} aria-hidden />
+        <KoinLogo className={styles.logo} aria-hidden />
         <form className={styles.form} onSubmit={handleSubmit(onSubmit, onError)}>
           <div className={styles.form__container}>
             <input
