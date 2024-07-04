@@ -118,7 +118,6 @@ export default function Login() {
 
         </form>
       </div>
-      {loginErrorStatus === 403 && <ApprovalModal />}
     </div>
   );
 }
