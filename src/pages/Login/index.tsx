@@ -4,7 +4,6 @@ import BlindIcon from 'assets/svg/auth/blind.svg?react';
 import KoinLogo from 'assets/svg/auth/koin-logo.svg?react';
 import ShowIcon from 'assets/svg/auth/show.svg?react';
 import useBooleanState from 'hooks/useBooleanState';
-import useMediaQuery from 'hooks/useMediaQuery';
 import { LoginParams } from 'models/auth';
 import { useLogin } from 'query/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
@@ -14,36 +13,36 @@ import sha256 from 'utils/sha256';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 
-import ApprovalModal from './ApprovalModal';
+import ErrorMessage from './ErrorMessage';
 import styles from './Login.module.scss';
 
+const INQUIRY_LINK = 'https://docs.google.com/forms/d/1_pTvL-9Zo1f9cebi_J_8WFSa1Oj8tcEL_nh9IavsSaU/edit';
+
 export default function Login() {
+  const { login } = useLogin();
+  const { isLoginError, setIsLoginError, setLoginErrorMessage } = useErrorMessageStore();
   const [isBlind,,,, changeIsBlind] = useBooleanState();
   const [isAutoLogin,,,, changeIsAutoLogin] = useBooleanState(true);
-  const { isMobile } = useMediaQuery();
-  const { login, isError: isServerError } = useLogin();
-  const [isFormError, setIsFormError] = useState(false);
-  const { loginError, loginErrorStatus } = useErrorMessageStore();
-  const [emailError, setEmailError] = useState('');
-  const isError = isServerError || isFormError;
+  const [isFormError, setIsFormError] = useState({ id: false, password: false });
 
-  const {
-    register,
-    handleSubmit,
-  } = useForm<LoginParams>({
+  const { register, handleSubmit } = useForm<LoginParams>({
     resolver: zodResolver(LoginParams),
   });
 
   const onSubmit: SubmitHandler<LoginParams> = async (data) => {
+    setIsFormError({ id: false, password: false });
     const hashedPassword = await sha256(data.password);
     login({ id: data.id, password: hashedPassword, isAutoLogin });
   };
 
   const onError = (error: FieldErrors<LoginParams>) => {
-    setIsFormError(true);
-    if (error.id) {
-      setEmailError(error.id?.message || '');
-    }
+    setIsLoginError(false);
+    setLoginErrorMessage('');
+    setIsFormError((prev) => ({
+      ...prev,
+      id: !!error.id,
+      password: !!error.password,
+    }));
   };
 
   return (
@@ -55,29 +54,25 @@ export default function Login() {
             <input
               className={cn({
                 [styles.form__input]: true,
-                [styles['form__input--error']]: isError,
+                [styles['form__input--error']]: isFormError.id || isLoginError,
               })}
               type="text"
               placeholder="아이디를 입력하세요."
               {...register('id')}
             />
-            {(isError || !!isFormError) && (
-              <div className={styles['form__error-message']}>{loginError || emailError}</div>
-            )}
+            {(isFormError.id || isLoginError) && <ErrorMessage type="id" />}
           </div>
           <div className={styles.form__container}>
             <input
               className={cn({
                 [styles.form__input]: true,
-                [styles['form__input--error']]: isError,
+                [styles['form__input--error']]: isFormError.password || isLoginError,
               })}
               type={isBlind ? 'text' : 'password'}
               placeholder="비밀번호를 입력하세요."
               {...register('password')}
             />
-            {(isError || !!isFormError) && (
-              <div className={styles['form__error-message']}>{loginError || emailError}</div>
-            )}
+            {isFormError.password && <ErrorMessage type="password" />}
             <button
               type="button"
               className={styles.form__icon}
@@ -96,12 +91,20 @@ export default function Login() {
             로그인
           </button>
           <div className={styles['form__auto-login']}>
-            <span className={styles.form__description}>BCSD Lab에 </span>
-            &nbsp;
-            <span className={styles['form__description--bold']}>문의하기</span>
-            <label className={styles['form__auto-login__label']} htmlFor="auto-login">
+            <a
+              href={INQUIRY_LINK}
+              className={styles.form__description}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              BCSD Lab에&nbsp;
+              <span className={styles['form__description--bold']}>
+                문의하기
+              </span>
+            </a>
+            <label className={styles['form__auto-login-label']} htmlFor="auto-login">
               <input
-                className={styles['form__auto-login__checkbox']}
+                className={styles['form__auto-login-checkbox']}
                 type="checkbox"
                 id="auto-login"
                 defaultChecked
@@ -110,12 +113,6 @@ export default function Login() {
               로그인 유지
             </label>
           </div>
-          <div className={styles.form__error}>
-            {isMobile && (isError || !!isFormError) && (
-              <div className={styles['form__error-message']}>{loginError || emailError}</div>
-            )}
-          </div>
-
         </form>
       </div>
     </div>

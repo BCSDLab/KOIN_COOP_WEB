@@ -18,8 +18,8 @@ export const CoopMeResponse = z.object({
 export type CoopMeResponse = z.infer<typeof CoopMeResponse>;
 
 export const LoginParams = z.object({
-  id: z.string(),
-  password: z.string(),
+  id: z.string().min(1, { message: '아이디를 입력해주세요.' }),
+  password: z.string().min(1, { message: '비밀번호를 입력해주세요.' }),
 });
 
 export type LoginParams = z.infer<typeof LoginParams>;
