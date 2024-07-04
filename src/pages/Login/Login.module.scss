@@ -70,7 +70,7 @@
     }
 
     &:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0 1000px white inset; // 자동입력 배경 제거
+      -webkit-box-shadow: 0 0 0 1000px #f5f5f5 inset; // 자동입력 배경 제거
     }
 
     &::placeholder {
