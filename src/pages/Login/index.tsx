@@ -48,9 +48,9 @@ export default function Login() {
   return (
     <div className={styles.template}>
       <div className={styles.contents}>
-        <KoinLogo className={styles.logo} aria-hidden />
+        <KoinLogo className={styles.logo} />
         <form className={styles.form} onSubmit={handleSubmit(onSubmit, onError)}>
-          <div className={styles.form__container}>
+          <div className={styles.form__wrapper}>
             <input
               className={cn({
                 [styles.form__input]: true,
@@ -62,7 +62,7 @@ export default function Login() {
             />
             {(isFormError.id || isLoginError) && <ErrorMessage type="id" />}
           </div>
-          <div className={styles.form__container}>
+          <div className={styles.form__wrapper}>
             <input
               className={cn({
                 [styles.form__input]: true,
@@ -75,7 +75,7 @@ export default function Login() {
             {isFormError.password && <ErrorMessage type="password" />}
             <button
               type="button"
-              className={styles.form__icon}
+              className={styles['form__blind-icon']}
               onClick={changeIsBlind}
             >
               {isBlind ? <ShowIcon aria-hidden /> : <BlindIcon aria-hidden />}
@@ -83,14 +83,13 @@ export default function Login() {
           </div>
           <button
             className={cn({
-              [styles.form__button]: true,
-              [styles['form__button--login']]: true,
+              [styles['form__login-button']]: true,
             })}
             type="submit"
           >
             로그인
           </button>
-          <div className={styles['form__auto-login']}>
+          <div className={styles.form__actions}>
             <a
               href={INQUIRY_LINK}
               className={styles.form__description}
@@ -102,7 +101,7 @@ export default function Login() {
                 문의하기
               </span>
             </a>
-            <label className={styles['form__auto-login-label']} htmlFor="auto-login">
+            <label className={styles['form__auto-login']} htmlFor="auto-login">
               <input
                 className={styles['form__auto-login-checkbox']}
                 type="checkbox"
@@ -110,7 +109,10 @@ export default function Login() {
                 defaultChecked
                 onChange={changeIsAutoLogin}
               />
-              로그인 유지
+              &nbsp;
+              <span className={styles['form__auto-login-label']}>
+                로그인 유지
+              </span>
             </label>
           </div>
         </form>
