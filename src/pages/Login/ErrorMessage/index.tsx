@@ -15,7 +15,7 @@ interface ErrorMessageProps {
 export default function ErrorMessage({ type }: ErrorMessageProps) {
   const { loginErrorMessage } = useErrorMessageStore();
   const message = loginErrorMessage || MESSAGE[type];
-  if (type === 'password' && loginErrorMessage) return null;
+  if (type === 'id' && loginErrorMessage) return null;
 
   return (
     <div className={styles.error__box}>

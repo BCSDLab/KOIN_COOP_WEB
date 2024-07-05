@@ -72,7 +72,7 @@ export default function Login() {
               placeholder="비밀번호를 입력하세요."
               {...register('password')}
             />
-            {isFormError.password && <ErrorMessage type="password" />}
+            {(isFormError.password || isLoginError) && <ErrorMessage type="password" />}
             <button
               type="button"
               className={styles['form__blind-icon']}
