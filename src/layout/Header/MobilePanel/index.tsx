@@ -109,11 +109,11 @@ export default function MobilePanel() {
                 <span>님, 안녕하세요!</span>
               </div>
               <ul className={styles['mobile-header__auth-menu']}>
-                <li className={styles['mobile-header__my-info']}>
+                {/* <li className={styles['mobile-header__my-info']}>
                   <Link to="/">
                     내 정보
                   </Link>
-                </li>
+                </li> 24.7.11 내 정보 임시 삭제 */}
                 <li className={styles['mobile-header__link']}>
                   <button type="button" onClick={() => logout()}>
                     로그아웃
