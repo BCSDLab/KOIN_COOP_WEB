@@ -10,14 +10,14 @@ import { useCoopMe } from 'query/auth';
 
 function ProtectedRoute() {
   const { user, isLoading } = useCoopMe();
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div />;
   if (!user) return <Navigate to="/login" />;
   return <Outlet />;
 }
 
 function PublicRoute() {
   const { user, isLoading } = useCoopMe();
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div />;
   if (user) return <Navigate to="/" />;
   return <Outlet />;
 }
