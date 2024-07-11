@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-throw-literal */
-/* eslint-disable no-param-reassign */
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable @typescript-eslint/no-throw-literal */
 import API_PATH from 'config/env';
-import { RefreshParams, RefreshResponse } from 'models/auth';
 import { CustomAxiosError, KoinError } from 'models/error';
 
-import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError } from 'axios';
+
+import { refresh } from './auth';
 
 const client = axios.create({
   baseURL: `${API_PATH}`,
@@ -17,43 +17,6 @@ const accessClient = axios.create({
   timeout: 20000,
 });
 
-const multipartClient = axios.create({
-  baseURL: `${API_PATH}`,
-  timeout: 20000,
-});
-
-const refresh = async (config: InternalAxiosRequestConfig) => {
-  const refreshToken = localStorage.getItem('refresh_token');
-
-  if (refreshToken) {
-    return client.post<RefreshResponse, AxiosResponse<RefreshResponse>, RefreshParams>(
-      '/user/refresh',
-      { refresh_token: refreshToken },
-    ).then(({ data }) => {
-      config.headers.authorization = `Bearer ${data.token}`;
-      sessionStorage.setItem('access_token', data.token);
-      localStorage.setItem('refresh_token', data.refresh_token);
-      return config;
-    }).catch(() => {
-      sessionStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
-      return Promise.reject(new Error('토큰없음'));
-    });
-  }
-  return Promise.reject(new Error('토큰없음'));
-};
-
-accessClient.interceptors.request.use(
-  (config) => {
-    const accessToken = sessionStorage.getItem('access_token');
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
-      return config;
-    }
-    return refresh(config);
-  },
-);
-
 function isAxiosErrorWithResponseData(error: AxiosError<KoinError>) {
   const { response } = error;
   return response?.status !== undefined
@@ -64,6 +27,7 @@ function isAxiosErrorWithResponseData(error: AxiosError<KoinError>) {
 function createKoinErrorFromAxiosError(error: AxiosError<KoinError>): KoinError | CustomAxiosError {
   if (isAxiosErrorWithResponseData(error) && error.response) {
     const koinError = error.response;
+
     return {
       type: 'KOIN_ERROR',
       status: koinError.status,
@@ -71,15 +35,26 @@ function createKoinErrorFromAxiosError(error: AxiosError<KoinError>): KoinError 
       message: koinError.data.message,
     };
   }
+
   return {
     type: 'AXIOS_ERROR',
     ...error,
   };
 }
 
-client.interceptors.response.use(
-  (response) => response,
-  async (error) => { throw createKoinErrorFromAxiosError(error); },
+accessClient.interceptors.request.use(
+  (config) => {
+    const accessToken = sessionStorage.getItem('access_token');
+    const { headers } = config;
+
+    if (accessToken) {
+      headers.Authorization = `Bearer ${accessToken}`;
+
+      return config;
+    }
+
+    return config;
+  },
 );
 
 accessClient.interceptors.response.use(
@@ -90,23 +65,18 @@ accessClient.interceptors.response.use(
     // accessToken 만료시 새로운 accessToken으로 재요청
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      return refresh(originalRequest);
+      return refresh();
     }
 
     throw createKoinErrorFromAxiosError(error);
   },
 );
 
-multipartClient.interceptors.request.use(
-  (config) => {
-    config.headers['Content-Type'] = 'multipart/form-data';
-    return config;
+client.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    throw createKoinErrorFromAxiosError(error);
   },
 );
 
-multipartClient.interceptors.response.use(
-  (response) => response,
-  async (error) => { throw createKoinErrorFromAxiosError(error); },
-);
-
-export { client, accessClient, multipartClient };
+export { client, accessClient };
