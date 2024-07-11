@@ -182,9 +182,10 @@
   }
 
   &__auth-menu {
+    height: 24px;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-end;
     font-family: "Noto Sans CJK KR", sans-serif;
     font-size: 15px;
     font-weight: normal;
@@ -192,7 +193,8 @@
     list-style: none;
 
     .mobile-header__panel--logged-in & {
-      justify-content: space-around;
+      // justify-content: space-around; 내 정보 임시 삭제
+      justify-content: flex-start;
     }
   }
 
