@@ -64,19 +64,22 @@ export default function Login() {
               placeholder="아이디를 입력하세요."
               {...register('id')}
             />
-            {(isFormError.id || isLoginError) && <ErrorMessage type="id" />}
           </div>
-          <div className={styles.form__wrapper}>
+          {(isFormError.id || isLoginError) && <ErrorMessage type="id" />}
+          <div className={cn({
+            [styles.form__wrapper]: true,
+            [styles['form__wrapper--error']]: isFormError.id || isLoginError,
+          })}
+          >
             <input
               className={cn({
                 [styles.form__input]: true,
-                [styles['form__input--error']]: isFormError.password || isLoginError,
+                [styles['form__input-password']]: true,
               })}
               type={isBlind ? 'text' : 'password'}
               placeholder="비밀번호를 입력하세요."
               {...register('password')}
             />
-            {(isFormError.password || isLoginError) && <ErrorMessage type="password" />}
             <button
               type="button"
               className={styles['form__blind-icon']}
@@ -85,6 +88,7 @@ export default function Login() {
               {isBlind ? <ShowIcon aria-hidden /> : <BlindIcon aria-hidden />}
             </button>
           </div>
+          {(isFormError.password || isLoginError) && <ErrorMessage type="password" />}
           <button
             className={cn({
               [styles['form__login-button']]: true,
