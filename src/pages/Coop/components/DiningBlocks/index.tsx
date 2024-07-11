@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import NoPhotoIcon from 'assets/svg/coop/no-photo.svg?react';
 import SoldOutIcon from 'assets/svg/coop/sold-out.svg?react';
@@ -57,22 +57,6 @@ export default function DiningBlocks({ diningType, date }: DiningBlocksProps) {
       }
     }
   };
-
-  useEffect(() => {
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeModal();
-      }
-    });
-
-    return () => {
-      window.removeEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          closeModal();
-        }
-      });
-    };
-  }, [closeModal]);
 
   return (
     <>
