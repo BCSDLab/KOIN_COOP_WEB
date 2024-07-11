@@ -4,6 +4,7 @@ import BlindIcon from 'assets/svg/auth/blind.svg?react';
 import KoinLogo from 'assets/svg/auth/koin-logo.svg?react';
 import ShowIcon from 'assets/svg/auth/show.svg?react';
 import useBooleanState from 'hooks/useBooleanState';
+import { useScrollLock } from 'hooks/useScrollLock';
 import { LoginParams } from 'models/auth';
 import { useLogin } from 'query/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
@@ -45,10 +46,13 @@ export default function Login() {
     }));
   };
 
+  useScrollLock({ autoLock: true });
+
   return (
     <div className={styles.template}>
       <div className={styles.contents}>
         <KoinLogo className={styles.logo} />
+
         <form className={styles.form} onSubmit={handleSubmit(onSubmit, onError)}>
           <div className={styles.form__wrapper}>
             <input
