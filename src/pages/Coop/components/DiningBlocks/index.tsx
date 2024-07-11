@@ -82,7 +82,7 @@ export default function DiningBlocks({ diningType, date }: DiningBlocksProps) {
             key={dining.id}
             className={styles.card}
           >
-            {dining.menus[0].name === '미제공' ? (
+            {dining.menus.length === 0 ? (
               <div className={styles['card--not-served']}>
                 {`${dining.place}에서 제공하는 식단 정보가 없습니다.`}
               </div>
