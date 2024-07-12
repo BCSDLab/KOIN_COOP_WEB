@@ -31,7 +31,7 @@ export const useLogin = () => {
 
       await queryClient.invalidateQueries({ queryKey: userKeys.all });
       setLoginErrorMessage('');
-      navigate('/');
+      navigate('/', { replace: true });
     },
     onError: (err) => {
       if (isKoinError(err)) {
