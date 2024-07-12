@@ -75,6 +75,22 @@ export default function MobilePanel() {
     };
   }, []);
 
+  useEffect(() => {
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && isMobileMenuOpen) {
+        closeMenu();
+      }
+    });
+
+    return () => {
+      window.removeEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && isMobileMenuOpen) {
+          closeMenu();
+        }
+      });
+    };
+  }, [isMobileMenuOpen, closeMenu]);
+
   return (
     <>
       <div
