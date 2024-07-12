@@ -1,10 +1,12 @@
+import { useEffect } from 'react';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import BackArrowIcon from 'assets/svg/common/back-arrow.svg?react';
 import MenuIcon from 'assets/svg/common/hamburger-menu.svg?react';
 import MobileLogoIcon from 'assets/svg/common/mobile-koin-logo.svg?react';
 import useMediaQuery from 'hooks/useMediaQuery';
-import useMobileSidebar from 'layout/Header/hooks/useMobileSidebar';
+import useMobileMenu from 'layout/Header/hooks/useMobileMenu';
 import { HEADER_CATEGORY, HeaderCategory } from 'models/headerCategory';
 import { useCoopMe, useLogout } from 'query/auth';
 import cn from 'utils/className';
@@ -14,17 +16,17 @@ import { createPortal } from 'react-dom';
 import styles from './MobilePanel.module.scss';
 
 interface PanelContentProps {
-  hideSidebar: () => void;
+  closeMenu: () => void;
   category: HeaderCategory;
 }
 
-function PanelContent({ hideSidebar, category }: PanelContentProps) {
+function PanelContent({ closeMenu, category }: PanelContentProps) {
   const navigate = useNavigate();
   const { title, submenu } = category;
 
   const handleClick = (link: string) => {
     navigate(link);
-    hideSidebar();
+    closeMenu();
   };
 
   return (
@@ -53,18 +55,59 @@ export default function MobilePanel() {
   const { isMobile } = useMediaQuery();
   const { user } = useCoopMe();
   const { logout } = useLogout();
-  const navigate = useNavigate();
 
   const {
-    isExpanded: isMobileSidebarExpanded,
-    expandSidebar,
-    hideSidebar,
-  } = useMobileSidebar(pathname, isMobile);
+    isMenuOpen: isMobileMenuOpen,
+    openMenu,
+    closeMenu,
+  } = useMobileMenu(pathname, isMobile);
 
-  const handleHamburgerClick = () => {
-    navigate(pathname, { replace: true });
-    expandSidebar();
+  const handleMenuClick = () => {
+    if (!isMobileMenuOpen) {
+      window.history.pushState({ menuOpen: true }, '');
+    }
+    openMenu();
   };
+
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      if (isMobileMenuOpen) {
+        event.preventDefault();
+        closeMenu();
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [isMobileMenuOpen, closeMenu]);
+
+  useEffect(() => {
+    document.body.style.cssText = `
+    overflow: hidden;`;
+
+    return () => {
+      document.body.style.cssText = '';
+    };
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && isMobileMenuOpen) {
+        closeMenu();
+      }
+    });
+
+    return () => {
+      window.removeEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && isMobileMenuOpen) {
+          closeMenu();
+        }
+      });
+    };
+  }, [isMobileMenuOpen, closeMenu]);
 
   return (
     <>
@@ -87,8 +130,8 @@ export default function MobilePanel() {
             [styles['mobile-header__icon']]: true,
             [styles['mobile-header__icon--right']]: true,
           })}
-          onClick={handleHamburgerClick}
-          aria-expanded={isMobileSidebarExpanded}
+          onClick={handleMenuClick}
+          aria-expanded={isMobileMenuOpen}
         >
           <MenuIcon title="메뉴" />
         </button>
@@ -98,7 +141,7 @@ export default function MobilePanel() {
           <nav className={cn({
             [styles['mobile-header__panel']]: true,
             [styles['mobile-header__panel--logged-in']]: true,
-            [styles['mobile-header__panel--show']]: isMobileSidebarExpanded,
+            [styles['mobile-header__panel--show']]: isMobileMenuOpen,
           })}
           >
             <div className={styles['mobile-header__user']}>
@@ -106,7 +149,7 @@ export default function MobilePanel() {
                 type="button"
                 aria-label="뒤로 가기 버튼"
                 className={styles['mobile-header__backspace']}
-                onClick={hideSidebar}
+                onClick={closeMenu}
               >
                 <BackArrowIcon title="뒤로 가기 버튼" />
               </button>
@@ -131,7 +174,7 @@ export default function MobilePanel() {
             {HEADER_CATEGORY.map((category: HeaderCategory) => (
               <PanelContent
                 key={category.title}
-                hideSidebar={hideSidebar}
+                closeMenu={closeMenu}
                 category={category}
               />
             ))}
