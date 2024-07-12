@@ -13,7 +13,7 @@ import sha256 from 'utils/sha256';
 import ErrorMessage from './ErrorMessage';
 import styles from './Login.module.scss';
 
-const INQUIRY_LINK = 'https://docs.google.com/forms/d/1_pTvL-9Zo1f9cebi_J_8WFSa1Oj8tcEL_nh9IavsSaU/edit';
+const INQUIRY_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLSf6iGym5wll6nHwI2Wn6onmClrvRQKpuP24bpK3TJYhM9s2uA/viewform?usp=sf_link';
 
 export default function Login() {
   const { login } = useLogin();
