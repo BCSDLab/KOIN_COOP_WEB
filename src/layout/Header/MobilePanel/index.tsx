@@ -66,6 +66,15 @@ export default function MobilePanel() {
     expandSidebar();
   };
 
+  useEffect(() => {
+    document.body.style.cssText = `
+    overflow: hidden;`;
+
+    return () => {
+      document.body.style.cssText = '';
+    };
+  }, []);
+
   return (
     <>
       <div
