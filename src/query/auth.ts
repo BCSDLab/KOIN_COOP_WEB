@@ -9,6 +9,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { userKeys } from './KeyFactory/userKeys';
 
+const COOP_LOGIN_ERROR_CODES = [400, 404, 403, 500];
+
 export const useLogin = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ export const useLogin = () => {
         sessionStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
 
-        if (![400, 404, 403, 500].includes(err.status)) {
+        if (!COOP_LOGIN_ERROR_CODES.includes(err.status)) {
           sendClientError(err);
         }
 
