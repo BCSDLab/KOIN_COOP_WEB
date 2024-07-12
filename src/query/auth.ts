@@ -3,18 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { getCoopMe, postLogin, postLogout } from 'api/auth';
 import { LoginForm, LoginResponse } from 'models/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
-import usePrevPathStore from 'store/usePrevPathStore';
 
 import { isKoinError, sendClientError } from '@bcsdlab/koin';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { userKeys } from './KeyFactory/userKeys';
 
+const COOP_LOGIN_ERROR_CODES = [400, 404, 403, 500];
+
 export const useLogin = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { setPrevPath } = usePrevPathStore();
-  const { setIsLoginError, setLoginErrorMessage } = useErrorMessageStore();
+  const { setLoginErrorStatus, setIsLoginError, setLoginErrorMessage } = useErrorMessageStore();
 
   const {
     mutate, error, isError, isSuccess,
@@ -32,32 +32,18 @@ export const useLogin = () => {
       await queryClient.invalidateQueries({ queryKey: userKeys.all });
       setLoginErrorMessage('');
       navigate('/');
-      setPrevPath('/');
     },
     onError: (err) => {
       if (isKoinError(err)) {
         sessionStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
 
-        let errorMessage;
-        switch (err.status) {
-          case 400:
-          case 404:
-            errorMessage = '아이디 또는 비밀번호를 잘못 입력했습니다.';
-            break;
-          case 403:
-            errorMessage = '관리자 승인 대기 중입니다.';
-            break;
-          case 500:
-            errorMessage = '서버 오류가 발생했습니다.';
-            break;
-          default:
-            errorMessage = '로그인을 실패했습니다.';
-            sendClientError(err);
+        if (!COOP_LOGIN_ERROR_CODES.includes(err.status)) {
+          sendClientError(err);
         }
 
-        setLoginErrorMessage(errorMessage);
         setIsLoginError(true);
+        setLoginErrorStatus(err.status);
       }
     },
   });
@@ -70,7 +56,6 @@ export const useLogin = () => {
 export const useLogout = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { setPrevPath } = usePrevPathStore();
   const { setLogoutErrorMessage: setLogoutError } = useErrorMessageStore();
 
   const { mutate, error, isError } = useMutation({
@@ -80,7 +65,6 @@ export const useLogout = () => {
       localStorage.removeItem('refresh_token');
       queryClient.clear();
       navigate('/login');
-      setPrevPath('/login');
     },
     onError: async (err) => {
       if (isKoinError(err)) {

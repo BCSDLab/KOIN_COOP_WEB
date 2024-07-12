@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import BackArrowIcon from 'assets/svg/common/back-arrow.svg?react';
 import MenuIcon from 'assets/svg/common/hamburger-menu.svg?react';
@@ -53,12 +53,18 @@ export default function MobilePanel() {
   const { isMobile } = useMediaQuery();
   const { user } = useCoopMe();
   const { logout } = useLogout();
+  const navigate = useNavigate();
 
   const {
     isExpanded: isMobileSidebarExpanded,
     expandSidebar,
     hideSidebar,
   } = useMobileSidebar(pathname, isMobile);
+
+  const handleHamburgerClick = () => {
+    navigate(pathname, { replace: true });
+    expandSidebar();
+  };
 
   return (
     <>
@@ -81,7 +87,7 @@ export default function MobilePanel() {
             [styles['mobile-header__icon']]: true,
             [styles['mobile-header__icon--right']]: true,
           })}
-          onClick={expandSidebar}
+          onClick={handleHamburgerClick}
           aria-expanded={isMobileSidebarExpanded}
         >
           <MenuIcon title="메뉴" />

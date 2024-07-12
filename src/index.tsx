@@ -2,6 +2,8 @@ import { Suspense } from 'react';
 
 import { BrowserRouter } from 'react-router-dom';
 
+import { refresh } from 'api/auth';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ReactDOM from 'react-dom/client';
 import { ZodError } from 'zod';
@@ -10,6 +12,8 @@ import App from './App';
 import ErrorBoundary from './layout/ErrorBoundary';
 
 import './index.scss';
+
+refresh();
 
 const queryClient = new QueryClient({
   defaultOptions: {

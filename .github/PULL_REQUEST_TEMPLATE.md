@@ -1,4 +1,4 @@
-- Close #ISSUE_NUMBER
+- Close #
   
 ## What is this PR? 🔍
 

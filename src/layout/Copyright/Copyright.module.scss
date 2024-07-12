@@ -1,11 +1,13 @@
 @use "src/assets/styles/mediaQuery" as media;
 
 .copyright {
+  font-family: Pretendard, sans-serif;
   font-size: 12px;
+  font-weight: 400;
+  line-height: 19.2px;
   text-align: center;
   margin-bottom: 6vh;
-  font-weight: 400;
-  color: #252525;
+  color: #727272;
   position: absolute;
   bottom: 0;
   left: 0;

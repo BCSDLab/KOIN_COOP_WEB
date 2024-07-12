@@ -4,75 +4,74 @@ import BlindIcon from 'assets/svg/auth/blind.svg?react';
 import KoinLogo from 'assets/svg/auth/koin-logo.svg?react';
 import ShowIcon from 'assets/svg/auth/show.svg?react';
 import useBooleanState from 'hooks/useBooleanState';
-import { LoginParams } from 'models/auth';
+import { useScrollLock } from 'hooks/useScrollLock';
 import { useLogin } from 'query/auth';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
 import cn from 'utils/className';
 import sha256 from 'utils/sha256';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
-
 import ErrorMessage from './ErrorMessage';
 import styles from './Login.module.scss';
 
-const INQUIRY_LINK = 'https://docs.google.com/forms/d/1_pTvL-9Zo1f9cebi_J_8WFSa1Oj8tcEL_nh9IavsSaU/edit';
+const INQUIRY_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLSf6iGym5wll6nHwI2Wn6onmClrvRQKpuP24bpK3TJYhM9s2uA/viewform?usp=sf_link';
 
 export default function Login() {
   const { login } = useLogin();
-  const { isLoginError, setIsLoginError, setLoginErrorMessage } = useErrorMessageStore();
+  const { isLoginError, setIsLoginError } = useErrorMessageStore();
+  const [id, setId] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [isBlind,,,, changeIsBlind] = useBooleanState();
   const [isAutoLogin,,,, changeIsAutoLogin] = useBooleanState(true);
-  const [isFormError, setIsFormError] = useState({ id: false, password: false });
 
-  const { register, handleSubmit } = useForm<LoginParams>({
-    resolver: zodResolver(LoginParams),
-  });
-
-  const onSubmit: SubmitHandler<LoginParams> = async (data) => {
-    setIsFormError({ id: false, password: false });
-    const hashedPassword = await sha256(data.password);
-    login({ id: data.id, password: hashedPassword, isAutoLogin });
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const hashedPassword = await sha256(password);
+    login({ id, password: hashedPassword, isAutoLogin });
+    setPassword('');
   };
 
-  const onError = (error: FieldErrors<LoginParams>) => {
-    setIsLoginError(false);
-    setLoginErrorMessage('');
-    setIsFormError((prev) => ({
-      ...prev,
-      id: !!error.id,
-      password: !!error.password,
-    }));
-  };
+  useScrollLock({ autoLock: true });
 
   return (
     <div className={styles.template}>
       <div className={styles.contents}>
         <KoinLogo className={styles.logo} />
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit, onError)}>
-          <div className={styles.form__wrapper}>
+
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={cn({
+            [styles.form__wrapper]: true,
+            [styles['form__wrapper--error']]: isLoginError,
+          })}
+          >
             <input
               className={cn({
                 [styles.form__input]: true,
-                [styles['form__input--error']]: isFormError.id || isLoginError,
+                [styles['form__input--error']]: isLoginError,
               })}
               type="text"
               placeholder="아이디를 입력하세요."
-              {...register('id')}
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+              onFocus={() => setIsLoginError(false)}
             />
-            {(isFormError.id || isLoginError) && <ErrorMessage type="id" />}
           </div>
-          <div className={styles.form__wrapper}>
+          {isLoginError && <ErrorMessage type="id" />}
+          <div className={cn({
+            [styles.form__wrapper]: true,
+            [styles['form__wrapper--error']]: isLoginError,
+          })}
+          >
             <input
               className={cn({
                 [styles.form__input]: true,
-                [styles['form__input--error']]: isFormError.password || isLoginError,
+                [styles['form__input-password']]: true,
               })}
               type={isBlind ? 'text' : 'password'}
               placeholder="비밀번호를 입력하세요."
-              {...register('password')}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onFocus={() => setIsLoginError(false)}
             />
-            {(isFormError.password || isLoginError) && <ErrorMessage type="password" />}
             <button
               type="button"
               className={styles['form__blind-icon']}
@@ -81,11 +80,13 @@ export default function Login() {
               {isBlind ? <ShowIcon aria-hidden /> : <BlindIcon aria-hidden />}
             </button>
           </div>
+          {isLoginError && <ErrorMessage type="password" />}
           <button
             className={cn({
               [styles['form__login-button']]: true,
             })}
             type="submit"
+            disabled={!id || !password}
           >
             로그인
           </button>
