@@ -184,7 +184,7 @@ export default function MobilePanel() {
                 [styles['mobile-header__logo']]: true,
                 [styles['mobile-header__logo--bcsd']]: true,
               })}
-              src="http://static.koreatech.in/assets/img/ic-bcsd_gray.png"
+              src="https://static.koreatech.in/assets/img/ic-bcsd_gray.png"
               alt="bcsd lab logo"
               title="bcsd lab logo"
             />
@@ -193,7 +193,7 @@ export default function MobilePanel() {
                 [styles['mobile-header__logo']]: true,
                 [styles['mobile-header__logo--koin']]: true,
               })}
-              src="http://static.koreatech.in/assets/img/rectangle_icon.png"
+              src="https://static.koreatech.in/assets/img/rectangle_icon.png"
               alt="KOIN service logo"
               title="bcsd lab logo"
             />
