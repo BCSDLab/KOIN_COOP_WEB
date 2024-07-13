@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -55,18 +55,21 @@ export default function MobilePanel() {
   const { isMobile } = useMediaQuery();
   const { user } = useCoopMe();
   const { logout } = useLogout();
+  const [transitionPrevented, setTransitionPrevented] = useState(false);
 
   const {
-    isMenuOpen: isMobileMenuOpen,
-    openMenu,
-    closeMenu,
+    isMenuOpen: isMobileMenuOpen, openMenu, closeMenu,
   } = useMobileMenu(pathname, isMobile);
 
   const handleMenuClick = () => {
-    if (!isMobileMenuOpen) {
-      window.history.pushState({ menuOpen: true }, '');
-    }
+    window.history.pushState({ menuOpen: true }, '');
     openMenu();
+    setTimeout(() => setTransitionPrevented(true), 300);
+  };
+
+  const handleMenuClose = () => {
+    setTransitionPrevented(false);
+    closeMenu();
   };
 
   useEffect(() => {
@@ -74,40 +77,36 @@ export default function MobilePanel() {
       if (isMobileMenuOpen) {
         event.preventDefault();
         closeMenu();
+        setTimeout(() => setTransitionPrevented(false), 300);
       }
     };
 
     window.addEventListener('popstate', handlePopState);
-
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-    };
+    return () => window.removeEventListener('popstate', handlePopState);
   }, [isMobileMenuOpen, closeMenu]);
 
   useEffect(() => {
-    document.body.style.cssText = `
-    overflow: hidden;`;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isMobileMenuOpen) {
+        closeMenu();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isMobileMenuOpen, closeMenu]);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.cssText = 'overflow: hidden;';
+    } else {
+      document.body.style.cssText = '';
+    }
 
     return () => {
       document.body.style.cssText = '';
     };
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && isMobileMenuOpen) {
-        closeMenu();
-      }
-    });
-
-    return () => {
-      window.removeEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && isMobileMenuOpen) {
-          closeMenu();
-        }
-      });
-    };
-  }, [isMobileMenuOpen, closeMenu]);
+  }, [isMobileMenuOpen]);
 
   return (
     <>
@@ -142,6 +141,7 @@ export default function MobilePanel() {
             [styles['mobile-header__panel']]: true,
             [styles['mobile-header__panel--logged-in']]: true,
             [styles['mobile-header__panel--show']]: isMobileMenuOpen,
+            [styles['mobile-header__panel--transition-prevented']]: transitionPrevented,
           })}
           >
             <div className={styles['mobile-header__user']}>
@@ -149,7 +149,7 @@ export default function MobilePanel() {
                 type="button"
                 aria-label="뒤로 가기 버튼"
                 className={styles['mobile-header__backspace']}
-                onClick={closeMenu}
+                onClick={handleMenuClose}
               >
                 <BackArrowIcon title="뒤로 가기 버튼" />
               </button>

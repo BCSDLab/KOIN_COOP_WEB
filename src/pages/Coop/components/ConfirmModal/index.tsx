@@ -21,8 +21,7 @@ export default function ConfirmModal({
   confirm,
 }: ConfirmModalProps) {
   useEffect(() => {
-    document.body.style.cssText = `
-    overflow: hidden;`;
+    document.body.style.cssText = 'overflow: hidden;';
 
     return () => {
       document.body.style.cssText = '';

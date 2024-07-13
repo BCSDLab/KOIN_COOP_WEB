@@ -76,6 +76,10 @@
     &--show {
       transform: translateX(0);
     }
+
+    &--transition-prevented {
+      transition: none;
+    }
   }
 
   &__user {
