@@ -1,79 +1,80 @@
-.container {
+.calendar-body {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 24px 24px 10px;
-  background-color: #fff;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 326px;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 28px);
+  grid-template-rows: repeat(1, 21px);
+  gap: 21px;
 }
 
 .day {
-  width: 28px;
-  height: 55px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: transparent;
-  cursor: pointer;
+  color: #8E8E8E;
+  text-align: center;
+
+  font-family: Pretendard;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%; /* 20.8px */
 }
 
-.day-of-week {
-  font-family: Pretendard, sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 20.8px;
-  text-align: center;
-  color: #8e8e8e;
+.date-list {
+  display: grid;
+  grid-template-columns: repeat(7, 28px);
+  grid-template-rows: repeat(6, 28px);
+  gap: 14px 21px;
 
-  &--after,
-  &--selected {
-    color: #4b4b4b;
-  }
+  width: 100%;
+  height: 100%;
 }
 
 .date {
-  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-family: Pretendard, sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 25.6px;
-  text-align: center;
-  color: #000;
-  width: 28px;
-  height: 28px;
-  border-radius: 99px;
-  background-color: transparent;
-  border: none;
-  padding-top: 2px;
-  box-sizing: border-box;
+  justify-content: center;
 
-  &--previous {
-    color: #8e8e8e;
+  position: relative;
+  color: #8E8E8E;
+
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 25.6px */
+  background: none;
+  border: none;
+
+  &--current-month {
+    color: #000;
+    cursor: pointer;
   }
 
-  &--today {
-    font-size: 15px;
-    line-height: 24px;
-    color: #175c8e;
-    border: 1px solid #175c8e;
+  &--today::after {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -8px;
-      border: 1px solid #175c8e;
-      width: 11.5px;
-      border-radius: 10px;
-    }
+    content: '';
+    width: 14px;
+    height: 3px;
+    border-radius: 3px;
+    
+    background: #175C8E;
+    position: absolute;
+    bottom: -5px;
+    left: calc(50% - 7px);
   }
 
   &--selected {
-    font-size: 15px;
-    line-height: 24px;
+    border-radius: 50%;
+    background: #175C8E;
     color: #fff;
-    background-color: #175c8e;
   }
 }
