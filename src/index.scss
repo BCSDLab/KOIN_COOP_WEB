@@ -7,24 +7,19 @@
 }
 
 body {
-  min-height: 100vh;
-  min-width: 1148px;
-
-  @include media.media-breakpoint-down(mobile) {
-    min-width: 320px;
-    min-height: 100%;
-  }
+  height: 100%;
+  max-width: 480px;
 }
 
 body,
 html {
   /* https://css-tricks.com/snippets/css/system-font-stack/ */
-  font-family: NotoSansKR, sans-serif;
+  font-family: Pretandard, sans-serif;
 }
 
 button {
   border: none;
-  font-family: NotoSansKR, sans-serif;
+  font-family: Pretandard, sans-serif;
 }
 
 a,

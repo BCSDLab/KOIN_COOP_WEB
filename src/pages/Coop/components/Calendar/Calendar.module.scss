@@ -39,9 +39,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 
   position: relative;
-  color: #8E8E8E;
+  color: #000;
 
   font-family: Pretendard;
   font-size: 16px;
@@ -51,10 +52,6 @@
   background: none;
   border: none;
 
-  &--current-month {
-    color: #000;
-    cursor: pointer;
-  }
 
   &--today::after {
     display: flex;

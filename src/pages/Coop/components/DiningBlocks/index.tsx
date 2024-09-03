@@ -14,21 +14,22 @@ import { filterDinings } from 'utils/dinings';
 import { getIsOperating } from 'utils/operate';
 
 import axios from 'axios';
+import dayjs from 'dayjs';
 import { createPortal } from 'react-dom';
 
 import styles from './DiningBlocks.module.scss';
 
 interface DiningBlocksProps {
   diningType: DiningType;
-  date: string;
+  date: Date;
 }
 
 export default function DiningBlocks({ diningType, date }: DiningBlocksProps) {
-  const { dinings } = useGetDinings(date);
+  const { dinings } = useGetDinings(dayjs(date).format('YYMMDD'));
   const filteredDinings = filterDinings(dinings, diningType);
   const [selectedDining, setSelectedDining] = useState({} as Dining);
   const fileInputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
-  const isOperating = getIsOperating(diningType, date);
+  const isOperating = getIsOperating(diningType, dayjs(date).format('YYMMDD'));
   const [isModalOpen, , openModal, closeModal] = useBooleanState(false);
   const toggleSoldOut = useSoldOut();
   const getUploadUrl = useUploadUrl();
