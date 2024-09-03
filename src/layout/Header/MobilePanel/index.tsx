@@ -153,10 +153,12 @@ export default function MobilePanel() {
               >
                 <BackArrowIcon title="뒤로 가기 버튼" />
               </button>
+
               <div className={styles['mobile-header__greet']}>
                 {user?.name}
                 <span>님, 안녕하세요!</span>
               </div>
+
               <ul className={styles['mobile-header__auth-menu']}>
                 {/* <li className={styles['mobile-header__my-info']}>
                   <Link to="/">
@@ -178,25 +180,6 @@ export default function MobilePanel() {
                 category={category}
               />
             ))}
-
-            <img
-              className={cn({
-                [styles['mobile-header__logo']]: true,
-                [styles['mobile-header__logo--bcsd']]: true,
-              })}
-              src="https://static.koreatech.in/assets/img/ic-bcsd_gray.png"
-              alt="bcsd lab logo"
-              title="bcsd lab logo"
-            />
-            <img
-              className={cn({
-                [styles['mobile-header__logo']]: true,
-                [styles['mobile-header__logo--koin']]: true,
-              })}
-              src="https://static.koreatech.in/assets/img/rectangle_icon.png"
-              alt="KOIN service logo"
-              title="bcsd lab logo"
-            />
           </nav>
         ),
         document.body,

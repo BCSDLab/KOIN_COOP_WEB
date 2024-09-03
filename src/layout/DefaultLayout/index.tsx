@@ -2,11 +2,15 @@ import { Outlet } from 'react-router-dom';
 
 import Header from 'layout/Header';
 
+import styles from './DefaultLayout.module.scss';
+
 export default function DefaultLayout() {
   return (
-    <div>
+    <div className={styles.wrapper}>
       <Header />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 }

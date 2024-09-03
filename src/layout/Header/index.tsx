@@ -1,27 +1,23 @@
-import { Suspense } from 'react';
-
-import useMediaQuery from 'hooks/useMediaQuery';
+import Search from 'assets/svg/auth/search-glasses.svg?react';
+import Logo from 'assets/svg/common/koin-logo.svg?react';
+import Setting from 'assets/svg/main/gear.svg?react';
 
 import styles from './Header.module.scss';
 import MobilePanel from './MobilePanel';
-import PCPanel from './PCPanel';
 
 function Header() {
-  const { isMobile } = useMediaQuery();
-
   return (
     <header
       className={styles.header}
     >
+      <Logo />
       <nav className={styles.header__content}>
-        {isMobile ? (
-          <Suspense fallback={<div />}>
-            <MobilePanel />
-          </Suspense>
-        ) : (
-          <PCPanel />
-        )}
+        <Search />
+        <Setting />
       </nav>
+      {/* <Suspense fallback={<div />}>
+          <MobilePanel />
+        </Suspense> */}
     </header>
   );
 }
