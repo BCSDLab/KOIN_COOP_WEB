@@ -65,11 +65,12 @@ export default function DiningBlocks({ diningType, date }: DiningBlocksProps) {
     if (hiddenDiningIdList.includes(diningId)) {
       return setHiddenDiningIdList((prev) => prev.filter((id) => id !== diningId));
     }
+
     return setHiddenDiningIdList((prev) => [...prev, diningId]);
   };
 
   return (
-    <>
+    <div>
       <div className={styles.container}>
         {filteredDinings.map((dining) => (
           <div
@@ -85,8 +86,8 @@ export default function DiningBlocks({ diningType, date }: DiningBlocksProps) {
                 <div className={styles.header}>
                   <div>
                     <span className={styles.header__title}>{dining.place}</span>
-                    {!dining.image_url && <span className={styles.header__info}>사진없음</span>}
-                    {dining.soldout_at && <span className={styles.header__info}>품절</span>}
+                    {!dining.image_url && <span className={styles.tag__danger}>사진없음</span>}
+                    {dining.soldout_at && <span className={styles.tag__warning}>품절</span>}
                   </div>
                   <div className={styles['toggle-container']}>
                     <div className={styles['toggle-title']}>품절</div>
@@ -96,41 +97,47 @@ export default function DiningBlocks({ diningType, date }: DiningBlocksProps) {
                     />
                   </div>
                 </div>
-                {!hiddenDiningIdList.includes(dining.id) && (
-                <div className={styles.content}>
-                  <button
-                    type="button"
-                    className={styles['image-trigger']}
-                    onClick={() => fileInputRefs.current[dining.id]?.click()}
+                <div className={styles['content-wrapper']}>
+                  <div className={cn({
+                    [styles.content]: true,
+                    [styles['content--hidden']]: hiddenDiningIdList.includes(dining.id),
+                  })}
                   >
-                    {dining.image_url && <img src={dining.image_url} alt="식단" />}
-                    {!dining.image_url && (
-                    <div className={styles['no-image']}>
-                      <NoPhotoIcon />
-                      <div className={styles['no-image--description']}>
-                        식단 사진이 없습니다.
-                        <br />
-                        사진을 업로드 해 주세요.
+                    <button
+                      type="button"
+                      className={styles['image-trigger']}
+                      onClick={() => fileInputRefs.current[dining.id]?.click()}
+                    >
+                      {dining.image_url && <img src={dining.image_url} alt="식단" />}
+                      {!dining.image_url && (
+                      <div className={styles['no-image']}>
+                        <NoPhotoIcon />
+                        <div className={styles['no-image--description']}>
+                          식단 사진이 없습니다.
+                          <br />
+                          사진을 업로드 해 주세요.
+                        </div>
                       </div>
+                      )}
+                    </button>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      onChange={(e) => handleImageChange(e, dining.id)}
+                      ref={(e) => { fileInputRefs.current[dining.id] = e; }}
+                    />
+                    <div className={styles.menus}>
+                      {dining.menus.map((menu) => (
+                        <div key={menu.id} className={styles['menu-name']}>
+                          {menu.name}
+                        </div>
+                      ))}
                     </div>
-                    )}
-                  </button>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    style={{ display: 'none' }}
-                    onChange={(e) => handleImageChange(e, dining.id)}
-                    ref={(e) => { fileInputRefs.current[dining.id] = e; }}
-                  />
-                  <div className={styles.menus}>
-                    {dining.menus.map((menu) => (
-                      <div key={menu.id} className={styles['menu-name']}>
-                        {menu.name}
-                      </div>
-                    ))}
+
                   </div>
                 </div>
-                )}
+
                 <div className={styles.divider} />
                 <button
                   type="button"
@@ -143,7 +150,8 @@ export default function DiningBlocks({ diningType, date }: DiningBlocksProps) {
                   </span>
                   <svg
                     className={cn({
-                      [styles['arrow-icon']]: hiddenDiningIdList.includes(dining.id),
+                      [styles['arrow-icon']]: true,
+                      [styles['arrow-icon__transform']]: !hiddenDiningIdList.includes(dining.id),
                     })}
                     width="20"
                     height="21"
@@ -159,6 +167,7 @@ export default function DiningBlocks({ diningType, date }: DiningBlocksProps) {
           </div>
         ))}
       </div>
+
       {isModalOpen && createPortal(
         <ConfirmModal
           isOperating={isOperating}
@@ -168,6 +177,6 @@ export default function DiningBlocks({ diningType, date }: DiningBlocksProps) {
         />,
         document.body,
       )}
-    </>
+    </div>
   );
 }

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 const CALENDAR_CELL_COUNT = 42;
-const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
 const getMonthDateList = (year: number, month: number): Date[] => {
   const currentMonth = month - 1;

@@ -38,6 +38,14 @@
   }
 }
 
+.arrow-icon {
+  transition: all 0.4s ease;
+
+  &__transform {
+    transform: rotate(-180deg);
+  }
+}
+
 .dropdown-list {
   z-index: 5;
   position: absolute;

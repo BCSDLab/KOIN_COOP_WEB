@@ -1,9 +1,10 @@
-import Search from 'assets/svg/auth/search-glasses.svg?react';
+// import Search from 'assets/svg/auth/search-glasses.svg?react';
+import { Link } from 'react-router-dom';
+
 import Logo from 'assets/svg/common/koin-logo.svg?react';
 import Setting from 'assets/svg/main/gear.svg?react';
 
 import styles from './Header.module.scss';
-import MobilePanel from './MobilePanel';
 
 function Header() {
   return (
@@ -12,12 +13,11 @@ function Header() {
     >
       <Logo />
       <nav className={styles.header__content}>
-        <Search />
-        <Setting />
+        {/* <Search /> */}
+        <Link to="/setting">
+          <Setting />
+        </Link>
       </nav>
-      {/* <Suspense fallback={<div />}>
-          <MobilePanel />
-        </Suspense> */}
     </header>
   );
 }

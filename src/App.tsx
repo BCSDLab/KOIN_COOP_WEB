@@ -6,6 +6,7 @@ import AuthLayout from 'layout/AuthLayout';
 import DefaultLayout from 'layout/DefaultLayout';
 import Coop from 'pages/Coop';
 import Login from 'pages/Login';
+import Setting from 'pages/Setting';
 import { useCoopMe } from 'query/auth';
 
 function ProtectedRoute() {
@@ -29,6 +30,7 @@ function App() {
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<Coop />} />
         </Route>
+        <Route path="/setting" element={<Setting />} />
       </Route>
       <Route element={<PublicRoute />}>
         <Route element={<AuthLayout />}>

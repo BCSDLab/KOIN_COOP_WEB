@@ -26,7 +26,12 @@ export default function DiningTypeSelect({
       <div className={styles.dropdown} ref={ref}>
         <button type="button" className={styles['dropdown-trigger']} onClick={() => setTypeOpen((v) => !v)}>
           <div>{DINING_TYPE_MAP[selectedDiningType]}</div>
-          <ArrowDown />
+          <ArrowDown
+            className={cn({
+              [styles['arrow-icon']]: true,
+              [styles['arrow-icon__transform']]: typeOpen,
+            })}
+          />
         </button>
         {typeOpen && (
         <div className={styles['dropdown-list']}>

@@ -1,14 +1,12 @@
+import { useState } from 'react';
+
 import cn from 'utils/className';
 
 import styles from './Calendar.module.scss';
 import useCalendar from './hooks/useCalendar';
 
-interface CalendarProps {
-  selectedDate: Date;
-  setSelectedDate: (date: Date) => void;
-}
-
 const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
+const WEEK = 7;
 
 const isSameDate = (date: Date, comparisonDate: Date) => (
   date.getFullYear() === comparisonDate.getFullYear()
@@ -16,8 +14,29 @@ const isSameDate = (date: Date, comparisonDate: Date) => (
   && date.getDate() === comparisonDate.getDate()
 );
 
+interface CalendarProps {
+  selectedDate: Date;
+  setSelectedDate: (date: Date) => void;
+}
+
 export default function Calendar({ selectedDate, setSelectedDate }: CalendarProps) {
   const { dateList, isToday } = useCalendar();
+  const [dateListFormState, setdateListFormState] = useState<'week' | 'month'>('week');
+
+  const getDateList = (form: 'week' | 'month') => {
+    if (form === 'week') {
+      const todayDate = dateList.findIndex((date) => isSameDate(selectedDate, date)) + 1;
+      const rowIndex = Math.floor(todayDate / WEEK);
+
+      return dateList.slice(rowIndex * WEEK, rowIndex * WEEK + WEEK);
+    }
+
+    if (form === 'month') {
+      return dateList;
+    }
+
+    return [];
+  };
 
   return (
     <div className={styles.container}>
@@ -27,8 +46,26 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
           {`${selectedDate.getMonth() + 1}월 ${selectedDate.getDate()}일 ${DAYS[selectedDate.getDay()]}요일`}
         </div>
         <div className={styles['button-container']}>
-          <button type="button" onClick={() => {}}>주간</button>
-          <button type="button" onClick={() => {}}>월간</button>
+          <button
+            type="button"
+            onClick={() => setdateListFormState('week')}
+            className={cn({
+              [styles['form-toggle-button']]: true,
+              [styles['form-toggle-button__selected']]: dateListFormState === 'week',
+            })}
+          >
+            주간
+          </button>
+          <button
+            type="button"
+            onClick={() => setdateListFormState('month')}
+            className={cn({
+              [styles['form-toggle-button']]: true,
+              [styles['form-toggle-button__selected']]: dateListFormState === 'month',
+            })}
+          >
+            월간
+          </button>
         </div>
       </div>
       <div className={styles['calendar-body']}>
@@ -38,7 +75,7 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
           ))}
         </div>
         <div className={styles['date-list']}>
-          {dateList.map((date) => (
+          {getDateList(dateListFormState).map((date) => (
             <button
               type="button"
               key={date.toString()}

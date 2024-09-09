@@ -40,26 +40,26 @@
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
+}
 
-  & > button {
-    display: flex;
-    padding: 6px 14px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 12px;
-    background: none;
+.form-toggle-button {
+  display: flex;
+  padding: 6px 14px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  background: none;
 
-    color: #727272;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 160%; /* 22.4px */
+  color: #727272;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%; /* 22.4px */
 
-    &__selected {
-      color: #4B4B4B;
-      background:  #EEE;
-    }
+  &__selected {
+    color: #4B4B4B;
+    background:  #EEE;
   }
 }
 
@@ -96,7 +96,7 @@
 .date-list {
   display: grid;
   grid-template-columns: repeat(7, 28px);
-  grid-template-rows: repeat(6, 28px);
+  grid-auto-rows: 28px;
   gap: 14px calc((100% - 196px) / 6);
 
   width: 100%;
@@ -112,14 +112,12 @@
   position: relative;
   color: #000;
 
-  font-family: Pretendard;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 160%; /* 25.6px */
   background: none;
   border: none;
-
 
   &--today::after {
     display: flex;
