@@ -25,8 +25,8 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
 
   const getDateList = (form: 'week' | 'month') => {
     if (form === 'week') {
-      const todayDate = dateList.findIndex((date) => isSameDate(selectedDate, date)) + 1;
-      const rowIndex = Math.floor(todayDate / WEEK);
+      const todayDateIndex = dateList.findIndex((date) => isSameDate(selectedDate, date));
+      const rowIndex = Math.floor(todayDateIndex / WEEK);
 
       return dateList.slice(rowIndex * WEEK, rowIndex * WEEK + WEEK);
     }

@@ -1,4 +1,3 @@
-// import Search from 'assets/svg/auth/search-glasses.svg?react';
 import { Link } from 'react-router-dom';
 
 import Logo from 'assets/svg/common/koin-logo.svg?react';
