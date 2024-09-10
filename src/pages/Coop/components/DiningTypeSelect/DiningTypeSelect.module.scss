@@ -6,8 +6,7 @@
 }
 
 .type-title {
-  color:#10477A;
-
+  color: #10477a;
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
@@ -24,16 +23,14 @@
     padding: 6px 16px;
     border-radius: 8px;
     background: none;
-
     color: #000;
-
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 160%; /* 25.6px */
 
     &:active {
-      background: var(--Neutral-200, #EEE);
+      background: #eee;
     }
   }
 }
@@ -51,20 +48,18 @@
   position: absolute;
   bottom: -122px;
   left: 0;
-
   display: flex;
   flex-direction: column;
   width: 84px;
   border-radius: 8px;
-  background: #FFF;
-  box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.04), 0px 8px 32px 0px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  box-shadow: 0 2px 20px 0 rgba(0 0 0 / 4%), 8px 32px rgba(0 0 0 / 8%);
 }
 
 .dropdown-item {
   display: flex;
   align-items: center;
   color: #000;
-
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -73,6 +68,6 @@
   background: none;
 
   &--selected {
-    background:  #F5F5F5;
+    background: #f5f5f5;
   }
 }

@@ -47,32 +47,30 @@
 .tag {
   &__danger,
   &__warning {
-  display: flex;
-  padding: 4px 8px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 4px;
-
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 160%; /* 19.2px */
+    display: flex;
+    padding: 4px 8px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%; /* 19.2px */
   }
 
   &__danger {
-    color: #EC2D30;
-    background: #FFCCD2;
+    color: #ec2d30;
+    background: #ffccd2;
   }
 
   &__warning {
-    color: #FFAD0D;
-    background: #FFF7E1;
+    color: #ffad0d;
+    background: #fff7e1;
   }
 }
 
 .toggle-title {
-  color: #4B4B4B;
-
+  color: #4b4b4b;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -84,7 +82,7 @@
 }
 
 .content {
-  transition: margin 0.4s cubic-bezier(.48,0,.58,1);
+  transition: margin 0.4s cubic-bezier(0.48, 0, 0.58, 1);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -92,7 +90,7 @@
 }
 
 .content--hidden {
-  transition: margin 0.4s cubic-bezier(.48,0,.58,1);
+  transition: margin 0.4s cubic-bezier(0.48, 0, 0.58, 1);
   margin-top: -100%;
 }
 
@@ -118,11 +116,11 @@
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  border: 1px solid #CACACA;
-  background: #FAFAFA;
+  border: 1px solid #cacaca;
+  background: #fafafa;
 
   &--description {
-    color: #8E8E8E;
+    color: #8e8e8e;
     text-align: center;
     font-size: 16px;
     font-style: normal;
@@ -139,7 +137,6 @@
 
 .menu-name {
   color: #000;
-
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

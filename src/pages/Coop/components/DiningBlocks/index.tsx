@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
 
-import ArrowDown from 'assets/svg/common/arrow-down.svg?react';
 import NoPhotoIcon from 'assets/svg/coop/no-photo.svg?react';
 import useBooleanState from 'hooks/useBooleanState';
 import { Dining, DiningType } from 'models/dinings';
