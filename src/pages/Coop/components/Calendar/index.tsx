@@ -51,7 +51,7 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
             onClick={() => setdateListFormState('week')}
             className={cn({
               [styles['form-toggle-button']]: true,
-              [styles['form-toggle-button__selected']]: dateListFormState === 'week',
+              [styles['form-toggle-button--selected']]: dateListFormState === 'week',
             })}
           >
             주간
@@ -61,7 +61,7 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
             onClick={() => setdateListFormState('month')}
             className={cn({
               [styles['form-toggle-button']]: true,
-              [styles['form-toggle-button__selected']]: dateListFormState === 'month',
+              [styles['form-toggle-button--selected']]: dateListFormState === 'month',
             })}
           >
             월간

@@ -24,7 +24,7 @@ export default function DiningTypeSelect({
     <div className={styles.container}>
       <div className={styles['type-title']}>{`${DINING_TYPE_MAP[selectedDiningType]} 식단`}</div>
       <div className={styles.dropdown} ref={ref}>
-        <button type="button" className={styles['dropdown-trigger']} onClick={() => setTypeOpen((v) => !v)}>
+        <button type="button" className={styles.dropdown__trigger} onClick={() => setTypeOpen((v) => !v)}>
           <div>{DINING_TYPE_MAP[selectedDiningType]}</div>
           <ArrowDown
             className={cn({
