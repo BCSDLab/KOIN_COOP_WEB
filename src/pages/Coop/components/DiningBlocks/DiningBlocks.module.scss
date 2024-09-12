@@ -1,18 +1,16 @@
 .container {
   display: flex;
   flex-direction: column;
-  min-width: 390px;
+  gap: 12px;
 }
 
 .card {
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  width: 100%;
-  margin: 10px 0;
+  border-radius: 12px;
 
   &--not-served {
-    font-family: Pretendard, sans-serif;
     font-size: 16px;
     font-weight: 500;
     line-height: 28.8px;
@@ -27,83 +25,154 @@
 
 .header {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
+  padding: 24px;
 
   &__title {
-    font-family: Pretendard, sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 28.8px;
-    text-align: left;
     color: #000;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 160%; /* 28.8px */
   }
 
-  &__kcal {
-    font-family: Pretendard, sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 19.2px;
-    text-align: left;
-    color: #8e8e8e;
-    margin: 0 auto 0 8px;
+  & > div {
+    display: flex;
+    gap: 8px;
+    align-items: center;
   }
 }
 
+.tag {
+  &__danger,
+  &__warning {
+    display: flex;
+    padding: 4px 8px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%; /* 19.2px */
+  }
+
+  &__danger {
+    color: #ec2d30;
+    background: #ffccd2;
+  }
+
+  &__warning {
+    color: #ffad0d;
+    background: #fff7e1;
+  }
+}
+
+.toggle-title {
+  color: #4b4b4b;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%; /* 22.4px */
+}
+
+.content-wrapper {
+  overflow: hidden;
+}
+
 .content {
+  transition: margin 0.4s cubic-bezier(0.48, 0, 0.58, 1);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 24px 16px;
+}
+
+.content--hidden {
+  transition: margin 0.4s cubic-bezier(0.48, 0, 0.58, 1);
+  margin-top: -100%;
+}
+
+.image-trigger {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: none;
+
+  & > img {
+    width: 100%;
+    border-radius: 8px;
+    aspect-ratio: 147 / 95;
+  }
+}
+
+.no-image {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  aspect-ratio: 147 / 95;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 0 24px 16px;
-  box-sizing: border-box;
-  min-height: 120px;
+  border-radius: 8px;
+  border: 1px solid #cacaca;
+  background: #fafafa;
 
-  &__image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 200px;
-    height: 130px;
-    border-radius: 8px;
-    box-sizing: border-box;
-    background-color: #fff;
-    overflow: hidden;
-    cursor: pointer;
-
-    & img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    &--sold-out {
-      width: 200px;
-      height: 130px;
-      background: linear-gradient(0deg, rgb(0 0 0 / 50%) 0%, rgb(0 0 0 / 50%) 100%);
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      border-radius: 8px;
-    }
+  &--description {
+    color: #8e8e8e;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%; /* 25.6px */
   }
+}
 
-  &__menus {
-    width: 130px;
-  }
+.menus {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
 
-  &__menu-name {
-    font-family: Pretendard, sans-serif;
+.menu-name {
+  color: #000;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%; /* 22.4px */
+}
+
+.divider {
+  width: calc(100% - 48px);
+  margin-inline: 24px;
+  height: 2px;
+  background: #eee;
+  border-radius: 2px;
+}
+
+.toggle-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 24px;
+  background: none;
+
+  & > span {
+    color: #727272;
     font-size: 14px;
+    font-style: normal;
     font-weight: 400;
-    line-height: 22.4px;
-    text-align: left;
-    color: #000;
+    line-height: 160%;
+  }
+}
+
+.arrow-icon {
+  transition: all 0.4s ease;
+
+  &__transform {
+    transform: rotate(180deg);
   }
 }
