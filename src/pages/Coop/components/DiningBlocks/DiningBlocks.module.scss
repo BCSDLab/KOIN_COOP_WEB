@@ -172,7 +172,7 @@
 .arrow-icon {
   transition: all 0.4s ease;
 
-  &__transform {
+  &--open {
     transform: rotate(180deg);
   }
 }
