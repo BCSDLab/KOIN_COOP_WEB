@@ -150,7 +150,7 @@ export default function DiningBlocks({ diningType, date }: DiningBlocksProps) {
                   <svg
                     className={cn({
                       [styles['arrow-icon']]: true,
-                      [styles['arrow-icon--close']]: !hiddenDiningIdList.includes(dining.id),
+                      [styles['arrow-icon--open']]: hiddenDiningIdList.includes(dining.id),
                     })}
                     width="20"
                     height="21"
