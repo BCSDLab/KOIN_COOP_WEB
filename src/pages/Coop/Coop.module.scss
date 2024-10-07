@@ -1,11 +1,36 @@
+@use "src/assets/styles/mediaQuery" as media;
+
 .container {
   display: flex;
-  flex-direction: column;
+  max-width: 989px;
+  width: 100%;
+  margin: 0 auto;
+
+  @include media.media-breakpoint-down(mobile) {
+    flex-direction: column;
+    max-width: 480px; // 모바일 뷰에서는 너비 제한
+    width: 100%;
+  }
+}
+
+.diningDownloadWrapper {
+  display: flex;
+  margin-left: auto;
 }
 
 .content {
   display: flex;
+  flex-grow: 2; // 2배 공간
   flex-direction: column;
   padding: 16px 24px;
   gap: 12px;
+}
+
+.calendarWrapper {
+  flex-grow: 1; // 1:2 비율에서 1배의 공간
+  max-width: 989px;
+}
+
+.diningTypeWrapper {
+  flex-grow: 2; // 1:2 비율에서 2배 공간
 }

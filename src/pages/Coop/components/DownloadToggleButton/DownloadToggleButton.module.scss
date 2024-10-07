@@ -1,0 +1,29 @@
+.container {
+  width: 50px;
+  height: 25px;
+  border-radius: 50px;
+  background-color: #ccc; /* 기본 배경색 */
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &--student-only {
+    background-color: #175c83; /* 학생식당만 선택되었을 때 배경색 */
+  }
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white; /* 토글 버튼 색 */
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
+  transition: left 0.3s ease;
+
+  &--student-only {
+    left: calc(100% - 23px); /* 학생식당만 선택되었을 때 오른쪽으로 이동 */
+  }
+}

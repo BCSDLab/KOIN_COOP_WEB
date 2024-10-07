@@ -20,6 +20,14 @@ export const DINING_TYPE_MAP = {
   DINNER: '저녁',
 } as const;
 
+export const DiningExcelParams = z.object({
+  startDate: z.string(),
+  endDate: z.string(),
+  isCafeteria: z.boolean(),
+});
+
+export type DiningExcelParams = z.infer<typeof DiningExcelParams>;
+
 export type DiningPlace = 'A코너' | 'B코너' | 'C코너' | '능수관' | '2캠퍼스';
 
 export const PlaceSchema = z.union([

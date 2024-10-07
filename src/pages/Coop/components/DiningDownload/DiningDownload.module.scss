@@ -1,0 +1,27 @@
+.button-container {
+  display: flex;
+  background: #fff;
+  max-width: 173px;
+  width: 100%;
+  padding: 8px 12px;
+  gap: 8px;
+  border-radius: 8px;
+  height: 26px;
+}
+
+.dining-download-button {
+  display: flex;
+  background: #fff;
+  border: none;
+  color: #171717;
+  font-size: 14px;
+  font-weight: 400;
+  width: 119px;
+  height: 26px;
+  text-align: center;
+  padding: 2px 0 0 4px;
+}
+
+.exel-icon {
+  padding-top: 3px;
+}

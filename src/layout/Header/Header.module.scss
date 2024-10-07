@@ -1,17 +1,22 @@
 @use "src/assets/styles/mediaQuery" as media;
 
 .header {
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 99;
   display: flex;
   margin-inline: 24px;
+  max-width: 989px;
+  width: 100%;
+  margin: 0 auto;
   height: 80px;
   align-items: center;
   justify-content: space-between;
   background: #f5f5f5;
+  margin-bottom: 105px;
+
+  @include media.media-breakpoint-down(mobile) {
+    max-width: 480px;
+    width: 100%;
+    margin-bottom: 30px;
+  }
 }
 
 .header__content {
