@@ -6,34 +6,29 @@
 }
 
 .title-wrapper {
-  display: grid;
-  grid-template-areas:
-    "title-main title-main"
-    "title-sub button-container";
   width: calc(100% - 48px);
   margin: 8px 24px;
 }
 
 .title--main {
-  grid-area: title-main;
   color: #727272;
-  font-size: 14px;
+  font-size: 18px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 160%; /* 22.4px */
 }
 
 .title--sub {
-  grid-area: title-sub;
   color: #000;
-  font-size: 20px;
+  width: 273px;
+  font-size: 32px;
   font-style: normal;
   font-weight: 700;
   line-height: 160%; /* 32px */
+  margin-bottom: 20px;
 }
 
 .button-container {
-  grid-area: button-container;
   display: flex;
   align-items: center;
   justify-content: flex-end;

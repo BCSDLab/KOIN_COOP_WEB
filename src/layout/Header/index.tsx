@@ -1,7 +1,5 @@
-import { Link } from 'react-router-dom';
-
 import Logo from 'assets/svg/common/koin-logo.svg?react';
-import Setting from 'assets/svg/main/gear.svg?react';
+import Setting1 from 'pages/Coop/components/Setting';
 
 import styles from './Header.module.scss';
 
@@ -12,10 +10,7 @@ function Header() {
     >
       <Logo />
       <nav className={styles.header__content}>
-        {/* <Search /> */}
-        <Link to="/setting">
-          <Setting />
-        </Link>
+        <Setting1 />
       </nav>
     </header>
   );
