@@ -10,7 +10,7 @@
 
   @include media.media-breakpoint-down(mobile) {
     flex-direction: column;
-    max-width: 480px; // 모바일 뷰에서는 너비 제한
+    max-width: 100%;
     width: 100%;
   }
 }
@@ -26,11 +26,32 @@
   padding: 16px 24px;
   gap: 12px;
   width: 100%;
+
+  @include media.media-breakpoint-down(mobile) {
+    box-sizing: border-box;
+  }
 }
 
 .calendarWrapper {
   display: flex;
   gap: 10px;
   justify-content: center;
-  width: 80%;
+  
+  @include media.media-breakpoint-down(mobile) {
+    flex-direction: column;
+    max-width: 480px;
+    width: 100%;
+  }
+}
+
+.diningTypeWrapper {
+
+  @include media.media-breakpoint-down(mobile) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 100%;
+    width: 100%;
+  }
 }

@@ -1,0 +1,26 @@
+.button-container {
+  display: flex;
+  gap: 16px;
+  margin-top: 5px;
+}
+
+.button-prev,
+.button-next {
+  &:hover {
+    background-color: #e1e1e1;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+}
+
+.button-today {
+  min-width: 48px;
+  text-align: center;
+  cursor: default;
+
+  &:hover {
+    background-color: #e1e1e1;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+}

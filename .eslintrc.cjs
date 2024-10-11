@@ -41,6 +41,13 @@ module.exports = {
     "@typescript-eslint/no-empty-interface": "off",
     "import/order": [
       "error",
+      "ignorePackages",
+      {
+        js: "never",
+        jsx: "never",
+        ts: "never",
+        tsx: "never",
+      },
       {
         "groups": [
           "builtin",

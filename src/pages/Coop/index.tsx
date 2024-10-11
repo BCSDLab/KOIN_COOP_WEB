@@ -5,7 +5,9 @@ import Calendar from 'pages/Coop/components/Calendar';
 import DiningBlocks from 'pages/Coop/components/DiningBlocks';
 import DiningDownload from 'pages/Coop/components/DiningDownload';
 import DiningTypeSelect from 'pages/Coop/components/DiningTypeSelect';
+import useMediaQuery from 'hooks/useMediaQuery';
 import { getDiningTypeOnTime } from 'utils/operate';
+
 
 import styles from './Coop.module.scss';
 
@@ -14,6 +16,7 @@ import type { DiningType } from 'models/dinings';
 export default function Coop() {
   const [date, setDate] = useState(new Date());
   const [diningType, setDiningType] = useState<DiningType>(getDiningTypeOnTime());
+  const { isMobile } = useMediaQuery();
 
   return (
     <div className={styles.container}>
@@ -21,9 +24,11 @@ export default function Coop() {
         <Calendar selectedDate={date} setSelectedDate={setDate} />
       </div>
       <div className={styles.content}>
-        <div className={styles.diningDownloadWrapper}>
-          <DiningDownload />
-        </div>
+        {!isMobile && ( // 모바일이 아닌 경우에만 렌더링
+          <div className={styles.diningDownloadWrapper}>
+            <DiningDownload />
+          </div>
+        )}
         <div className={styles.diningTypeWrapper}>
           <DiningTypeSelect
             selectedDiningType={diningType}
