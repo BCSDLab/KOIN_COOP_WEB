@@ -41,7 +41,9 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
   return (
     <div className={styles.container}>
       <div className={styles['title-wrapper']}>
-        <div className={styles['title--main']}>월간 식단</div>
+        <div className={styles['title--main']}>
+          {dateListFormState === 'month' ? '월간 식단' : '주간 식단'}
+        </div>
         <div className={styles['title--sub']}>
           {`${selectedDate.getMonth() + 1}월 ${selectedDate.getDate()}일 ${DAYS[selectedDate.getDay()]}요일`}
         </div>

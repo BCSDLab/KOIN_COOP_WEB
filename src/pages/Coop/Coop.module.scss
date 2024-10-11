@@ -2,9 +2,11 @@
 
 .container {
   display: flex;
+  justify-content: center;
   max-width: 989px;
   width: 100%;
   margin: 0 auto;
+  gap: 10px;
 
   @include media.media-breakpoint-down(mobile) {
     flex-direction: column;
@@ -20,17 +22,15 @@
 
 .content {
   display: flex;
-  flex-grow: 2; // 2배 공간
   flex-direction: column;
   padding: 16px 24px;
   gap: 12px;
+  width: 100%;
 }
 
 .calendarWrapper {
-  flex-grow: 1; // 1:2 비율에서 1배의 공간
-  max-width: 989px;
-}
-
-.diningTypeWrapper {
-  flex-grow: 2; // 1:2 비율에서 2배 공간
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 80%;
 }

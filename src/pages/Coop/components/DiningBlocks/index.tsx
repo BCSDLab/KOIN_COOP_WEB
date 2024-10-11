@@ -107,7 +107,7 @@ export default function DiningBlocks({ diningType, date }: DiningBlocksProps) {
                       className={styles['image-trigger']}
                       onClick={() => fileInputRefs.current[dining.id]?.click()}
                     >
-                      {dining.image_url && <img src={dining.image_url} alt="식단" />}
+                      {dining.image_url && <img className={styles['diet-image']} src={dining.image_url} alt="식단" />}
                       {!dining.image_url && (
                       <div className={styles['no-image']}>
                         <NoPhotoIcon />

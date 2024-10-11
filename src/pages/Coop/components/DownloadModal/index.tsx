@@ -123,7 +123,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
     <div className={styles.overlay} onClick={handleOverlayClick} role="presentation">
       <div className={styles.container} role="dialog" aria-modal="true">
         <div className={styles['title--main']}>식단 파일 다운로드</div>
-        <div className={styles['title--sub']}>다운로드 할 식단의 기간을 설정해 주세요</div>
+        <div className={styles['title--sub']}>식단은 2022/11/29 부터 다운받을 수 있어요.</div>
 
         <div className={styles['date-container']}>
           <div className={styles['date-start-container']}>
@@ -195,15 +195,17 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
           </div>
         </div>
 
-        <div className={styles['button-wrapper']}>
-          <button
-            type="button"
-            onClick={submitDates}
-            className={styles['buttons-confirm']}
-          >
-            다운로드
-          </button>
-          <DownloadIcon className={styles['download-button']} />
+        <div
+          className={styles['button-container']}
+          role="button"
+          tabIndex={0}
+          onClick={submitDates}
+          onKeyDown={submitDates}
+        >
+          <div className={styles['button-wrapper']}>
+            <div>다운로드</div>
+            <DownloadIcon className={styles['download-button']} />
+          </div>
         </div>
       </div>
       <ToastContainer limit={1} />
