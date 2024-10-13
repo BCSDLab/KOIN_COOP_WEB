@@ -1,10 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
+
 import { getExcel } from 'api/dinings';
 import DownloadIcon from 'assets/svg/common/download-white.svg?react';
+
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import DownloadToggleButton from '../DownloadToggleButton';
 import ErrorTooltip from '../ErrorTooltip';
+
 import styles from './DownloadModal.module.scss';
 
 interface DownloadModalProps {
@@ -81,7 +85,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
     const formattedStartDate = formatDate(startDate);
     const formattedEndDate = formatDate(endDate);
     const today = new Date();
-    
+
     if (new Date(formattedStartDate) > today || new Date(formattedEndDate) > today) {
       setErrorCode(1);
       return;

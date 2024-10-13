@@ -1,12 +1,15 @@
-import { Link } from 'react-router-dom';
-import Logo from 'assets/svg/common/koin-logo.svg?react';
-import Setting1 from 'pages/Coop/components/Setting';
-import useMediaQuery from 'hooks/useMediaQuery';
-import styles from './Header.module.scss';
-import SearchIcon from 'assets/svg/auth/search-icon.svg?react';
-import Menu from 'assets/svg/auth/menu.svg?react';
 import { useState } from 'react';
+
+import { Link } from 'react-router-dom';
+
+import Menu from 'assets/svg/auth/menu.svg?react';
+import SearchIcon from 'assets/svg/auth/search-icon.svg?react';
+import Logo from 'assets/svg/common/koin-logo.svg?react';
+import useMediaQuery from 'hooks/useMediaQuery';
+import Setting1 from 'pages/Coop/components/Setting';
+
 import Dropdown from './Dropdown';
+import styles from './Header.module.scss';
 
 function Header() {
   const { isMobile } = useMediaQuery();
@@ -20,19 +23,21 @@ function Header() {
           <div>
             <ul>
               <div className={styles['menu-container']}>
-                <SearchIcon className={styles['search']} />
+                <SearchIcon className={styles.search} />
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,
+                jsx-a11y/click-events-have-key-events */}
                 <div
                   onClick={() => setView(!view)}
                   className={styles['menu-icon']}
-                  style={{ position: 'relative' }} // 헤더 내부 요소 기준으로 위치 설정
+                  style={{ position: 'relative' }}
                 >
-                  <Menu className={styles['menu']} />
+                  <Menu className={styles.menu} />
                 </div>
-                {view && <Dropdown />} {/* 드롭다운을 아래로 위치시키기 */}
+                {view && <Dropdown />}
               </div>
             </ul>
 
-            <Link to="/setting"></Link>
+            <Link to="/setting" />
           </div>
         ) : (
           <div>

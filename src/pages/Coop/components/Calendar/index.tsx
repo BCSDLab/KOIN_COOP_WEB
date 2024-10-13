@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
+import useMediaQuery from 'hooks/useMediaQuery';
 import cn from 'utils/className';
 
 import DateMover from '../DateMover';
 
 import styles from './Calendar.module.scss';
 import useCalendar from './hooks/useCalendar';
-import useMediaQuery from 'hooks/useMediaQuery';
 
 const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 const WEEK = 7;
@@ -105,7 +105,6 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
             onNextClick={() => handlePrevNext('next')}
             onTodayClick={() => handleTodayClick()}
           />
-          
 
           <div className={styles['calendar-body']}>
             <div className={styles.days}>

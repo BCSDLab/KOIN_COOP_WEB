@@ -1,13 +1,12 @@
 import { Suspense, useState } from 'react';
 
+import useMediaQuery from 'hooks/useMediaQuery';
 import ErrorBoundary from 'layout/ErrorBoundary';
 import Calendar from 'pages/Coop/components/Calendar';
 import DiningBlocks from 'pages/Coop/components/DiningBlocks';
 import DiningDownload from 'pages/Coop/components/DiningDownload';
 import DiningTypeSelect from 'pages/Coop/components/DiningTypeSelect';
-import useMediaQuery from 'hooks/useMediaQuery';
 import { getDiningTypeOnTime } from 'utils/operate';
-
 
 import styles from './Coop.module.scss';
 

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import styles from './ErrorTooltip.module.scss';
+
 import InfoIcon from 'assets/svg/common/info.svg?react';
+
+import styles from './ErrorTooltip.module.scss';
 
 interface ErrorTooltipProps {
   errorCode: number | null;
   onHide: () => void;
 }
 
-const ErrorTooltip: React.FC<ErrorTooltipProps> = ({ errorCode, onHide }) => {
+function ErrorTooltip({ errorCode, onHide }: ErrorTooltipProps) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -20,9 +22,10 @@ const ErrorTooltip: React.FC<ErrorTooltipProps> = ({ errorCode, onHide }) => {
 
       return () => clearTimeout(timer);
     }
+    return () => {};
   }, [errorCode, onHide]);
 
-  const getErrorMessage = () => {
+  function getErrorMessage() {
     switch (errorCode) {
       case 1:
         return '오늘 날짜 이후 기간은 설정할 수 없어요.';
@@ -33,7 +36,7 @@ const ErrorTooltip: React.FC<ErrorTooltipProps> = ({ errorCode, onHide }) => {
       default:
         return null;
     }
-  };
+  }
 
   const errorMessage = getErrorMessage();
 
@@ -42,9 +45,9 @@ const ErrorTooltip: React.FC<ErrorTooltipProps> = ({ errorCode, onHide }) => {
   return (
     <div className={styles.tooltip}>
       <InfoIcon className={styles['icon-tooltip']} />
-      <span className={styles.message}>{errorMessage}</span> {/* 메시지 */}
+      <span className={styles.message}>{errorMessage}</span>
     </div>
   );
-};
+}
 
 export default ErrorTooltip;
