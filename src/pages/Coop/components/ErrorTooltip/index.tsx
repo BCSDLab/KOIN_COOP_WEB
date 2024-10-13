@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import InfoIcon from 'assets/svg/common/info.svg?react';
 
