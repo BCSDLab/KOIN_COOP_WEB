@@ -1,7 +1,11 @@
 .button-container {
   display: flex;
   gap: 16px;
-  margin-top: 5px;
+  align-items: center;
+
+  & > button {
+    background: none;
+  }
 }
 
 .button-prev,
@@ -17,6 +21,12 @@
   min-width: 48px;
   text-align: center;
   cursor: default;
+
+  color: #000;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 160%; /* 28.8px */
 
   &:hover {
     background-color: #e1e1e1;

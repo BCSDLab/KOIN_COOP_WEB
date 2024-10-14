@@ -134,13 +134,18 @@
 }
 
 .title-wrapper-mobile {
-  width: calc(100% - 48px);
+  width: 100%;
   margin: 8px 24px;
+
+  @include media.media-breakpoint-down(mobile) {
+    margin: 0;
+  }
 }
 
 .move-wrapper-mobile {
   display: flex;
   justify-content: space-between;
+  width: calc(100% - 48px);
 }
 
 .button-container-mobile {

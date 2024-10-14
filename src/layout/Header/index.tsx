@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Menu from 'assets/svg/auth/menu.svg?react';
-import SearchIcon from 'assets/svg/auth/search-icon.svg?react';
+// import SearchIcon from 'assets/svg/auth/search-icon.svg?react';
 import Logo from 'assets/svg/common/koin-logo.svg?react';
 import useMediaQuery from 'hooks/useMediaQuery';
 import Setting1 from 'pages/Coop/components/Setting';
@@ -23,16 +23,17 @@ function Header() {
           <div>
             <ul>
               <div className={styles['menu-container']}>
-                <SearchIcon className={styles.search} />
-                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,
-                jsx-a11y/click-events-have-key-events */}
-                <div
-                  onClick={() => setView(!view)}
+                {/* 월간조회 기능 추가 시 활성화 */}
+                {/* <SearchIcon className={styles.search} /> */}
+                <button
+                  type="button"
+                  onClick={() => setView((prev) => !prev)}
                   className={styles['menu-icon']}
                   style={{ position: 'relative' }}
+                  aria-label="메뉴 버튼"
                 >
                   <Menu className={styles.menu} />
-                </div>
+                </button>
                 {view && <MobileDropdown />}
               </div>
             </ul>

@@ -124,6 +124,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
       }
 
       const downloadUrl = URL.createObjectURL(response.data);
+
       const link = document.createElement('a');
       link.href = downloadUrl;
       link.download = filename;
@@ -131,7 +132,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(downloadUrl);
-    } catch (error) {
+    } catch (error: any) {
       showToast('파일 다운로드에 실패했습니다. 다시 시도해 주세요.');
     }
   };
@@ -211,19 +212,17 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
           </div>
         </div>
 
-        <div
+        <button
+          type="submit"
           className={styles['button-container']}
-          role="button"
-          tabIndex={0}
           onClick={submitDates}
-          onKeyDown={submitDates}
         >
           <div className={styles['button-wrapper']}>
             <div className={styles['button-title']}>다운로드</div>
             <DownloadIcon className={styles['download-button']} />
           </div>
           {errorCode && <ErrorTooltip errorCode={errorCode} onHide={hideTooltip} />}
-        </div>
+        </button>
       </div>
       <ToastContainer limit={1} />
     </div>

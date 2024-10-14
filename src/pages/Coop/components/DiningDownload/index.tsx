@@ -18,7 +18,7 @@ export default function DiningDownload() {
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <div
         className={styles['button-container']}
         role="button"
@@ -30,9 +30,7 @@ export default function DiningDownload() {
         <div className={styles['dining-download-button']}>식단 파일 다운로드</div>
         <DownloadIcon className={styles['download-button']} />
       </div>
-
       {isModalOpen && <DownloadModal closeModal={closeModal} />}
-
-    </div>
+    </>
   );
 }

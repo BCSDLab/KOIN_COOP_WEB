@@ -8,6 +8,7 @@ import DiningDownload from 'pages/Coop/components/DiningDownload';
 import DiningTypeSelect from 'pages/Coop/components/DiningTypeSelect';
 import { getDiningTypeOnTime } from 'utils/operate';
 
+import MobileDiningTypeSelect from './components/DiningTypeSelect/MobileDiningTypeSelect';
 import styles from './Coop.module.scss';
 
 import type { DiningType } from 'models/dinings';
@@ -28,12 +29,19 @@ export default function Coop() {
             <DiningDownload />
           </div>
         )}
-        <div className={styles.diningTypeWrapper}>
-          <DiningTypeSelect
+        {isMobile ? (
+          <MobileDiningTypeSelect
             selectedDiningType={diningType}
             setSelectedDiningType={setDiningType}
           />
-        </div>
+        ) : (
+          <div className={styles.diningTypeWrapper}>
+            <DiningTypeSelect
+              selectedDiningType={diningType}
+              setSelectedDiningType={setDiningType}
+            />
+          </div>
+        )}
         <ErrorBoundary message="데이터를 불러오는 과정 중 문제가 발생하였습니다.">
           <Suspense fallback={<div />}>
             <DiningBlocks diningType={diningType} date={date} />

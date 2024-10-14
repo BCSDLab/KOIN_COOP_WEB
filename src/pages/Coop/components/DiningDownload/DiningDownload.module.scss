@@ -4,6 +4,7 @@
   padding: 8px 12px;
   gap: 8px;
   border-radius: 8px;
+  align-items: center;
 
   &:hover {
     cursor: pointer;
@@ -18,7 +19,6 @@
   font-size: 14px;
   font-weight: 400;
   text-align: center;
-  padding: 2px 0 0 4px;
 }
 
 .exel-icon {

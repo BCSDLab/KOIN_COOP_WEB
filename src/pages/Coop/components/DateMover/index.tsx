@@ -13,36 +13,22 @@ export default function DateMover({ onPrevClick, onNextClick, onTodayClick }: Da
   return (
     <div className={styles['button-container']}>
 
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={onPrevClick}
-        onKeyDown={onPrevClick}
-        aria-label="이전 버튼"
-      >
+      <button type="button" onClick={onPrevClick} aria-label="이전 버튼">
         <ArrowLeftIcon className={styles['button-prev']} />
-      </div>
+      </button>
 
-      <div
+      <button
         className={styles['button-today']}
-        role="button"
-        tabIndex={0}
+        type="button"
         onClick={onTodayClick}
-        onKeyDown={onTodayClick}
         aria-label="오늘 버튼"
       >
         오늘
-      </div>
+      </button>
 
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={onNextClick}
-        onKeyDown={onNextClick}
-        aria-label="다음 버튼"
-      >
+      <button type="button" onClick={onNextClick} aria-label="이전 버튼">
         <ArrowRightIcon className={styles['button-next']} />
-      </div>
+      </button>
 
     </div>
   );

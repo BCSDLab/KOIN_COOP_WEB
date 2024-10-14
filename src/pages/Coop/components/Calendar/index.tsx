@@ -23,26 +23,15 @@ interface CalendarProps {
 }
 
 export default function Calendar({ selectedDate, setSelectedDate }: CalendarProps) {
-  const { dateList, isToday } = useCalendar();
+  const {
+    dateList,
+    isToday,
+    prevMonth: prevCalendarMonth,
+    nextMonth: nextCalendarMonth,
+    goToday,
+  } = useCalendar();
   const [dateListFormState, setdateListFormState] = useState<'week' | 'month'>('week');
   const { isMobile } = useMediaQuery();
-
-  const handlePrevNext = (direction: 'prev' | 'next') => {
-    let newDate;
-    if (dateListFormState === 'week') {
-      newDate = new Date(selectedDate);
-      newDate.setDate(newDate.getDate() + (direction === 'prev' ? -WEEK : WEEK)); // 주 단위 이동
-    } else {
-      newDate = new Date(selectedDate);
-      newDate.setMonth(newDate.getMonth() + (direction === 'prev' ? -1 : 1)); // 월 단위 이동
-    }
-    setSelectedDate(newDate); // 선택된 날짜 업데이트
-  };
-
-  const handleTodayClick = () => {
-    const today = new Date();
-    setSelectedDate(today);
-  };
 
   const getDateList = (form: 'week' | 'month') => {
     if (form === 'week') {
@@ -57,6 +46,53 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
     }
 
     return [];
+  };
+
+  const prevMonth = () => {
+    const prevMonthDate = new Date(selectedDate);
+    prevMonthDate.setMonth(selectedDate.getMonth() - 1);
+    prevCalendarMonth();
+    setSelectedDate(prevMonthDate);
+  };
+
+  const nextMonth = () => {
+    const nextMonthDate = new Date(selectedDate);
+    nextMonthDate.setMonth(selectedDate.getMonth() + 1);
+    nextCalendarMonth();
+    setSelectedDate(nextMonthDate);
+  };
+
+  const prevWeek = () => {
+    const prevWeekDate = new Date(selectedDate);
+    prevWeekDate.setDate(selectedDate.getDate() - WEEK);
+
+    const todayDateIndex = dateList.findIndex((date) => isSameDate(selectedDate, date));
+    const rowIndex = Math.floor(todayDateIndex / WEEK);
+
+    if (rowIndex === 0) {
+      prevCalendarMonth();
+    }
+
+    setSelectedDate(prevWeekDate);
+  };
+
+  const nextWeek = () => {
+    const prevWeekDate = new Date(selectedDate);
+    prevWeekDate.setDate(selectedDate.getDate() + WEEK);
+
+    const todayDateIndex = dateList.findIndex((date) => isSameDate(selectedDate, date));
+    const rowIndex = Math.floor(todayDateIndex / WEEK);
+
+    if (rowIndex === 5) {
+      nextCalendarMonth();
+    }
+    setSelectedDate(prevWeekDate);
+  };
+
+  const handleTodayClick = () => {
+    const today = new Date();
+    goToday();
+    setSelectedDate(today);
   };
 
   return (
@@ -101,9 +137,9 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
           </div>
 
           <DateMover
-            onPrevClick={() => handlePrevNext('prev')}
-            onNextClick={() => handlePrevNext('next')}
-            onTodayClick={() => handleTodayClick()}
+            onPrevClick={dateListFormState === 'week' ? prevWeek : prevMonth}
+            onNextClick={dateListFormState === 'week' ? nextWeek : nextMonth}
+            onTodayClick={handleTodayClick}
           />
 
           <div className={styles['calendar-body']}>
@@ -144,9 +180,9 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
             </div>
             <div className={styles['move-wrapper']}>
               <DateMover
-                onPrevClick={() => handlePrevNext('prev')}
-                onNextClick={() => handlePrevNext('next')}
-                onTodayClick={() => handleTodayClick()}
+                onPrevClick={dateListFormState === 'week' ? prevWeek : prevMonth}
+                onNextClick={dateListFormState === 'week' ? nextWeek : nextMonth}
+                onTodayClick={handleTodayClick}
               />
               <div className={styles['button-container']}>
                 <button
