@@ -8,8 +8,8 @@ import Logo from 'assets/svg/common/koin-logo.svg?react';
 import useMediaQuery from 'hooks/useMediaQuery';
 import Setting1 from 'pages/Coop/components/Setting';
 
-import Dropdown from './Dropdown';
 import styles from './Header.module.scss';
+import MobileDropdown from './MobileDropdown';
 
 function Header() {
   const { isMobile } = useMediaQuery();
@@ -33,7 +33,7 @@ function Header() {
                 >
                   <Menu className={styles.menu} />
                 </div>
-                {view && <Dropdown />}
+                {view && <MobileDropdown />}
               </div>
             </ul>
 

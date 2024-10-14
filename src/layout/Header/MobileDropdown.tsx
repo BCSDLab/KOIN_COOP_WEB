@@ -4,7 +4,7 @@ import { useLogout } from 'query/auth';
 
 import styles from './Dropdown.module.scss';
 
-function Dropdown() {
+function MobileDropdown() {
   const { logout } = useLogout();
 
   const handleLogout = () => {
@@ -23,4 +23,4 @@ function Dropdown() {
   );
 }
 
-export default Dropdown;
+export default MobileDropdown;
