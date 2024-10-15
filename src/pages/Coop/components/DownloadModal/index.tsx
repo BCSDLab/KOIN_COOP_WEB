@@ -2,12 +2,14 @@ import { useState, useEffect, useCallback } from 'react';
 
 import { getExcel } from 'api/dinings';
 import DownloadIcon from 'assets/svg/common/download-white.svg?react';
+import LoadingSpinner from 'assets/svg/common/loading.svg?react';
+import useBooleanState from 'hooks/useBooleanState';
+import { CustomAxiosError } from 'models/error';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import DownloadToggleButton from '../DownloadToggleButton';
-import ErrorTooltip from '../ErrorTooltip';
 
 import styles from './DownloadModal.module.scss';
 
@@ -25,11 +27,11 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
   const [startDate, setStartDate] = useState<DateInput>({ year: '', month: '', day: '' });
   const [endDate, setEndDate] = useState<DateInput>({ year: '', month: '', day: '' });
   const [isStudentCafeteriaOnly, setIsStudentCafeteriaOnly] = useState(false);
-  const [errorCode, setErrorCode] = useState<number | null>(null);
+  const [isDownloading, setIsDownloading] = useBooleanState(false);
 
-  const hideTooltip = () => {
-    setErrorCode(null);
-  };
+  useEffect(() => {
+    console.log(isDownloading);
+  }, [isDownloading]);
 
   const handleDateChange = (
     setDate: React.Dispatch<React.SetStateAction<DateInput>>,
@@ -84,22 +86,6 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
   const submitDates = async () => {
     const formattedStartDate = formatDate(startDate);
     const formattedEndDate = formatDate(endDate);
-    const today = new Date();
-
-    if (new Date(formattedStartDate) > today || new Date(formattedEndDate) > today) {
-      setErrorCode(1);
-      return;
-    }
-
-    if (new Date(formattedStartDate) < new Date('2022-11-29')) {
-      setErrorCode(2);
-      return;
-    }
-
-    if (new Date(formattedStartDate) > new Date(formattedEndDate)) {
-      setErrorCode(3);
-      return;
-    }
 
     const requestBody = {
       startDate: formattedStartDate,
@@ -108,12 +94,14 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
     };
 
     try {
+      setIsDownloading(true);
       const response = await getExcel(requestBody);
 
       let filename = `dining_${requestBody.startDate}~${requestBody.endDate}.xlsx`;
 
       if (response && response.headers) {
         const contentDisposition = response.headers['content-disposition'];
+
         if (contentDisposition) {
           const match = contentDisposition.match(/filename="?(.+)"?/);
           if (match) {
@@ -132,8 +120,16 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(downloadUrl);
-    } catch (error: any) {
-      showToast('파일 다운로드에 실패했습니다. 다시 시도해 주세요.');
+      setIsDownloading(false);
+    } catch (error) {
+      // backend 수정 시 반영
+      // if (error?.response?.data instanceof Blob) {
+      //   const errorText = await error.response.data.text();
+      //   const errorJson = JSON.parse(errorText);
+      //   showToast(errorJson.message);
+      // }
+
+      showToast('다운로드에 실패했습니다.');
     }
   };
 
@@ -200,11 +196,9 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
               />
             </div>
           </div>
-        </div>
+          <div className={styles['toggle-container']}>
+            <label htmlFor="toggle">학생식당만 다운로드</label>
 
-        <div className={styles['toggle-container']}>
-          <label htmlFor="toggle">학생식당만 다운로드</label>
-          <div className={styles['toggle-Wrapper']}>
             <DownloadToggleButton
               isStudentCafeteriaOnly={isStudentCafeteriaOnly}
               onToggle={setIsStudentCafeteriaOnly}
@@ -216,12 +210,10 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
           type="submit"
           className={styles['button-container']}
           onClick={submitDates}
+          disabled={isDownloading}
         >
-          <div className={styles['button-wrapper']}>
-            <div className={styles['button-title']}>다운로드</div>
-            <DownloadIcon className={styles['download-button']} />
-          </div>
-          {errorCode && <ErrorTooltip errorCode={errorCode} onHide={hideTooltip} />}
+          <div className={styles['button-title']}>{isDownloading ? <LoadingSpinner /> : '다운로드'}</div>
+          <DownloadIcon className={styles['download-button']} />
         </button>
       </div>
       <ToastContainer limit={1} />
