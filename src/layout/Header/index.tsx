@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Menu from 'assets/svg/auth/menu.svg?react';
 import Logo from 'assets/svg/common/koin-logo.svg?react';
+import useBooleanState from 'hooks/useBooleanState';
 import useMediaQuery from 'hooks/useMediaQuery';
 
 import styles from './Header.module.scss';
@@ -12,7 +13,7 @@ import MobileDropdown from './MobileDropdown';
 
 function Header() {
   const { isMobile } = useMediaQuery();
-  const [view, setView] = useState(false);
+  const [view,,,, setView] = useBooleanState(false);
 
   return (
     <header className={styles.header}>
@@ -26,7 +27,7 @@ function Header() {
                 {/* <SearchIcon className={styles.search} /> */}
                 <button
                   type="button"
-                  onClick={() => setView((prev) => !prev)}
+                  onClick={setView}
                   className={styles['menu-icon']}
                   style={{ position: 'relative' }}
                   aria-label="메뉴 버튼"
