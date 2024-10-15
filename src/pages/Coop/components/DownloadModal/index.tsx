@@ -1,10 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 import { getExcel } from 'api/dinings';
 import DownloadIcon from 'assets/svg/common/download-white.svg?react';
 import LoadingSpinner from 'assets/svg/common/loading.svg?react';
 import useBooleanState from 'hooks/useBooleanState';
-import { CustomAxiosError } from 'models/error';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,10 +28,6 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
   const [isStudentCafeteriaOnly, setIsStudentCafeteriaOnly] = useState(false);
   const [isDownloading, setIsDownloading] = useBooleanState(false);
 
-  useEffect(() => {
-    console.log(isDownloading);
-  }, [isDownloading]);
-
   const handleDateChange = (
     setDate: React.Dispatch<React.SetStateAction<DateInput>>,
     field: keyof DateInput,
@@ -49,20 +44,6 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
       closeModal();
     }
   }, [closeModal]);
-
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      closeModal();
-    }
-  }, [closeModal]);
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [handleKeyDown]);
 
   const formatDate = (date: DateInput) => {
     if (!date.year || !date.month || !date.day) {
