@@ -4,21 +4,13 @@
   padding: 8px 12px;
   gap: 8px;
   border-radius: 8px;
+  font-size: 14px;
+  font-weight: 400;
   align-items: center;
 
   &:hover {
     cursor: pointer;
   }
-}
-
-.dining-download-button {
-  display: flex;
-  background: #fff;
-  border: none;
-  color: #171717;
-  font-size: 14px;
-  font-weight: 400;
-  text-align: center;
 }
 
 .exel-icon {
