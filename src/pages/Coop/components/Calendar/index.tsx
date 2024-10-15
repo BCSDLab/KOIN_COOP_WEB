@@ -95,6 +95,8 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
     setSelectedDate(today);
   };
 
+  const getSelectedDate = () => `${selectedDate.getMonth() + 1}월 ${selectedDate.getDate()}일 ${DAYS[selectedDate.getDay()]}요일`;
+
   return (
     <div>
       {isMobile ? (
@@ -108,7 +110,7 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
                 {dateListFormState === 'month' ? '월간 식단' : '주간 식단'}
               </div>
               <div className={styles['title--sub-mobile']}>
-                {`${selectedDate.getMonth() + 1}월 ${selectedDate.getDate()}일 ${DAYS[selectedDate.getDay()]}요일`}
+                {getSelectedDate()}
               </div>
             </div>
 
@@ -176,7 +178,7 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
               {dateListFormState === 'month' ? '월간 식단' : '주간 식단'}
             </div>
             <div className={styles['title--sub']}>
-              {`${selectedDate.getMonth() + 1}월 ${selectedDate.getDate()}일 ${DAYS[selectedDate.getDay()]}요일`}
+              {getSelectedDate()}
             </div>
             <div className={styles['move-wrapper']}>
               <DateMover
