@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Link } from 'react-router-dom';
 
 import Menu from 'assets/svg/auth/menu.svg?react';
@@ -13,7 +11,7 @@ import MobileDropdown from './MobileDropdown';
 
 function Header() {
   const { isMobile } = useMediaQuery();
-  const [view,,,, setView] = useBooleanState(false);
+  const [isOpen,,,, toggleIsOpen] = useBooleanState(false);
 
   return (
     <header className={styles.header}>
@@ -27,14 +25,14 @@ function Header() {
                 {/* <SearchIcon className={styles.search} /> */}
                 <button
                   type="button"
-                  onClick={setView}
+                  onClick={toggleIsOpen}
                   className={styles['menu-icon']}
                   style={{ position: 'relative' }}
                   aria-label="메뉴 버튼"
                 >
                   <Menu className={styles.menu} />
                 </button>
-                <MobileDropdown view={view} />
+                <MobileDropdown view={isOpen} />
               </div>
             </ul>
             <Link to="/setting" />
