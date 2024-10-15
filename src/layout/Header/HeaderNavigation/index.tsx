@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 
 import { useLogout } from 'query/auth';
 
-import styles from './Setting.module.scss';
+import styles from './HeaderNavigation.module.scss';
 
-function Setting1() {
+function HeaderNavigation() {
   const { logout } = useLogout();
 
   const handleLogout = () => {
@@ -23,4 +23,4 @@ function Setting1() {
   );
 }
 
-export default Setting1;
+export default HeaderNavigation;

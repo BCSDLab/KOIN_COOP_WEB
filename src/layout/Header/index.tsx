@@ -3,12 +3,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Menu from 'assets/svg/auth/menu.svg?react';
-// import SearchIcon from 'assets/svg/auth/search-icon.svg?react';
 import Logo from 'assets/svg/common/koin-logo.svg?react';
 import useMediaQuery from 'hooks/useMediaQuery';
-import Setting1 from 'pages/Coop/components/Setting';
 
 import styles from './Header.module.scss';
+import HeaderNavigation from './HeaderNavigation';
 import MobileDropdown from './MobileDropdown';
 
 function Header() {
@@ -41,9 +40,7 @@ function Header() {
             <Link to="/setting" />
           </div>
         ) : (
-          <div>
-            <Setting1 />
-          </div>
+          <HeaderNavigation />
         )}
       </nav>
     </header>
