@@ -34,10 +34,9 @@ function Header() {
                 >
                   <Menu className={styles.menu} />
                 </button>
-                {view && <MobileDropdown />}
+                <MobileDropdown view={view} />
               </div>
             </ul>
-
             <Link to="/setting" />
           </div>
         ) : (
