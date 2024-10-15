@@ -18,15 +18,17 @@ export default function DiningDownload() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles['button-container']}>
+    <>
+      <button
+        type="button"
+        className={styles['button-container']}
+        onClick={openModal}
+      >
         <ExcelIcon className={styles['exel-icon']} />
-        <button type="button" onClick={openModal} className={styles['dining-download-button']}>식단 파일 다운로드</button>
+        식단 파일 다운로드
         <DownloadIcon className={styles['download-button']} />
-      </div>
-
+      </button>
       {isModalOpen && <DownloadModal closeModal={closeModal} />}
-
-    </div>
+    </>
   );
 }

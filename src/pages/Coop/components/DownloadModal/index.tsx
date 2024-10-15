@@ -1,7 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 import { getExcel } from 'api/dinings';
 import DownloadIcon from 'assets/svg/common/download-white.svg?react';
+import LoadingSpinner from 'assets/svg/common/loading.svg?react';
+import useBooleanState from 'hooks/useBooleanState';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,15 +17,16 @@ interface DownloadModalProps {
 }
 
 interface DateInput {
-  year: string;
-  month: string;
-  day: string;
+  year: number | '';
+  month: number | '';
+  day: number | '';
 }
 
 export default function DownloadModal({ closeModal }: DownloadModalProps) {
   const [startDate, setStartDate] = useState<DateInput>({ year: '', month: '', day: '' });
   const [endDate, setEndDate] = useState<DateInput>({ year: '', month: '', day: '' });
   const [isStudentCafeteriaOnly, setIsStudentCafeteriaOnly] = useState(false);
+  const [isDownloading, setIsDownloading] = useBooleanState(false);
 
   const handleDateChange = (
     setDate: React.Dispatch<React.SetStateAction<DateInput>>,
@@ -32,7 +35,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
   ) => {
     setDate((prev) => ({
       ...prev,
-      [field]: e.target.value,
+      [field]: e.target.valueAsNumber || '',
     }));
   };
 
@@ -42,25 +45,11 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
     }
   }, [closeModal]);
 
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      closeModal();
-    }
-  }, [closeModal]);
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [handleKeyDown]);
-
   const formatDate = (date: DateInput) => {
     if (!date.year || !date.month || !date.day) {
       return '';
     }
-    return `${date.year}-${date.month.padStart(2, '0')}-${date.day.padStart(2, '0')}`;
+    return `${date.year.toString()}-${date.month.toString().padStart(2, '0')}-${date.day.toString().padStart(2, '0')}`;
   };
 
   const showToast = (message: string) => {
@@ -79,11 +68,6 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
     const formattedStartDate = formatDate(startDate);
     const formattedEndDate = formatDate(endDate);
 
-    if (!formattedStartDate || !formattedEndDate) {
-      showToast('날짜를 모두 입력해 주세요.');
-      return;
-    }
-
     const requestBody = {
       startDate: formattedStartDate,
       endDate: formattedEndDate,
@@ -91,12 +75,14 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
     };
 
     try {
+      setIsDownloading(true);
       const response = await getExcel(requestBody);
 
       let filename = `dining_${requestBody.startDate}~${requestBody.endDate}.xlsx`;
 
       if (response && response.headers) {
         const contentDisposition = response.headers['content-disposition'];
+
         if (contentDisposition) {
           const match = contentDisposition.match(/filename="?(.+)"?/);
           if (match) {
@@ -107,6 +93,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
       }
 
       const downloadUrl = URL.createObjectURL(response.data);
+
       const link = document.createElement('a');
       link.href = downloadUrl;
       link.download = filename;
@@ -114,8 +101,16 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(downloadUrl);
+      setIsDownloading(false);
     } catch (error) {
-      showToast('파일 다운로드에 실패했습니다. 다시 시도해 주세요.');
+      // backend 수정 시 반영
+      // if (error?.response?.data instanceof Blob) {
+      //   const errorText = await error.response.data.text();
+      //   const errorJson = JSON.parse(errorText);
+      //   showToast(errorJson.message);
+      // }
+
+      showToast('다운로드에 실패했습니다.');
     }
   };
 
@@ -123,14 +118,13 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
     <div className={styles.overlay} onClick={handleOverlayClick} role="presentation">
       <div className={styles.container} role="dialog" aria-modal="true">
         <div className={styles['title--main']}>식단 파일 다운로드</div>
-        <div className={styles['title--sub']}>다운로드 할 식단의 기간을 설정해 주세요</div>
-
+        <div className={styles['title--sub']}>식단은 2022/11/29 부터 다운받을 수 있어요.</div>
         <div className={styles['date-container']}>
           <div className={styles['date-start-container']}>
             <div className={styles['start--title']}>시작일</div>
             <div className={styles['date-input']}>
               <input
-                type="text"
+                type="number"
                 value={startDate.year}
                 onChange={(e) => handleDateChange(setStartDate, 'year', e)}
                 className={styles['date-input-box']}
@@ -138,7 +132,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
               />
               <span className={styles['input-box-slash']}>/</span>
               <input
-                type="text"
+                type="number"
                 value={startDate.month}
                 onChange={(e) => handleDateChange(setStartDate, 'month', e)}
                 className={styles['date-input-box']}
@@ -146,7 +140,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
               />
               <span className={styles['input-box-slash']}>/</span>
               <input
-                type="text"
+                type="number"
                 value={startDate.day}
                 onChange={(e) => handleDateChange(setStartDate, 'day', e)}
                 className={styles['date-input-box']}
@@ -159,7 +153,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
             <div className={styles['end--title']}>종료일</div>
             <div className={styles['date-input']}>
               <input
-                type="text"
+                type="number"
                 value={endDate.year}
                 onChange={(e) => handleDateChange(setEndDate, 'year', e)}
                 className={styles['date-input-box']}
@@ -167,7 +161,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
               />
               <span className={styles['input-box-slash']}>/</span>
               <input
-                type="text"
+                type="number"
                 value={endDate.month}
                 onChange={(e) => handleDateChange(setEndDate, 'month', e)}
                 className={styles['date-input-box']}
@@ -175,7 +169,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
               />
               <span className={styles['input-box-slash']}>/</span>
               <input
-                type="text"
+                type="number"
                 value={endDate.day}
                 onChange={(e) => handleDateChange(setEndDate, 'day', e)}
                 className={styles['date-input-box']}
@@ -183,11 +177,9 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
               />
             </div>
           </div>
-        </div>
+          <div className={styles['toggle-container']}>
+            <label htmlFor="toggle">학생식당만 다운로드</label>
 
-        <div className={styles['toggle-container']}>
-          <label htmlFor="toggle">학생식당만 다운로드</label>
-          <div className={styles['toggle-Wrapper']}>
             <DownloadToggleButton
               isStudentCafeteriaOnly={isStudentCafeteriaOnly}
               onToggle={setIsStudentCafeteriaOnly}
@@ -195,16 +187,15 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
           </div>
         </div>
 
-        <div className={styles['button-wrapper']}>
-          <button
-            type="button"
-            onClick={submitDates}
-            className={styles['buttons-confirm']}
-          >
-            다운로드
-          </button>
+        <button
+          type="submit"
+          className={styles['button-container']}
+          onClick={submitDates}
+          disabled={isDownloading}
+        >
+          <div className={styles['button-title']}>{isDownloading ? <LoadingSpinner /> : '다운로드'}</div>
           <DownloadIcon className={styles['download-button']} />
-        </div>
+        </button>
       </div>
       <ToastContainer limit={1} />
     </div>

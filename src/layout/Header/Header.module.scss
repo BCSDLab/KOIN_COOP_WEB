@@ -19,8 +19,27 @@
   }
 }
 
+.logo__icon {
+  margin-left: 24px;
+}
+
 .header__content {
   display: flex;
   gap: 8px;
   align-items: center;
+}
+
+.menu-container {
+  display: flex;
+  gap: 8px;
+  margin-right: 24px;
+}
+
+.menu-icon {
+  background: none;
+}
+
+.search,
+.menu {
+  cursor: pointer;
 }

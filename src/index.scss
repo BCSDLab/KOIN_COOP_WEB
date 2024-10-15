@@ -36,3 +36,7 @@ button {
 ul {
   list-style: none;
 }
+
+input::-webkit-inner-spin-button {
+  appearance: none;
+}

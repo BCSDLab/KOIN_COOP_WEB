@@ -59,7 +59,13 @@ function useCalendar() {
     return setMonth((p) => p + 1);
   };
 
+  const goToday = () => {
+    setYear(today.getFullYear());
+    setMonth(today.getMonth() + 1);
+  };
+
   return {
+    goToday,
     today,
     year,
     month,

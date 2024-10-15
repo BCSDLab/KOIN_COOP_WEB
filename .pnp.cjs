@@ -63,6 +63,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-router-dom", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:6.23.1"],\
             ["react-scripts", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:5.0.1"],\
             ["react-toastify", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:10.0.5"],\
+            ["react-tooltip", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:5.28.0"],\
             ["sass", "npm:1.77.4"],\
             ["stylelint", "npm:14.16.1"],\
             ["stylelint-config-standard", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:26.0.0"],\
@@ -3875,6 +3876,36 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@eslint-js-npm-8.57.0-00ead3710a-315dc65b0e.zip/node_modules/@eslint/js/",\
           "packageDependencies": [\
             ["@eslint/js", "npm:8.57.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@floating-ui/core", [\
+        ["npm:1.6.8", {\
+          "packageLocation": "./.yarn/cache/@floating-ui-core-npm-1.6.8-496cdfbb6e-82faa6ea9d.zip/node_modules/@floating-ui/core/",\
+          "packageDependencies": [\
+            ["@floating-ui/core", "npm:1.6.8"],\
+            ["@floating-ui/utils", "npm:0.2.8"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@floating-ui/dom", [\
+        ["npm:1.6.11", {\
+          "packageLocation": "./.yarn/cache/@floating-ui-dom-npm-1.6.11-b81155e63e-d6413759ab.zip/node_modules/@floating-ui/dom/",\
+          "packageDependencies": [\
+            ["@floating-ui/dom", "npm:1.6.11"],\
+            ["@floating-ui/core", "npm:1.6.8"],\
+            ["@floating-ui/utils", "npm:0.2.8"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@floating-ui/utils", [\
+        ["npm:0.2.8", {\
+          "packageLocation": "./.yarn/cache/@floating-ui-utils-npm-0.2.8-01a00634a5-deb98bba01.zip/node_modules/@floating-ui/utils/",\
+          "packageDependencies": [\
+            ["@floating-ui/utils", "npm:0.2.8"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -7767,6 +7798,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/cjs-module-lexer-npm-1.3.1-6a27eff8d1-75f20ac264.zip/node_modules/cjs-module-lexer/",\
           "packageDependencies": [\
             ["cjs-module-lexer", "npm:1.3.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["classnames", [\
+        ["npm:2.5.1", {\
+          "packageLocation": "./.yarn/cache/classnames-npm-2.5.1-c7273f3423-da424a8a6f.zip/node_modules/classnames/",\
+          "packageDependencies": [\
+            ["classnames", "npm:2.5.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -13393,6 +13433,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-router-dom", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:6.23.1"],\
             ["react-scripts", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:5.0.1"],\
             ["react-toastify", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:10.0.5"],\
+            ["react-tooltip", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:5.28.0"],\
             ["sass", "npm:1.77.4"],\
             ["stylelint", "npm:14.16.1"],\
             ["stylelint-config-standard", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:26.0.0"],\
@@ -17238,6 +17279,34 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:18.3.3"],\
             ["@types/react-dom", "npm:18.3.0"],\
             ["clsx", "npm:2.1.1"],\
+            ["react", "npm:18.3.1"],\
+            ["react-dom", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:18.3.1"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-tooltip", [\
+        ["npm:5.28.0", {\
+          "packageLocation": "./.yarn/cache/react-tooltip-npm-5.28.0-a698d2e4f8-4d1efae0fb.zip/node_modules/react-tooltip/",\
+          "packageDependencies": [\
+            ["react-tooltip", "npm:5.28.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:5.28.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-tooltip-virtual-80e0e5fce3/0/cache/react-tooltip-npm-5.28.0-a698d2e4f8-4d1efae0fb.zip/node_modules/react-tooltip/",\
+          "packageDependencies": [\
+            ["react-tooltip", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:5.28.0"],\
+            ["@floating-ui/dom", "npm:1.6.11"],\
+            ["@types/react", "npm:18.3.3"],\
+            ["@types/react-dom", "npm:18.3.0"],\
+            ["classnames", "npm:2.5.1"],\
             ["react", "npm:18.3.1"],\
             ["react-dom", "virtual:429706adb15e35099964c7cd76f08e01c8fe72ac836e96927082266bf5c07b84ac6c3bd82481948dbf5d4de4034e4e9eed908e986f2f622051577eb971cce2dc#npm:18.3.1"]\
           ],\
