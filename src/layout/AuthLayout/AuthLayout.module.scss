@@ -1,5 +1,9 @@
 .template {
-  min-height: 100vh;
   position: relative;
-  background-color: #fff;
+  max-width: 480px;
+  min-height: 100%;
+  width: auto;
+  margin: 0 auto;
+  background: #fff;
+  box-shadow: 0 0 20px #0000000d;
 }

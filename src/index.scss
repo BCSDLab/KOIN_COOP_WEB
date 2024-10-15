@@ -4,27 +4,26 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: Pretandard, sans-serif;
 }
 
-body {
-  min-height: 100vh;
-  min-width: 1148px;
-
-  @include media.media-breakpoint-down(mobile) {
-    min-width: 320px;
-    min-height: 100%;
-  }
-}
-
+#root,
 body,
 html {
   /* https://css-tricks.com/snippets/css/system-font-stack/ */
-  font-family: NotoSansKR, sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+#root {
+  position: relative;
+  z-index: 0;
 }
 
 button {
   border: none;
-  font-family: NotoSansKR, sans-serif;
+  font-family: Pretandard, sans-serif;
+  cursor: pointer;
 }
 
 a,
@@ -36,4 +35,8 @@ button {
 
 ul {
   list-style: none;
+}
+
+input::-webkit-inner-spin-button {
+  appearance: none;
 }

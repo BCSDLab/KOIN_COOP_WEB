@@ -18,8 +18,8 @@ export default function DiningTypeSelect({
           key={type}
           type="button"
           className={cn({
-            [styles.button]: true,
-            [styles['button--selected']]: selectedDiningType === type,
+            [styles['dining-type-button']]: true,
+            [styles['dining-type-button--selected']]: selectedDiningType === type,
           })}
           onClick={() => setSelectedDiningType(type)}
         >
