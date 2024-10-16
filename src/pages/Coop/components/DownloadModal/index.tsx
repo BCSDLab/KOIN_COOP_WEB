@@ -111,6 +111,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
       // }
 
       showToast('다운로드에 실패했습니다.');
+      setIsDownloading(false);
     }
   };
 
