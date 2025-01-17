@@ -12,65 +12,104 @@
 }
 
 .date-container {
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
+  gap: 16px;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  width: 485px;
-  padding: 24px 32px;
+  width: 400px;
+  padding-bottom: 40px;
+  gap: 16px;
   box-sizing: border-box;
   background-color: #fff;
   border-radius: 16px;
 }
 
+.title--container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px 24px 16px 33px;
+}
+
+.title--main-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .title--main {
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 5px;
 }
 
 .title--sub {
   font-size: 14px;
   font-weight: 400;
-  line-height: 22.4px;
   color: #727272;
-  margin-bottom: 16px;
 }
 
 .date-start-container,
 .date-end-container {
   display: flex;
+  align-items: center;
 }
 
 .start--title,
 .end--title {
   display: flex;
-  width: 56px;
-  height: 32px;
+  padding: 12px;
+  max-height: 12px;
   border-radius: 4px;
   background-color: #e1e1e1;
   font-size: 13px;
   font-weight: 600;
-  line-height: 20.8px;
-  margin: 8px 24px 16px 0;
+  margin-right: 24px;
   justify-content: center;
+  align-items: center;
+  color: #4b4b4b;
+}
+
+.date-input {
+  display: flex;
   align-items: center;
 }
 
-.date-input-box {
-  width: 56px;
-  height: 32px;
-  display: inline-block;
+.year-input-box {
+  display: flex;
+  max-width: 35px;
+  max-height: 12px;
+  padding: 12px;
   border: solid 1px #e1e1e1;
   border-radius: 4px;
-  margin-top: 8px;
   text-align: center;
+
+  font-family: Pretendard, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.month-input-box,
+.day-input-box {
+  display: flex;
+  max-width: 22px;
+  max-height: 12px;
+  padding: 12px;
+  border: solid 1px #e1e1e1;
+  border-radius: 4px;
+  text-align: center;
+
+  font-family: Pretendard, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .input-box-slash {
-  display: inline-block;
+  display: flex;
   width: 5px;
   height: 19px;
   font-size: 12px;
@@ -80,11 +119,12 @@
 
 .toggle-container {
   display: flex;
-  gap: 24px;
+  gap: 22px;
+  padding: 8px 48px 8px 72px;
   justify-content: flex-end;
   align-items: center;
   position: relative;
-  margin: 8px 0;
+
 
   & > label {
     display: flex;
@@ -97,12 +137,17 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin: 24px auto 0;
+  margin: 0 auto 0;
   padding: 8px 36px;
   color: #fff;
   background-color: #175c8e;
   border-radius: 4px;
   gap: 8px;
+}
+
+.download-button {
+  width: 24px;
+  height: 24px;
 }
 
 .button-title {
