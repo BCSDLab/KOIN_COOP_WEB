@@ -124,7 +124,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
         <div className={styles['title--container']}>
           <div className={styles['title--main-container']}>
             <div className={styles['title--main']}>식단 파일 다운로드</div>
-            <Cancle />
+            <Cancle onClick={closeModal} />
           </div>
           <div className={styles['title--sub']}>식단은 2022/11/29 부터 다운받을 수 있어요.</div>
 
@@ -199,15 +199,28 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
           />
         </div>
 
-        <button
-          type="submit"
-          className={styles['button-container']}
-          onClick={submitDates}
-          disabled={isDownloading}
-        >
-          <ExcelDownload className={styles['download-button']} />
-          <div className={styles['button-title']}>{isDownloading ? <LoadingSpinner /> : '엑셀 다운로드'}</div>
-        </button>
+        <div className={styles['button-container']}>
+          <button
+            type="submit"
+            className={styles['excel-button-container']}
+            onClick={submitDates}
+            disabled={isDownloading}
+          >
+            <ExcelDownload className={styles['excel-download-button']} />
+            <div className={styles['button-title']}>{isDownloading ? <LoadingSpinner /> : '엑셀 다운로드'}</div>
+          </button>
+
+          <button
+            type="submit"
+            className={styles['photo-button-container']}
+            onClick={submitDates}
+            disabled={isDownloading}
+          >
+            <PhotoDownload className={styles['photo-download-button']} />
+            <div className={styles['button-title']}>{isDownloading ? <LoadingSpinner /> : '사진 다운로드'}</div>
+          </button>
+        </div>
+
       </div>
       <ToastContainer limit={1} />
     </div>
