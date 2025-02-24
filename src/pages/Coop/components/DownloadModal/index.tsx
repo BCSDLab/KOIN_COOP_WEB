@@ -55,6 +55,8 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
       endDate: formatDate(endDate),
       isCafeteria: isStudentCafeteriaOnly,
     });
+
+    closeModal();
   };
 
   const handleDownloadImage = () => {
@@ -65,6 +67,8 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
       endDate: formatDate(endDate),
       isCafeteria: isStudentCafeteriaOnly,
     });
+
+    closeModal();
   };
 
   return (
