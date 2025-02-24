@@ -11,6 +11,7 @@ import useValidateDates from 'pages/Coop/hooks/useValidateDates';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import DateSelector from '../DateSelector';
 import DownloadToggleButton from '../DownloadToggleButton';
 
 import styles from './DownloadModal.module.scss';
@@ -32,17 +33,6 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
   const { isDownloading, downloadExcel } = useExcelDownload();
   const { isDownloading: isImageDownloading, downloadImage } = useImageDownload();
   const { validateDates } = useValidateDates();
-
-  const handleDateChange = (
-    setDate: React.Dispatch<React.SetStateAction<DateInput>>,
-    field: keyof DateInput,
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setDate((prev) => ({
-      ...prev,
-      [field]: e.target.valueAsNumber || '',
-    }));
-  };
 
   const handleOverlayClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -89,63 +79,8 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
         </div>
 
         <div className={styles['dates-container']}>
-          <div className={styles['date-container']}>
-            <div className={styles['date-container__title']}>시작일</div>
-            <div className={styles['date-container__input']}>
-              <input
-                type="number"
-                value={startDate.year}
-                onChange={(e) => handleDateChange(setStartDate, 'year', e)}
-                className={styles['date-container__input--year']}
-                placeholder="YYYY"
-              />
-              <span className={styles['date-container__slash']}>/</span>
-              <input
-                type="number"
-                value={startDate.month}
-                onChange={(e) => handleDateChange(setStartDate, 'month', e)}
-                className={styles['date-container__input--month']}
-                placeholder="MM"
-              />
-              <span className={styles['date-container__slash']}>/</span>
-              <input
-                type="number"
-                value={startDate.day}
-                onChange={(e) => handleDateChange(setStartDate, 'day', e)}
-                className={styles['date-container__input--day']}
-                placeholder="DD"
-              />
-            </div>
-          </div>
-
-          <div className={styles['date-container']}>
-            <div className={styles['date-container__title']}>종료일</div>
-            <div className={styles['date-container__input']}>
-              <input
-                type="number"
-                value={endDate.year}
-                onChange={(e) => handleDateChange(setEndDate, 'year', e)}
-                className={styles['date-container__input--year']}
-                placeholder="YYYY"
-              />
-              <span className={styles['date-container__slash']}>/</span>
-              <input
-                type="number"
-                value={endDate.month}
-                onChange={(e) => handleDateChange(setEndDate, 'month', e)}
-                className={styles['date-container__input--month']}
-                placeholder="MM"
-              />
-              <span className={styles['date-container__slash']}>/</span>
-              <input
-                type="number"
-                value={endDate.day}
-                onChange={(e) => handleDateChange(setEndDate, 'day', e)}
-                className={styles['date-container__input--day']}
-                placeholder="DD"
-              />
-            </div>
-          </div>
+          <DateSelector title="시작일" date={startDate} setDate={setStartDate} />
+          <DateSelector title="종료일" date={endDate} setDate={setEndDate} />
         </div>
 
         <div className={styles['toggle-container']}>
