@@ -14,3 +14,11 @@ export const getExcel = async (params: DiningExcelParams) => {
 
   return response;
 };
+
+export const getImage = async (params: DiningExcelParams) => {
+  const response = await accessClient.get(
+    `/coop/dining/image?startDate=${params.startDate}&endDate=${params.endDate}&isCafeteria=${params.isCafeteria}`,
+  );
+
+  return response;
+};

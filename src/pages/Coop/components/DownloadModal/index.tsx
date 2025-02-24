@@ -1,11 +1,10 @@
 import { useState, useCallback } from 'react';
 
-import { getExcel } from 'api/dinings';
 import Cancle from 'assets/svg/common/close.svg?react';
 import ExcelDownload from 'assets/svg/common/excel-download.svg?react';
 import LoadingSpinner from 'assets/svg/common/loading.svg?react';
 import PhotoDownload from 'assets/svg/common/photo-download.svg?react';
-import useBooleanState from 'hooks/useBooleanState';
+import useExcelDownload from 'pages/Coop/hooks/useExcelDownload';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,7 +27,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
   const [startDate, setStartDate] = useState<DateInput>({ year: '', month: '', day: '' });
   const [endDate, setEndDate] = useState<DateInput>({ year: '', month: '', day: '' });
   const [isStudentCafeteriaOnly, setIsStudentCafeteriaOnly] = useState(false);
-  const [isDownloading, setIsDownloading] = useBooleanState(false);
+  const { isDownloading, downloadExcel } = useExcelDownload();
 
   const handleDateChange = (
     setDate: React.Dispatch<React.SetStateAction<DateInput>>,
@@ -54,67 +53,12 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
     return `${date.year.toString()}-${date.month.toString().padStart(2, '0')}-${date.day.toString().padStart(2, '0')}`;
   };
 
-  const showToast = (message: string) => {
-    toast(message, {
-      position: 'top-right',
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-
-  const submitDates = async () => {
-    const formattedStartDate = formatDate(startDate);
-    const formattedEndDate = formatDate(endDate);
-
-    const requestBody = {
-      startDate: formattedStartDate,
-      endDate: formattedEndDate,
+  const handleDownload = () => {
+    downloadExcel({
+      startDate: formatDate(startDate),
+      endDate: formatDate(endDate),
       isCafeteria: isStudentCafeteriaOnly,
-    };
-
-    try {
-      setIsDownloading(true);
-      const response = await getExcel(requestBody);
-
-      let filename = `dining_${requestBody.startDate}~${requestBody.endDate}.xlsx`;
-
-      if (response && response.headers) {
-        const contentDisposition = response.headers['content-disposition'];
-
-        if (contentDisposition) {
-          const match = contentDisposition.match(/filename="?(.+)"?/);
-          if (match) {
-            const [, extractedFileName] = match;
-            filename = decodeURIComponent(extractedFileName);
-          }
-        }
-      }
-
-      const downloadUrl = URL.createObjectURL(response.data);
-
-      const link = document.createElement('a');
-      link.href = downloadUrl;
-      link.download = filename;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(downloadUrl);
-      setIsDownloading(false);
-    } catch (error) {
-      // backend 수정 시 반영
-      // if (error?.response?.data instanceof Blob) {
-      //   const errorText = await error.response.data.text();
-      //   const errorJson = JSON.parse(errorText);
-      //   showToast(errorJson.message);
-      // }
-
-      showToast('다운로드에 실패했습니다.');
-      setIsDownloading(false);
-    }
+    });
   };
 
   return (
@@ -200,17 +144,16 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
           <button
             type="submit"
             className={styles['button-container__button--excel']}
-            onClick={submitDates}
+            onClick={handleDownload}
             disabled={isDownloading}
           >
             <ExcelDownload />
-            <div className={styles['button-container__button--text']}>{isDownloading ? <LoadingSpinner /> : '사진 다운로드'}</div>
+            <div className={styles['button-container__button--text']}>{isDownloading ? <LoadingSpinner /> : '엑셀 다운로드'}</div>
           </button>
 
           <button
             type="submit"
             className={styles['button-container__button--photo']}
-            onClick={submitDates}
             disabled={isDownloading}
           >
             <PhotoDownload />
