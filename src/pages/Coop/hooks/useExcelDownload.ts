@@ -1,41 +1,21 @@
-import { useState } from 'react';
-
 import { getExcel } from 'api/dinings';
+import { useErrorMessageStore } from 'store/useErrorMessageStore';
 import showToast from 'utils/showToast';
 
-const DOWNLOAD_AVAILABLE_FROM = new Date(2022, 10, 29); // month는 0부터 시작함
+import { isKoinError, sendClientError } from '@bcsdlab/koin';
+import { useMutation } from '@tanstack/react-query';
 
 const useExcelDownload = () => {
-  const [isDownloading, setIsDownloading] = useState(false);
+  const {
+    setDownloadErrorStatus,
+    setDownloadErrorMessage,
+  } = useErrorMessageStore();
 
-  const downloadExcel = async (
-    { startDate, endDate, isCafeteria }: {
+  const { mutate: downloadExcel, isPending: isDownloading } = useMutation({
+    mutationFn: async ({ startDate, endDate, isCafeteria }: {
       startDate: string, endDate: string, isCafeteria: boolean
-    },
-  ) => {
-    if (!startDate || !endDate) {
-      showToast('error', '시작일과 종료일을 입력해주세요.');
-      return;
-    }
-
-    const startDateObj = new Date(startDate);
-    const endDateObj = new Date(endDate);
-
-    if (startDateObj < DOWNLOAD_AVAILABLE_FROM) {
-      showToast('error', '2022/11/29 식단부터 다운받을 수 있어요.');
-      return;
-    }
-
-    if (startDateObj > endDateObj) {
-      showToast('error', '시작일은 종료일 이전으로 설정해주세요.');
-      return;
-    }
-
-    const requestBody = { startDate, endDate, isCafeteria };
-
-    try {
-      setIsDownloading(true);
-      const response = await getExcel(requestBody);
+    }) => {
+      const response = await getExcel({ startDate, endDate, isCafeteria });
 
       let filename = `dining_${startDate}~${endDate}.xlsx`;
 
@@ -55,12 +35,20 @@ const useExcelDownload = () => {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(downloadUrl);
-    } catch (error) {
-      showToast('error', '엑셀 다운로드에 실패했습니다.');
-    } finally {
-      setIsDownloading(false);
-    }
-  };
+    },
+    onError: (err) => {
+      if (isKoinError(err)) {
+        setDownloadErrorStatus(err.status);
+        setDownloadErrorMessage(err.message);
+        showToast('error', err.message);
+      } else {
+        setDownloadErrorStatus(400);
+        setDownloadErrorMessage(err.message);
+        showToast('error', '시작일과 종료일을 확인해주세요.');
+        sendClientError(err);
+      }
+    },
+  });
 
   return { isDownloading, downloadExcel };
 };

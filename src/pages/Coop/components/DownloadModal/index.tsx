@@ -5,8 +5,9 @@ import ExcelDownload from 'assets/svg/common/excel-download.svg?react';
 import LoadingSpinner from 'assets/svg/common/loading.svg?react';
 import PhotoDownload from 'assets/svg/common/photo-download.svg?react';
 import useExcelDownload from 'pages/Coop/hooks/useExcelDownload';
+import useValidateDates from 'pages/Coop/hooks/useValidateDates';
 
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import DownloadToggleButton from '../DownloadToggleButton';
@@ -28,6 +29,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
   const [endDate, setEndDate] = useState<DateInput>({ year: '', month: '', day: '' });
   const [isStudentCafeteriaOnly, setIsStudentCafeteriaOnly] = useState(false);
   const { isDownloading, downloadExcel } = useExcelDownload();
+  const { validateDates } = useValidateDates();
 
   const handleDateChange = (
     setDate: React.Dispatch<React.SetStateAction<DateInput>>,
@@ -54,6 +56,8 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
   };
 
   const handleDownload = () => {
+    if (!validateDates(startDate, endDate)) return;
+
     downloadExcel({
       startDate: formatDate(startDate),
       endDate: formatDate(endDate),
