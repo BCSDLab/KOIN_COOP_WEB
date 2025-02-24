@@ -2,7 +2,6 @@ import { useState, useCallback } from 'react';
 
 import { getExcel } from 'api/dinings';
 import Cancle from 'assets/svg/common/close.svg?react';
-import DownloadIcon from 'assets/svg/common/download-white.svg?react';
 import ExcelDownload from 'assets/svg/common/excel-download.svg?react';
 import LoadingSpinner from 'assets/svg/common/loading.svg?react';
 import PhotoDownload from 'assets/svg/common/photo-download.svg?react';
@@ -121,69 +120,68 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
   return (
     <div className={styles.overlay} onClick={handleOverlayClick} role="presentation">
       <div className={styles.container} role="dialog" aria-modal="true">
-        <div className={styles['title--container']}>
-          <div className={styles['title--main-container']}>
-            <div className={styles['title--main']}>식단 파일 다운로드</div>
+        <div className={styles.title}>
+          <div className={styles.title__header}>
+            <div className={styles.title__main}>식단 파일 다운로드</div>
             <Cancle onClick={closeModal} />
           </div>
-          <div className={styles['title--sub']}>식단은 2022/11/29 부터 다운받을 수 있어요.</div>
-
+          <div className={styles.title__sub}>식단은 2022/11/29 부터 다운받을 수 있어요.</div>
         </div>
 
-        <div className={styles['date-container']}>
-          <div className={styles['date-start-container']}>
-            <div className={styles['start--title']}>시작일</div>
-            <div className={styles['date-input']}>
+        <div className={styles['dates-container']}>
+          <div className={styles['date-container']}>
+            <div className={styles['date-container__title']}>시작일</div>
+            <div className={styles['date-container__input']}>
               <input
                 type="number"
                 value={startDate.year}
                 onChange={(e) => handleDateChange(setStartDate, 'year', e)}
-                className={styles['year-input-box']}
+                className={styles['date-container__input--year']}
                 placeholder="YYYY"
               />
-              <span className={styles['input-box-slash']}>/</span>
+              <span className={styles['date-container__slash']}>/</span>
               <input
                 type="number"
                 value={startDate.month}
                 onChange={(e) => handleDateChange(setStartDate, 'month', e)}
-                className={styles['month-input-box']}
+                className={styles['date-container__input--month']}
                 placeholder="MM"
               />
-              <span className={styles['input-box-slash']}>/</span>
+              <span className={styles['date-container__slash']}>/</span>
               <input
                 type="number"
                 value={startDate.day}
                 onChange={(e) => handleDateChange(setStartDate, 'day', e)}
-                className={styles['day-input-box']}
+                className={styles['date-container__input--day']}
                 placeholder="DD"
               />
             </div>
           </div>
 
-          <div className={styles['date-end-container']}>
-            <div className={styles['end--title']}>종료일</div>
-            <div className={styles['date-input']}>
+          <div className={styles['date-container']}>
+            <div className={styles['date-container__title']}>종료일</div>
+            <div className={styles['date-container__input']}>
               <input
                 type="number"
                 value={endDate.year}
                 onChange={(e) => handleDateChange(setEndDate, 'year', e)}
-                className={styles['year-input-box']}
+                className={styles['date-container__input--year']}
                 placeholder="YYYY"
               />
-              <span className={styles['input-box-slash']}>/</span>
+              <span className={styles['date-container__slash']}>/</span>
               <input
                 type="number"
                 value={endDate.month}
                 onChange={(e) => handleDateChange(setEndDate, 'month', e)}
-                className={styles['month-input-box']}
+                className={styles['date-container__input--month']}
                 placeholder="MM"
               />
-              <span className={styles['input-box-slash']}>/</span>
+              <span className={styles['date-container__slash']}>/</span>
               <input
                 type="number"
                 value={endDate.day}
                 onChange={(e) => handleDateChange(setEndDate, 'day', e)}
-                className={styles['day-input-box']}
+                className={styles['date-container__input--day']}
                 placeholder="DD"
               />
             </div>
@@ -192,7 +190,6 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
 
         <div className={styles['toggle-container']}>
           <label htmlFor="toggle">학생식당만</label>
-
           <DownloadToggleButton
             isStudentCafeteriaOnly={isStudentCafeteriaOnly}
             onToggle={setIsStudentCafeteriaOnly}
@@ -202,22 +199,22 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
         <div className={styles['button-container']}>
           <button
             type="submit"
-            className={styles['excel-button-container']}
+            className={styles['button-container__button--excel']}
             onClick={submitDates}
             disabled={isDownloading}
           >
-            <ExcelDownload className={styles['excel-download-button']} />
-            <div className={styles['button-title']}>{isDownloading ? <LoadingSpinner /> : '엑셀 다운로드'}</div>
+            <ExcelDownload />
+            <div className={styles['button-container__button--text']}>{isDownloading ? <LoadingSpinner /> : '사진 다운로드'}</div>
           </button>
 
           <button
             type="submit"
-            className={styles['photo-button-container']}
+            className={styles['button-container__button--photo']}
             onClick={submitDates}
             disabled={isDownloading}
           >
-            <PhotoDownload className={styles['photo-download-button']} />
-            <div className={styles['button-title']}>{isDownloading ? <LoadingSpinner /> : '사진 다운로드'}</div>
+            <PhotoDownload />
+            <div className={styles['button-container__button--text']}>{isDownloading ? <LoadingSpinner /> : '사진 다운로드'}</div>
           </button>
         </div>
 
