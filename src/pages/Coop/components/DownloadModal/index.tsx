@@ -5,6 +5,7 @@ import ExcelDownload from 'assets/svg/common/excel-download.svg?react';
 import LoadingSpinner from 'assets/svg/common/loading.svg?react';
 import PhotoDownload from 'assets/svg/common/photo-download.svg?react';
 import useExcelDownload from 'pages/Coop/hooks/useExcelDownload';
+import useImageDownload from 'pages/Coop/hooks/useImageDownload';
 import useValidateDates from 'pages/Coop/hooks/useValidateDates';
 
 import { ToastContainer } from 'react-toastify';
@@ -29,6 +30,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
   const [endDate, setEndDate] = useState<DateInput>({ year: '', month: '', day: '' });
   const [isStudentCafeteriaOnly, setIsStudentCafeteriaOnly] = useState(false);
   const { isDownloading, downloadExcel } = useExcelDownload();
+  const { isDownloading: isImageDownloading, downloadImage } = useImageDownload();
   const { validateDates } = useValidateDates();
 
   const handleDateChange = (
@@ -59,6 +61,16 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
     if (!validateDates(startDate, endDate)) return;
 
     downloadExcel({
+      startDate: formatDate(startDate),
+      endDate: formatDate(endDate),
+      isCafeteria: isStudentCafeteriaOnly,
+    });
+  };
+
+  const handleDownloadImage = () => {
+    if (!validateDates(startDate, endDate)) return;
+
+    downloadImage({
       startDate: formatDate(startDate),
       endDate: formatDate(endDate),
       isCafeteria: isStudentCafeteriaOnly,
@@ -158,7 +170,8 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
           <button
             type="submit"
             className={styles['button-container__button--photo']}
-            disabled={isDownloading}
+            disabled={isImageDownloading}
+            onClick={handleDownloadImage}
           >
             <PhotoDownload />
             <div className={styles['button-container__button--text']}>{isDownloading ? <LoadingSpinner /> : '사진 다운로드'}</div>

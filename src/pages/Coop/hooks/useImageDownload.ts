@@ -1,28 +1,28 @@
-import { getExcel } from 'api/dinings';
+import { getImage } from 'api/dinings';
 import { useErrorMessageStore } from 'store/useErrorMessageStore';
 import showToast from 'utils/showToast';
 
 import { isKoinError, sendClientError } from '@bcsdlab/koin';
 import { useMutation } from '@tanstack/react-query';
 
-const useExcelDownload = () => {
+const useImageDownload = () => {
   const {
     setDownloadErrorStatus,
     setDownloadErrorMessage,
   } = useErrorMessageStore();
 
-  const { mutate: downloadExcel, isPending: isDownloading } = useMutation({
+  const { mutate: downloadImage, isPending: isDownloading } = useMutation({
     mutationFn: async ({ startDate, endDate, isCafeteria }: {
       startDate: string, endDate: string, isCafeteria: boolean
     }) => {
-      const response = await getExcel({ startDate, endDate, isCafeteria });
+      const response = await getImage({ startDate, endDate, isCafeteria });
 
       const filename = `${startDate} ~ ${endDate} menu`;
 
-      const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const blob = new Blob([response.data], { type: 'application/zip' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = decodeURIComponent(filename);
+      link.download = filename;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -36,13 +36,13 @@ const useExcelDownload = () => {
       } else {
         setDownloadErrorStatus(400);
         setDownloadErrorMessage(err.message);
-        showToast('error', '시작일과 종료일을 확인해주세요.');
+        showToast('error', '이미지 다운로드에 실패했습니다.');
         sendClientError(err);
       }
     },
   });
 
-  return { isDownloading, downloadExcel };
+  return { isDownloading, downloadImage };
 };
 
-export default useExcelDownload;
+export default useImageDownload;
