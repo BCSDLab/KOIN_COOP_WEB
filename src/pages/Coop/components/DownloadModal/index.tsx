@@ -97,7 +97,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
 
         <div className={styles['button-container']}>
           <button
-            type="submit"
+            type="button"
             className={styles['button-container__button--excel']}
             onClick={handleDownload}
             disabled={isDownloading}
@@ -107,7 +107,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
           </button>
 
           <button
-            type="submit"
+            type="button"
             className={styles['button-container__button--photo']}
             disabled={isImageDownloading}
             onClick={handleDownloadImage}
