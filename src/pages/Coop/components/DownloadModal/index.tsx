@@ -47,7 +47,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
     return `${date.year.toString()}-${date.month.toString().padStart(2, '0')}-${date.day.toString().padStart(2, '0')}`;
   };
 
-  const handleDownload = async () => {
+  const handleDownloadExcel = async () => {
     if (!validateDates(startDate, endDate)) return;
 
     await downloadExcelAsync({
@@ -99,7 +99,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
           <button
             type="button"
             className={styles['button-container__button--excel']}
-            onClick={handleDownload}
+            onClick={handleDownloadExcel}
             disabled={isDownloading}
           >
             <ExcelDownload />
