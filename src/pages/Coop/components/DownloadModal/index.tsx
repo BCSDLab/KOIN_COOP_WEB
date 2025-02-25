@@ -30,7 +30,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
   const [startDate, setStartDate] = useState<DateInput>({ year: '', month: '', day: '' });
   const [endDate, setEndDate] = useState<DateInput>({ year: '', month: '', day: '' });
   const [isStudentCafeteriaOnly, setIsStudentCafeteriaOnly] = useState(false);
-  const { isDownloading, downloadExcel } = useExcelDownload();
+  const { isDownloading, downloadExcelAsync } = useExcelDownload();
   const { isDownloading: isImageDownloading, downloadImage } = useImageDownload();
   const { validateDates } = useValidateDates();
 
@@ -47,10 +47,10 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
     return `${date.year.toString()}-${date.month.toString().padStart(2, '0')}-${date.day.toString().padStart(2, '0')}`;
   };
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!validateDates(startDate, endDate)) return;
 
-    downloadExcel({
+    await downloadExcelAsync({
       startDate: formatDate(startDate),
       endDate: formatDate(endDate),
       isCafeteria: isStudentCafeteriaOnly,
