@@ -133,35 +133,37 @@
   align-items: center;
   gap: 16px;
 
-  &__button--excel {
-    display: flex;
-    width: 258px;
-    gap: 16px;
-    padding: 8px 16px;
-    border-radius: 4px;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    background-color: #175c8e;
-  }
+  &__button {
+    &--excel {
+      display: flex;
+      width: 258px;
+      gap: 16px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      background-color: #175c8e;
+    }
 
-  &__button--text {
-    font-family: Pretendard, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 160%;
-  }
+    &--text {
+      font-family: Pretendard, sans-serif;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 160%;
+    }
 
-  &__button--photo {
-    display: flex;
-    width: 258px;
-    gap: 16px;
-    padding: 8px 16px;
-    border-radius: 4px;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    background-color: #727272;
+    &--photo {
+      display: flex;
+      width: 258px;
+      gap: 16px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      background-color: #727272;
+    }
   }
 }
