@@ -31,7 +31,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
   const [endDate, setEndDate] = useState<DateInput>({ year: '', month: '', day: '' });
   const [isStudentCafeteriaOnly, setIsStudentCafeteriaOnly] = useState(false);
   const { isDownloading, downloadExcelAsync } = useExcelDownload();
-  const { isDownloading: isImageDownloading, downloadImage } = useImageDownload();
+  const { isDownloading: isImageDownloading, downloadImageAsync } = useImageDownload();
   const { validateDates } = useValidateDates();
 
   const handleOverlayClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -59,10 +59,10 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
     closeModal();
   };
 
-  const handleDownloadImage = () => {
+  const handleDownloadImage = async () => {
     if (!validateDates(startDate, endDate)) return;
 
-    downloadImage({
+    await downloadImageAsync({
       startDate: formatDate(startDate),
       endDate: formatDate(endDate),
       isCafeteria: isStudentCafeteriaOnly,
@@ -109,11 +109,11 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
           <button
             type="button"
             className={styles['button-container__button--photo']}
-            disabled={isImageDownloading}
             onClick={handleDownloadImage}
+            disabled={isImageDownloading}
           >
             <PhotoDownload />
-            <div className={styles['button-container__button--text']}>{isDownloading ? <LoadingSpinner /> : '사진 다운로드'}</div>
+            <div className={styles['button-container__button--text']}>{isImageDownloading ? <LoadingSpinner /> : '사진 다운로드'}</div>
           </button>
         </div>
 

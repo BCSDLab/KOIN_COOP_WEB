@@ -6,12 +6,9 @@ import { isKoinError, sendClientError } from '@bcsdlab/koin';
 import { useMutation } from '@tanstack/react-query';
 
 const useImageDownload = () => {
-  const {
-    setDownloadErrorStatus,
-    setDownloadErrorMessage,
-  } = useErrorMessageStore();
+  const { setDownloadErrorStatus, setDownloadErrorMessage } = useErrorMessageStore();
 
-  const { mutate: downloadImage, isPending: isDownloading } = useMutation({
+  const mutation = useMutation({
     mutationFn: async ({ startDate, endDate, isCafeteria }: {
       startDate: string, endDate: string, isCafeteria: boolean
     }) => {
@@ -22,7 +19,7 @@ const useImageDownload = () => {
       const blob = new Blob([response.data], { type: 'application/zip' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = filename;
+      link.download = `${filename}.zip`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -42,7 +39,11 @@ const useImageDownload = () => {
     },
   });
 
-  return { isDownloading, downloadImage };
+  return {
+    isDownloading: mutation.isPending,
+    downloadImage: mutation.mutate,
+    downloadImageAsync: mutation.mutateAsync,
+  };
 };
 
 export default useImageDownload;
