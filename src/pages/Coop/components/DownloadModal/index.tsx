@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-import Cancle from 'assets/svg/common/close.svg?react';
+import Cancel from 'assets/svg/common/close.svg?react';
 import ExcelDownload from 'assets/svg/common/excel-download.svg?react';
 import LoadingSpinner from 'assets/svg/common/loading.svg?react';
 import PhotoDownload from 'assets/svg/common/photo-download.svg?react';
@@ -77,7 +77,7 @@ export default function DownloadModal({ closeModal }: DownloadModalProps) {
         <div className={styles.title}>
           <div className={styles.title__header}>
             <div className={styles.title__main}>식단 파일 다운로드</div>
-            <Cancle onClick={closeModal} />
+            <Cancel onClick={closeModal} />
           </div>
           <div className={styles.title__sub}>식단은 2022/11/29 부터 다운받을 수 있어요.</div>
         </div>
