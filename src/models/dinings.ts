@@ -28,6 +28,14 @@ export const DiningExcelParams = z.object({
 
 export type DiningExcelParams = z.infer<typeof DiningExcelParams>;
 
+export const DiningImageParams = z.object({
+  startDate: z.string(),
+  endDate: z.string(),
+  isCafeteria: z.boolean(),
+});
+
+export type DiningImageParams = z.infer<typeof DiningImageParams>;
+
 export type DiningPlace = 'A코너' | 'B코너' | 'C코너' | '능수관' | '2캠퍼스';
 
 export const PlaceSchema = z.union([
